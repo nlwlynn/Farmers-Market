@@ -1,0 +1,46 @@
+.button {
+    width: 180px;
+    height: 65px;
+    justify-content: flex-start;
+    align-self: auto;
+    align-items: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    position: relative;
+    visibility: visible;
+    overflow: visible;
+    display: flex;
+    font-size: 24px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-left-color: rgb(164, 159, 109);
+    border-right-color: rgb(164, 159, 109);
+    border-top-color: rgb(164, 159, 109);
+    border-bottom-color: rgb(164, 159, 109);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(255, 252, 191);
+}
+
+.menuBut {
+    font-size: 30px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    text-overflow: clip;
+    -unity-font: url("project://database/Assets/Models/HUD/Font/Kenney%20Future%20Narrow.ttf?fileID=12800000&guid=412989d0bbf56bd4b84adf3deb9ec809&type=3#Kenney Future Narrow");
+    width: 60%;
+    justify-content: space-between;
+    align-self: stretch;
+    margin-left: 20%;
+    margin-bottom: 50%;
+}
+
+.unity-button:hover {
+    background-color: rgba(42, 118, 148, 0);
+    -unity-background-image-tint-color: rgb(42, 118, 148);
+}
