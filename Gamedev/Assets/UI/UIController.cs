@@ -32,7 +32,9 @@ public class UIController : MonoBehaviour
     //for end of the day pop up
     public VisualElement endDayScreen;
 
+    //for ui phases
     public VisualElement dayUI;
+    public VisualElement nightUI;
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
@@ -84,6 +86,17 @@ public class UIController : MonoBehaviour
         else
         {
             Debug.LogError("End Day Screen not found");
+        }
+
+        // Night user interface
+        nightUI = ui.Q<VisualElement>("nightUI");
+        if (nightUI != null)
+        {
+            nightUI.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.LogError("Night UI not found");
         }
 
         //Progress Bar
@@ -295,6 +308,8 @@ public class UIController : MonoBehaviour
         {
             phaseTimer.value = 0f;
         }
+
+        //changes ui
         if (endDayScreen != null)
         {
             endDayScreen.style.display = DisplayStyle.None;
@@ -302,6 +317,10 @@ public class UIController : MonoBehaviour
         if (dayUI != null)
         {
             dayUI.style.display = DisplayStyle.Flex;
+        }
+        if (nightUI != null)
+        {
+            nightUI.style.display = DisplayStyle.None;
         }
     }
 
@@ -325,6 +344,12 @@ public class UIController : MonoBehaviour
             endDayScreen.RegisterCallback<ClickEvent>(evt =>
             {
                 endDayScreen.style.display = DisplayStyle.None;
+
+                //displays night ui
+                if (nightUI != null)
+                {
+                    nightUI.style.display = DisplayStyle.Flex;
+                }
             });
         }
 
