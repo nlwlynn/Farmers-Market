@@ -20,6 +20,8 @@ public class UIController : MonoBehaviour
     public Button Settings;
     public Button Coins;
     public Button Cash;
+    public Button Build;
+    public Button NewDay;
     
     //for playpause button
     private bool isGamePaused = false;
@@ -27,11 +29,19 @@ public class UIController : MonoBehaviour
     //for settings button
     public VisualElement settingsPanel;
 
+    //for end of the day pop up
+    public VisualElement endDayScreen;
+
+    public VisualElement dayUI;
+
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
     private float timerDuration = 100f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
+
+    //for night phase
+    private bool isNightPhase = false;
 
     //brightness slider
     public Slider brightnessSlider;
@@ -54,6 +64,27 @@ public class UIController : MonoBehaviour
             Debug.LogError("Settings Panel not found");
         }
 
+        //Hide the night phase screen till the day phase is over
+        endDayScreen = ui.Q<VisualElement>("endDayScreen");
+        if (endDayScreen != null)
+        {
+            endDayScreen.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.LogError("End Day Screen not found");
+        }
+
+        // Day user interface
+        dayUI = ui.Q<VisualElement>("dayUI");
+        if (dayUI != null)
+        {
+            dayUI.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            Debug.LogError("End Day Screen not found");
+        }
 
         //Progress Bar
         phaseTimer = ui.Q<ProgressBar>("phaseTimer");
@@ -128,6 +159,18 @@ public class UIController : MonoBehaviour
             Shop.clicked += OnShopButtonClicked;
         }
 
+        Build = ui.Q<Button>("Build");
+        if (Shop != null)
+        {
+            Build.clicked += OnBuildButtonClicked;
+        }
+
+        NewDay = ui.Q<Button>("NewDay");
+        if (NewDay != null)
+        {
+            NewDay.clicked += OnNewDayButtonClicked;
+        }
+
         PlayPause = ui.Q<Button>("PlayPause");
         if (PlayPause != null)
         {
@@ -153,16 +196,12 @@ public class UIController : MonoBehaviour
         {
             Cash.clicked += OnCashButtonClicked;
         }
-
-
     }
-
-
 
     private void Update()
     {
         // running and the game is not paused
-        if (isTimerRunning && !isGamePaused)
+        if (isTimerRunning && !isGamePaused && !isNightPhase)
         {
             elapsedTime += Time.deltaTime;
 
@@ -176,12 +215,14 @@ public class UIController : MonoBehaviour
                 {
                     isTimerRunning = false;
                     Debug.Log("Timer completed!");
-                    //trigger event for next phase
 
+                    //trigger event for next phase
+                    StartCoroutine(SwitchToNightPhase());
                 }
             }
         }
     }
+
     //BRIGHTNESS SLIDER--------------------------------------------------------------------------------------------
     private void OnBrightnessChanged(ChangeEvent<float> evt)
     {
@@ -218,11 +259,9 @@ public class UIController : MonoBehaviour
     }
     */
 
-
     private void OnHarvestButtonClicked()
     {
         Debug.Log("Harvest Button Clicked");
-        
     }
 
     private void OnSprayButtonClicked()
@@ -238,6 +277,69 @@ public class UIController : MonoBehaviour
     private void OnShopButtonClicked()
     {
         Debug.Log("Shop Button Clicked");
+    }
+
+    private void OnBuildButtonClicked()
+    {
+        Debug.Log("Build Button Clicked");
+    }
+
+    //NEXT DAY PHASE 
+    private void OnNewDayButtonClicked()
+    {
+        isNightPhase = false;
+        elapsedTime = 0f;
+        isTimerRunning = true;
+
+        if (phaseTimer != null)
+        {
+            phaseTimer.value = 0f;
+        }
+        if (endDayScreen != null)
+        {
+            endDayScreen.style.display = DisplayStyle.None;
+        }
+        if (dayUI != null)
+        {
+            dayUI.style.display = DisplayStyle.Flex;
+        }
+    }
+
+    //NIGHT PHASE
+    private IEnumerator SwitchToNightPhase()
+    {
+        // Switch to night phase
+        isNightPhase = true;
+
+        // Makes end of day screen appear
+        if (dayUI != null)
+        {
+            dayUI.style.display = DisplayStyle.None;
+        }
+
+        if (endDayScreen != null)
+        {
+            endDayScreen.style.display = DisplayStyle.Flex;
+
+            // User can click away screen pop up
+            endDayScreen.RegisterCallback<ClickEvent>(evt =>
+            {
+                endDayScreen.style.display = DisplayStyle.None;
+            });
+        }
+
+        if (Build != null)
+        {
+            Build.style.display = DisplayStyle.Flex;
+        }
+
+        if (Shop != null)
+        {
+            Shop.style.display = DisplayStyle.Flex;
+        }
+
+        // Stays night until new day button is clicked
+        yield return null; 
     }
 
 
@@ -295,8 +397,6 @@ public class UIController : MonoBehaviour
 
 
     }
-
-
 
     private void OnCoinsButtonClicked()
     {
