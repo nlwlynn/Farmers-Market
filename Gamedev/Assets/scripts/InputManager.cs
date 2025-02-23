@@ -16,6 +16,13 @@ public class InputManager : MonoBehaviour
 
     public event Action OnClicked, OnExit;
 
+    private EventSystem eventSystem;
+
+    void Awake()
+    {
+        eventSystem = EventSystem.current;
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -25,7 +32,14 @@ public class InputManager : MonoBehaviour
     }
 
     public bool IsPointerOverUI()
-        => EventSystem.current.IsPointerOverGameObject();
+    {
+        if (eventSystem == null)
+        {
+            return false;
+        }
+
+        return eventSystem.IsPointerOverGameObject();
+    }
 
     public Vector3 GetSelectedMapPosition()
     {

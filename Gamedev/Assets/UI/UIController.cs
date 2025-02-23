@@ -31,7 +31,7 @@ public class UIController : MonoBehaviour
     public Button Pumpkin;
     public Button Watermelon;
 
-    public PlacementSystem placementSystem;  
+    public PlacementSystem placementSystem;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -51,7 +51,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -118,7 +118,7 @@ public class UIController : MonoBehaviour
         buildUI = ui.Q<VisualElement>("buildUI");
         if (buildUI != null)
         {
-            buildUI.style.display = DisplayStyle.None; 
+            buildUI.style.display = DisplayStyle.None;
         }
         else
         {
@@ -221,7 +221,7 @@ public class UIController : MonoBehaviour
         if (Settings != null)
         {
             Settings.clicked += OnSettingsButtonClicked;
-       
+
         }
 
         //topContainer Buttons
@@ -275,7 +275,7 @@ public class UIController : MonoBehaviour
             {
                 phaseTimer.value = elapsedTime;
 
-                
+
                 if (elapsedTime >= timerDuration)
                 {
                     isTimerRunning = false;
@@ -422,14 +422,14 @@ public class UIController : MonoBehaviour
         }
 
         // Stays night until new day button is clicked
-        yield return null; 
+        yield return null;
     }
 
     private void OnVegetableButtonClicked(int vegetableIndex)
     {
         if (placementSystem != null)
         {
-            placementSystem.StartPlacement(vegetableIndex); 
+            placementSystem.StartPlacement(vegetableIndex);
         }
         else
         {
@@ -445,7 +445,7 @@ public class UIController : MonoBehaviour
 
         isGamePaused = !isGamePaused;
 
-        if(isGamePaused)
+        if (isGamePaused)
         {
             Time.timeScale = 0;
             Debug.Log("Game Paused");
