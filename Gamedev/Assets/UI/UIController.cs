@@ -22,7 +22,17 @@ public class UIController : MonoBehaviour
     public Button Cash;
     public Button Build;
     public Button NewDay;
-    
+
+    // some inventory buttons
+    public Button Broccoli;
+    public Button Carrot;
+    public Button Cauliflower;
+    public Button Lettuce;
+    public Button Pumpkin;
+    public Button Watermelon;
+
+    public PlacementSystem placementSystem;  
+
     //for playpause button
     private bool isGamePaused = false;
 
@@ -35,6 +45,9 @@ public class UIController : MonoBehaviour
     //for ui phases
     public VisualElement dayUI;
     public VisualElement nightUI;
+
+    //for build ui
+    public VisualElement buildUI;
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
@@ -54,7 +67,9 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         ui = GetComponent<UIDocument>().rootVisualElement;
-        
+
+        placementSystem = FindObjectOfType<PlacementSystem>();
+
         // Hide the settings panel initially
         settingsPanel = ui.Q<VisualElement>("settingsPanel");
         if (settingsPanel != null)
@@ -98,6 +113,18 @@ public class UIController : MonoBehaviour
         {
             Debug.LogError("Night UI not found");
         }
+
+        // Build user interface
+        buildUI = ui.Q<VisualElement>("buildUI");
+        if (buildUI != null)
+        {
+            buildUI.style.display = DisplayStyle.None; 
+        }
+        else
+        {
+            Debug.LogError("Build UI not found.");
+        }
+
 
         //Progress Bar
         phaseTimer = ui.Q<ProgressBar>("phaseTimer");
@@ -209,6 +236,31 @@ public class UIController : MonoBehaviour
         {
             Cash.clicked += OnCashButtonClicked;
         }
+
+        //inventory buttons
+        Broccoli = ui.Q<Button>("Broccoli");
+        if (Broccoli != null)
+            Broccoli.clicked += () => OnVegetableButtonClicked(0);
+
+        Carrot = ui.Q<Button>("Carrot");
+        if (Carrot != null)
+            Carrot.clicked += () => OnVegetableButtonClicked(1);
+
+        Cauliflower = ui.Q<Button>("Cauliflower");
+        if (Cauliflower != null)
+            Cauliflower.clicked += () => OnVegetableButtonClicked(2);
+
+        Lettuce = ui.Q<Button>("Lettuce");
+        if (Lettuce != null)
+            Lettuce.clicked += () => OnVegetableButtonClicked(3);
+
+        Pumpkin = ui.Q<Button>("Pumpkin");
+        if (Pumpkin != null)
+            Pumpkin.clicked += () => OnVegetableButtonClicked(4);
+
+        Watermelon = ui.Q<Button>("Watermelon");
+        if (Watermelon != null)
+            Watermelon.clicked += () => OnVegetableButtonClicked(5);
     }
 
     private void Update()
@@ -295,6 +347,12 @@ public class UIController : MonoBehaviour
     private void OnBuildButtonClicked()
     {
         Debug.Log("Build Button Clicked");
+
+        if (buildUI != null)
+        {
+            // Build inventory
+            buildUI.style.display = (buildUI.style.display == DisplayStyle.None) ? DisplayStyle.Flex : DisplayStyle.None;
+        }
     }
 
     //NEXT DAY PHASE 
@@ -365,6 +423,18 @@ public class UIController : MonoBehaviour
 
         // Stays night until new day button is clicked
         yield return null; 
+    }
+
+    private void OnVegetableButtonClicked(int vegetableIndex)
+    {
+        if (placementSystem != null)
+        {
+            placementSystem.StartPlacement(vegetableIndex); 
+        }
+        else
+        {
+            Debug.LogError("PlacementSystem not found!");
+        }
     }
 
 
