@@ -17,6 +17,7 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //for (int i = 0; i < shopItemsSO.Length;i++)
         //    shopPanelsGO[i].SetActive(true);
         coinUI.text = "Coins: " + coins.ToString();
@@ -36,6 +37,13 @@ public class ShopManager : MonoBehaviour
     {
         coins++;
         coinUI.text = "Coins: " + coins.ToString();
+        Debug.Log("Button Clicked");
         //CheckPurchaseable(); 
     }
+
+    public void TestButton()
+    {
+        Debug.Log("Button Clicked!");
+    }
+
 }

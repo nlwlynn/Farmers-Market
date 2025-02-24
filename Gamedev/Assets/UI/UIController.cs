@@ -20,7 +20,8 @@ public class UIController : MonoBehaviour
     public Button Settings;
     public Button Coins;
     public Button Cash;
-    
+    public GameObject shopPanel; // Reference to the Shop Canvas
+
     //for playpause button
     private bool isGamePaused = false;
 
@@ -95,6 +96,16 @@ public class UIController : MonoBehaviour
             Debug.LogError("VolumeSlider not found in the UI Document. Check the name and hierarchy.");
         }
         */
+
+        if (shopPanel == null)
+        {
+            Debug.LogError("Shop Panel is NOT assigned in the Inspector! Please assign it.");
+        }
+        else
+        {
+            Debug.Log("Shop Panel assigned successfully.");
+            shopPanel.SetActive(false); // Start hidden
+        }
 
     }
 
@@ -238,6 +249,16 @@ public class UIController : MonoBehaviour
     private void OnShopButtonClicked()
     {
         Debug.Log("Shop Button Clicked");
+
+        if (shopPanel != null)
+        {
+            // Toggle active state of the Canvas
+            shopPanel.SetActive(!shopPanel.activeSelf);
+        }
+        else
+        {
+            Debug.LogError("Shop Panel reference is missing. Assign it in the Inspector.");
+        }
     }
 
 
