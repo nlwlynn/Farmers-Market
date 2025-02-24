@@ -7,6 +7,7 @@ public class ShopItemSO : ScriptableObject
 {
     public string title;
     public string description;
-    public string baseCost;
+    public int baseCost;
+    public Sprite itemImage;
 
 }
