@@ -31,7 +31,9 @@ public class UIController : MonoBehaviour
     public Button Pumpkin;
     public Button Watermelon;
 
+    //for build system
     public PlacementSystem placementSystem;
+    private bool isBuild = false;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -353,6 +355,17 @@ public class UIController : MonoBehaviour
             // Build inventory
             buildUI.style.display = (buildUI.style.display == DisplayStyle.None) ? DisplayStyle.Flex : DisplayStyle.None;
         }
+
+        //Removes grid
+        if (isBuild)
+        {
+            placementSystem.StopPlacementWrapper();
+            isBuild = false;
+        }
+        else
+        {
+            isBuild = true;
+        }
     }
 
     //NEXT DAY PHASE 
@@ -367,7 +380,7 @@ public class UIController : MonoBehaviour
             phaseTimer.value = 0f;
         }
 
-        //changes ui
+        // Change UI
         if (endDayScreen != null)
         {
             endDayScreen.style.display = DisplayStyle.None;
@@ -381,6 +394,7 @@ public class UIController : MonoBehaviour
             nightUI.style.display = DisplayStyle.None;
         }
     }
+
 
     //NIGHT PHASE
     private IEnumerator SwitchToNightPhase()

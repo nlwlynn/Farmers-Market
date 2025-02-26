@@ -50,6 +50,11 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
     }
 
+    public void StopPlacementWrapper()
+    {
+        StopPlacement();
+    }
+
     private void PlaceStructure()
     {
         if(inputManager.IsPointerOverUI())
