@@ -23,6 +23,20 @@ public class UIController : MonoBehaviour
     public Button Inventory;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
+    public Button Build;
+    public Button NewDay;
+
+    // some inventory buttons
+    public Button Broccoli;
+    public Button Carrot;
+    public Button Cauliflower;
+    public Button Lettuce;
+    public Button Pumpkin;
+    public Button Watermelon;
+
+    //for build system
+    public PlacementSystem placementSystem;
+    private bool isBuild = false;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -30,11 +44,24 @@ public class UIController : MonoBehaviour
     //for settings button
     public VisualElement settingsPanel;
 
+    //for end of the day pop up
+    public VisualElement endDayScreen;
+
+    //for ui phases
+    public VisualElement dayUI;
+    public VisualElement nightUI;
+
+    //for build ui
+    public VisualElement buildUI;
+
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
+
+    //for night phase
+    private bool isNightPhase = false;
 
     //brightness slider
     public Slider brightnessSlider;
@@ -45,7 +72,9 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         ui = GetComponent<UIDocument>().rootVisualElement;
-        
+
+        placementSystem = FindObjectOfType<PlacementSystem>();
+
         // Hide the settings panel initially
         settingsPanel = ui.Q<VisualElement>("settingsPanel");
         if (settingsPanel != null)
@@ -55,6 +84,50 @@ public class UIController : MonoBehaviour
         else
         {
             Debug.LogError("Settings Panel not found");
+        }
+
+        //Hide the night phase screen till the day phase is over
+        endDayScreen = ui.Q<VisualElement>("endDayScreen");
+        if (endDayScreen != null)
+        {
+            endDayScreen.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.LogError("End Day Screen not found");
+        }
+
+        // Day user interface
+        dayUI = ui.Q<VisualElement>("dayUI");
+        if (dayUI != null)
+        {
+            dayUI.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            Debug.LogError("End Day Screen not found");
+        }
+
+        // Night user interface
+        nightUI = ui.Q<VisualElement>("nightUI");
+        if (nightUI != null)
+        {
+            nightUI.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.LogError("Night UI not found");
+        }
+
+        // Build user interface
+        buildUI = ui.Q<VisualElement>("buildUI");
+        if (buildUI != null)
+        {
+            buildUI.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.LogError("Build UI not found.");
         }
 
 
@@ -155,6 +228,16 @@ public class UIController : MonoBehaviour
         if (Inventory != null)
         {
             Inventory.clicked += OnInventoryButtonClicked;
+        Build = ui.Q<Button>("Build");
+        if (Shop != null)
+        {
+            Build.clicked += OnBuildButtonClicked;
+        }
+
+        NewDay = ui.Q<Button>("NewDay");
+        if (NewDay != null)
+        {
+            NewDay.clicked += OnNewDayButtonClicked;
         }
 
         PlayPause = ui.Q<Button>("PlayPause");
@@ -167,7 +250,7 @@ public class UIController : MonoBehaviour
         if (Settings != null)
         {
             Settings.clicked += OnSettingsButtonClicked;
-       
+
         }
 
         //topContainer Buttons
@@ -183,15 +266,36 @@ public class UIController : MonoBehaviour
             Cash.clicked += OnCashButtonClicked;
         }
 
+        //inventory buttons
+        Broccoli = ui.Q<Button>("Broccoli");
+        if (Broccoli != null)
+            Broccoli.clicked += () => OnVegetableButtonClicked(0);
 
+        Carrot = ui.Q<Button>("Carrot");
+        if (Carrot != null)
+            Carrot.clicked += () => OnVegetableButtonClicked(1);
+
+        Cauliflower = ui.Q<Button>("Cauliflower");
+        if (Cauliflower != null)
+            Cauliflower.clicked += () => OnVegetableButtonClicked(2);
+
+        Lettuce = ui.Q<Button>("Lettuce");
+        if (Lettuce != null)
+            Lettuce.clicked += () => OnVegetableButtonClicked(3);
+
+        Pumpkin = ui.Q<Button>("Pumpkin");
+        if (Pumpkin != null)
+            Pumpkin.clicked += () => OnVegetableButtonClicked(4);
+
+        Watermelon = ui.Q<Button>("Watermelon");
+        if (Watermelon != null)
+            Watermelon.clicked += () => OnVegetableButtonClicked(5);
     }
-
-
 
     private void Update()
     {
         // running and the game is not paused
-        if (isTimerRunning && !isGamePaused)
+        if (isTimerRunning && !isGamePaused && !isNightPhase)
         {
             elapsedTime += Time.deltaTime;
 
@@ -200,17 +304,19 @@ public class UIController : MonoBehaviour
             {
                 phaseTimer.value = elapsedTime;
 
-                
+
                 if (elapsedTime >= timerDuration)
                 {
                     isTimerRunning = false;
                     Debug.Log("Timer completed!");
-                    //trigger event for next phase
 
+                    //trigger event for next phase
+                    StartCoroutine(SwitchToNightPhase());
                 }
             }
         }
     }
+
     //BRIGHTNESS SLIDER--------------------------------------------------------------------------------------------
     private void OnBrightnessChanged(ChangeEvent<float> evt)
     {
@@ -247,11 +353,9 @@ public class UIController : MonoBehaviour
     }
     */
 
-
     private void OnHarvestButtonClicked()
     {
         Debug.Log("Harvest Button Clicked");
-        
     }
 
     private void OnSprayButtonClicked()
@@ -278,6 +382,111 @@ public class UIController : MonoBehaviour
 
     }
 
+    private void OnBuildButtonClicked()
+    {
+        Debug.Log("Build Button Clicked");
+
+        if (buildUI != null)
+        {
+            // Build inventory
+            buildUI.style.display = (buildUI.style.display == DisplayStyle.None) ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        //Removes grid
+        if (isBuild)
+        {
+            placementSystem.StopPlacementWrapper();
+            isBuild = false;
+        }
+        else
+        {
+            isBuild = true;
+        }
+    }
+
+    //NEXT DAY PHASE 
+    private void OnNewDayButtonClicked()
+    {
+        isNightPhase = false;
+        elapsedTime = 0f;
+        isTimerRunning = true;
+
+        if (phaseTimer != null)
+        {
+            phaseTimer.value = 0f;
+        }
+
+        // Change UI
+        if (endDayScreen != null)
+        {
+            endDayScreen.style.display = DisplayStyle.None;
+        }
+        if (dayUI != null)
+        {
+            dayUI.style.display = DisplayStyle.Flex;
+        }
+        if (nightUI != null)
+        {
+            nightUI.style.display = DisplayStyle.None;
+        }
+    }
+
+
+    //NIGHT PHASE
+    private IEnumerator SwitchToNightPhase()
+    {
+        // Switch to night phase
+        isNightPhase = true;
+
+        // Makes end of day screen appear
+        if (dayUI != null)
+        {
+            dayUI.style.display = DisplayStyle.None;
+        }
+
+        if (endDayScreen != null)
+        {
+            endDayScreen.style.display = DisplayStyle.Flex;
+
+            // User can click away screen pop up
+            endDayScreen.RegisterCallback<ClickEvent>(evt =>
+            {
+                endDayScreen.style.display = DisplayStyle.None;
+
+                //displays night ui
+                if (nightUI != null)
+                {
+                    nightUI.style.display = DisplayStyle.Flex;
+                }
+            });
+        }
+
+        if (Build != null)
+        {
+            Build.style.display = DisplayStyle.Flex;
+        }
+
+        if (Shop != null)
+        {
+            Shop.style.display = DisplayStyle.Flex;
+        }
+
+        // Stays night until new day button is clicked
+        yield return null;
+    }
+
+    private void OnVegetableButtonClicked(int vegetableIndex)
+    {
+        if (placementSystem != null)
+        {
+            placementSystem.StartPlacement(vegetableIndex);
+        }
+        else
+        {
+            Debug.LogError("PlacementSystem not found!");
+        }
+    }
+
 
     //PAUSE AND PLAY GAME
     private void OnPlayPauseButtonClicked()
@@ -286,7 +495,7 @@ public class UIController : MonoBehaviour
 
         isGamePaused = !isGamePaused;
 
-        if(isGamePaused)
+        if (isGamePaused)
         {
             Time.timeScale = 0;
             Debug.Log("Game Paused");
@@ -334,8 +543,6 @@ public class UIController : MonoBehaviour
 
 
     }
-
-
 
     private void OnCoinsButtonClicked()
     {
