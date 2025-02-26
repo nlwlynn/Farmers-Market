@@ -35,6 +35,7 @@ public class PlacementSystem : MonoBehaviour
         }
         gridVisualization.SetActive(true);
         cellIndicator.SetActive(true);
+        mouseIndicator.SetActive(true);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
@@ -44,6 +45,7 @@ public class PlacementSystem : MonoBehaviour
         selectedObjectIndex = -1;
         gridVisualization.SetActive(false);
         cellIndicator.SetActive(false);
+        mouseIndicator.SetActive(false);
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
     }
