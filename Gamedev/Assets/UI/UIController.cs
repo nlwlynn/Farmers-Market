@@ -20,7 +20,9 @@ public class UIController : MonoBehaviour
     public Button Settings;
     public Button Coins;
     public Button Cash;
+    public Button Inventory;
     public GameObject shopPanel; // Reference to the Shop Canvas
+    public GameObject inventoryPanel; // Reference to the Inventory Canvas
 
     //for playpause button
     private bool isGamePaused = false;
@@ -107,6 +109,16 @@ public class UIController : MonoBehaviour
             shopPanel.SetActive(false); // Start hidden
         }
 
+        if (inventoryPanel == null)
+        {
+            Debug.LogError("inventory Panel is NOT assigned in the Inspector! Please assign it.");
+        }
+        else
+        {
+            Debug.Log("Shop Panel assigned successfully.");
+            inventoryPanel.SetActive(false); // Start hidden
+        }
+
     }
 
     private void OnEnable()
@@ -137,6 +149,12 @@ public class UIController : MonoBehaviour
         if (Shop != null)
         {
             Shop.clicked += OnShopButtonClicked;
+        }
+
+        Inventory = ui.Q<Button>("Inventory");
+        if (Inventory != null)
+        {
+            Inventory.clicked += OnInventoryButtonClicked;
         }
 
         PlayPause = ui.Q<Button>("PlayPause");
@@ -248,17 +266,16 @@ public class UIController : MonoBehaviour
 
     private void OnShopButtonClicked()
     {
-        Debug.Log("Shop Button Clicked");
 
-        if (shopPanel != null)
-        {
-            // Toggle active state of the Canvas
-            shopPanel.SetActive(!shopPanel.activeSelf);
-        }
-        else
-        {
-            Debug.LogError("Shop Panel reference is missing. Assign it in the Inspector.");
-        }
+            shopPanel.SetActive(true);
+
+    }
+
+    private void OnInventoryButtonClicked()
+    {
+
+        inventoryPanel.SetActive(true);
+
     }
 
 
@@ -292,6 +309,7 @@ public class UIController : MonoBehaviour
         Spray.SetEnabled(isEnabled);
         Move.SetEnabled(isEnabled);
         Shop.SetEnabled(isEnabled);
+        Inventory.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
         Coins.SetEnabled(isEnabled);
