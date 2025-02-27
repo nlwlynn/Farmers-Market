@@ -24,6 +24,8 @@ public class UIController : MonoBehaviour
     public Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
+    private Label coinLabel;
+    private int coinCount = 20; // Default coin count
 
     // some inventory buttons
     public Button Broccoli;
@@ -73,6 +75,13 @@ public class UIController : MonoBehaviour
         ui = GetComponent<UIDocument>().rootVisualElement;
 
         placementSystem = FindObjectOfType<PlacementSystem>();
+
+
+        // Find the Label with name "coinUI"
+        coinLabel = ui.Q<Label>("coinUI");
+
+        // Initialize UI
+        UpdateCoinUI();
 
         // Hide the settings panel initially
         settingsPanel = ui.Q<VisualElement>("settingsPanel");
@@ -246,13 +255,6 @@ public class UIController : MonoBehaviour
         {
             Settings.clicked += OnSettingsButtonClicked;
 
-        }
-
-        //topContainer Buttons
-        Coins = ui.Q<Button>("Coins");
-        if (Coins != null)
-        {
-            Coins.clicked += OnCoinsButtonClicked;
         }
 
         Cash = ui.Q<Button>("Cash");
@@ -433,6 +435,7 @@ public class UIController : MonoBehaviour
         // Switch to night phase
         isNightPhase = true;
 
+
         // Makes end of day screen appear
         if (dayUI != null)
         {
@@ -538,9 +541,24 @@ public class UIController : MonoBehaviour
 
     }
 
-    private void OnCoinsButtonClicked()
+    public void AddCoins(int amount)
     {
-        Debug.Log("Coins Button Clicked");
+        coinCount += amount;
+        UpdateCoinUI();
+    }
+
+    public void RemoveCoins(int amount)
+    {
+        coinCount = Mathf.Max(0, coinCount - amount); // Prevent negative coins
+        UpdateCoinUI();
+    }
+
+    private void UpdateCoinUI()
+    {
+        if (coinLabel != null)
+        {
+            coinLabel.text = $"Coins: {coinCount}";
+        }
     }
 
     private void OnCashButtonClicked()
