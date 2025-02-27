@@ -22,6 +22,8 @@ public class UIController : MonoBehaviour
     public Button Cash;
     public Button Build;
     public Button NewDay;
+    public GameObject shopPanel; // Reference to the Shop Canvas
+    public GameObject inventoryPanel; // Reference to the Inventory Canvas
 
     // some inventory buttons
     public Button Broccoli;
@@ -168,6 +170,26 @@ public class UIController : MonoBehaviour
             Debug.LogError("VolumeSlider not found in the UI Document. Check the name and hierarchy.");
         }
         */
+
+        if (shopPanel == null)
+        {
+            Debug.LogError("Shop Panel is NOT assigned in the Inspector! Please assign it.");
+        }
+        else
+        {
+            Debug.Log("Shop Panel assigned successfully.");
+            shopPanel.SetActive(false); // Start hidden
+        }
+
+        if (inventoryPanel == null)
+        {
+            Debug.LogError("inventory Panel is NOT assigned in the Inspector! Please assign it.");
+        }
+        else
+        {
+            Debug.Log("Shop Panel assigned successfully.");
+            inventoryPanel.SetActive(false); // Start hidden
+        }
 
     }
 
@@ -343,7 +365,16 @@ public class UIController : MonoBehaviour
 
     private void OnShopButtonClicked()
     {
-        Debug.Log("Shop Button Clicked");
+
+        shopPanel.SetActive(true);
+
+    }
+
+    private void OnInventoryButtonClicked()
+    {
+
+        inventoryPanel.SetActive(true);
+
     }
 
     private void OnBuildButtonClicked()
