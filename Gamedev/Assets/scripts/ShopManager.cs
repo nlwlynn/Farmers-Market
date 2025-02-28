@@ -16,6 +16,8 @@ public class ShopManager : MonoBehaviour
     public Button[] myPurchaseBtns;
     public GameObject shopPanel; // Reference to the Shop Canvas
     // Start is called before the first frame update
+    public UIController uiController; // Reference to UIController
+
     void Start()
     {
        
