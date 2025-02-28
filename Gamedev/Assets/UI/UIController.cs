@@ -6,6 +6,7 @@ using Newtonsoft.Json.Bson;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
+using TMPro;
 
 
 public class UIController : MonoBehaviour
@@ -16,16 +17,15 @@ public class UIController : MonoBehaviour
     public Button Spray;
     public Button Move;
     public Button Shop;
+    public Button Inventory;
     public Button PlayPause;
     public Button Settings;
-    public Button Coins;
-    public Button Cash;
     public Button Build;
     public Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
-    private Label coinLabel;
     private int coinCount = 20; // Default coin count
+    public TMP_Text coinUI;
 
     // some inventory buttons
     public Button Broccoli;
@@ -76,9 +76,6 @@ public class UIController : MonoBehaviour
 
         placementSystem = FindObjectOfType<PlacementSystem>();
 
-
-        // Find the Label with name "coinUI"
-        coinLabel = ui.Q<Label>("coinUI");
 
         // Initialize UI
         UpdateCoinUI();
@@ -196,7 +193,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Shop Panel assigned successfully.");
+            Debug.Log("Inventory Panel assigned successfully.");
             inventoryPanel.SetActive(false); // Start hidden
         }
 
@@ -232,6 +229,13 @@ public class UIController : MonoBehaviour
             Shop.clicked += OnShopButtonClicked;
         }
 
+        Inventory = ui.Q<Button>("Inventory");
+        if (Inventory != null)
+        {
+            Inventory.clicked += OnInventoryButtonClicked;
+        }
+
+
         Build = ui.Q<Button>("Build");
         if (Shop != null)
         {
@@ -255,12 +259,6 @@ public class UIController : MonoBehaviour
         {
             Settings.clicked += OnSettingsButtonClicked;
 
-        }
-
-        Cash = ui.Q<Button>("Cash");
-        if (Cash != null)
-        {
-            Cash.clicked += OnCashButtonClicked;
         }
 
         //inventory buttons
@@ -518,8 +516,6 @@ public class UIController : MonoBehaviour
         Shop.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
-        Coins.SetEnabled(isEnabled);
-        Cash.SetEnabled(isEnabled);
     }
 
     private void OnSettingsButtonClicked()
@@ -547,23 +543,34 @@ public class UIController : MonoBehaviour
         UpdateCoinUI();
     }
 
-    public void RemoveCoins(int amount)
+    public void SpendCoins(int amount)
     {
-        coinCount = Mathf.Max(0, coinCount - amount); // Prevent negative coins
-        UpdateCoinUI();
+        if (coinCount >= amount)
+        {
+            coinCount -= amount;
+            UpdateCoinUI();
+        }
+        else
+        {
+            Debug.Log("Not enough coins!");
+        }
     }
 
     private void UpdateCoinUI()
     {
-        if (coinLabel != null)
+        if (coinUI != null)
         {
-            coinLabel.text = $"Coins: {coinCount}";
+            coinUI.text = "Coins: " + coinCount.ToString();
+        }
+        else
+        {
+            Debug.LogError("coinText is not assigned in UIController!");
         }
     }
 
-    private void OnCashButtonClicked()
+    public int GetCoins()
     {
-        Debug.Log("Cash Button Clicked");
+        return coinCount;
     }
 
 }
