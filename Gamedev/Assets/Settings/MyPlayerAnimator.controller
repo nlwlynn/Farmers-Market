@@ -11,6 +11,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: IsWalking
     m_EventTreshold: 0.01
+  - m_ConditionMode: 2
+    m_ConditionEvent: isPlanting
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5622437689519190496}
   m_Solo: 0
@@ -341,7 +344,7 @@ AnimatorState:
   m_PrefabAsset: {fileID: 0}
   m_Name: attack
   m_Speed: 1
-  m_CycleOffset: 0
+  m_CycleOffset: 1
   m_Transitions:
   - {fileID: 8819798577793904796}
   - {fileID: -6530905248578037692}
@@ -371,6 +374,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: IsWalking
     m_EventTreshold: 0.01
+  - m_ConditionMode: 2
+    m_ConditionEvent: isPlanting
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -856527701489685313}
   m_Solo: 0
