@@ -13,6 +13,9 @@ public class BroccoliGrowth : MonoBehaviour
     public Canvas progressCanvas;
     public Image progressCircle;
 
+    // Player's shovel and attack animation trigger
+    public GameObject shovel;  // Shovel GameObject
+    public Animator playerAnimator;  // Player Animator for attack animation
     private int growingPhase = 0;
     private bool growing = false;
 
@@ -26,6 +29,10 @@ public class BroccoliGrowth : MonoBehaviour
         fullPlant.SetActive(false);
         progressCanvas.gameObject.SetActive(false);
 
+        // Shovel should be inactive at the start
+        if (shovel != null)
+            shovel.SetActive(false);
+
         // Progress circle is not visible
         if (progressCircle != null)
             progressCircle.fillAmount = 0f;
@@ -33,10 +40,10 @@ public class BroccoliGrowth : MonoBehaviour
 
     private void Update()
     {
-        // checks if they player is in farming mode
+        // checks if the player is in farming mode
         if (Input.GetKeyDown(KeyCode.E))
         {
-            isFarmingMode = false; 
+            isFarmingMode = false;
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -63,10 +70,29 @@ public class BroccoliGrowth : MonoBehaviour
 
         if (growingPhase == 0)   // Planting Phase
         {
-            // Timer for 3 seconds
+            // Trigger attack animation and lock movement
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isPlanting", true);  // Trigger attack animation
+
+            // Show the shovel
+            if (shovel != null)
+                shovel.SetActive(true);
+
+            // Timer for 3 seconds for planting animation
             yield return StartCoroutine(FillBar(0.25f, 3f));
+
             plantStem.SetActive(true);    // Stem asset appears
             growingPhase++;  // Move to next phase
+
+            // Hide the shovel after planting is done
+            if (shovel != null)
+                shovel.SetActive(false);
+
+            // Reset the attack animation and unlock movement
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
+            }
         }
         else if (growingPhase == 1)  // Watering Phase
         {
@@ -102,7 +128,7 @@ public class BroccoliGrowth : MonoBehaviour
         growing = false;    // Growing is done
     }
 
-    // Fill tehe progress bar to a given percent and time
+    // Fill the progress bar to a given percent and time
     private IEnumerator FillBar(float fillPercent, float duration)
     {
         float startFill = progressCircle.fillAmount;
@@ -119,7 +145,7 @@ public class BroccoliGrowth : MonoBehaviour
         progressCircle.fillAmount = fillPercent;
     }
 
-    // Reset the plot after harvestingd
+    // Reset the plot after harvesting
     private void ResetPlot()
     {
         plantStem.SetActive(false);
@@ -129,5 +155,3 @@ public class BroccoliGrowth : MonoBehaviour
         progressCircle.fillAmount = 0f;
     }
 }
-
-

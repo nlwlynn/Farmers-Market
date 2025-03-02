@@ -12,6 +12,7 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private Transform handTransform;  // Hand position to hold the spray bottle
     [SerializeField] private GameObject bulletPrefab;  // Bullet prefab to be fired
     [SerializeField] private float bulletSpeed = 10f;  // Bullet speed
+    [SerializeField] private Animator playerAnimator;  // Animator reference
 
     private Animator animator;
     private bool isHoldingSpray = false;
@@ -38,7 +39,7 @@ public class PlayerAnimator : MonoBehaviour
 
             if (sprayBottle != null && !sprayBottle.activeSelf)
             {
-                sprayBottle.SetActive(true);  
+                sprayBottle.SetActive(true);
             }
         }
 
@@ -50,7 +51,7 @@ public class PlayerAnimator : MonoBehaviour
 
             if (sprayBottle != null)
             {
-                sprayBottle.SetActive(false);  
+                sprayBottle.SetActive(false);
             }
         }
 
@@ -60,10 +61,19 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetBool(IS_HOLDING_SPRAY, true);
 
             // left mode triggers spray bottle bullets
-            if (Input.GetMouseButtonDown(0)) 
+            if (Input.GetMouseButtonDown(0))
             {
                 FireBullet();
             }
+        }
+    }
+
+    // This method will trigger the attack animation
+    public void TriggerAttackAnimation()
+    {
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetTrigger("attack-melee-left");  // Trigger the attack animation
         }
     }
 
@@ -71,7 +81,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         if (bulletPrefab != null && sprayBottle != null)
         {
-            // issue with getting it to look like it was firing form the gun
+            // issue with getting it to look like it was firing from the gun
             Vector3 spawnPosition = sprayBottle.transform.position + Vector3.up * 0.5f;
 
             GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
@@ -80,14 +90,13 @@ public class PlayerAnimator : MonoBehaviour
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             if (bulletRb != null)
             {
-                bulletRb.velocity = transform.forward * bulletSpeed;  
+                bulletRb.velocity = transform.forward * bulletSpeed;
             }
 
-            bullet.transform.rotation = Quaternion.LookRotation(transform.forward); 
+            bullet.transform.rotation = Quaternion.LookRotation(transform.forward);
 
             // bullets are destroyed after 3 seconds
             Destroy(bullet, 3f);
         }
     }
 }
-
