@@ -57,7 +57,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 10f; //5min
+    private float timerDuration = 100f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
