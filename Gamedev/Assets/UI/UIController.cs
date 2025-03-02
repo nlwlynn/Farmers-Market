@@ -7,37 +7,41 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using TMPro;
+using UnityEngine.UI;
+
 
 
 public class UIController : MonoBehaviour
 {
     public VisualElement ui;
+    public static UIController Instance { get; private set; }
 
-    public Button Harvest;
-    public Button Spray;
-    public Button Move;
-    public Button Shop;
-    public Button Inventory;
-    public Button PlayPause;
-    public Button Settings;
-    public Button Build;
-    public Button NewDay;
+
+    public UnityEngine.UIElements.Button Harvest;
+    public UnityEngine.UIElements.Button Spray;
+    public UnityEngine.UIElements.Button Move;
+    public UnityEngine.UIElements.Button Shop;
+    public UnityEngine.UIElements.Button Inventory;
+    public UnityEngine.UIElements.Button PlayPause;
+    public UnityEngine.UIElements.Button Settings;
+    public UnityEngine.UIElements.Button Build;
+    public UnityEngine.UIElements.Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
     private int coinCount = 20; // Default coin count
     public TMP_Text coinUI;
 
     // some inventory buttons
-    public Button Broccoli;
-    public Button Carrot;
-    public Button Cauliflower;
-    public Button Lettuce;
-    public Button Pumpkin;
-    public Button Watermelon;
+    public UnityEngine.UIElements.Button Broccoli;
+    public UnityEngine.UIElements.Button Carrot;
+    public UnityEngine.UIElements.Button Cauliflower;
+    public UnityEngine.UIElements.Button Lettuce;
+    public UnityEngine.UIElements.Button Pumpkin;
+    public UnityEngine.UIElements.Button Watermelon;
 
     //for build system
     public PlacementSystem placementSystem;
-    private bool isBuild = false;
+    public static bool isBuild = false;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -65,13 +69,21 @@ public class UIController : MonoBehaviour
     private bool isNightPhase = false;
 
     //brightness slider
-    public Slider brightnessSlider;
+    public UnityEngine.UIElements.Slider brightnessSlider;
 
     //volume slider
-    public Slider volumeSlider;
+    public UnityEngine.UIElements.Slider volumeSlider;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this; 
+        DontDestroyOnLoad(gameObject); 
         ui = GetComponent<UIDocument>().rootVisualElement;
 
         placementSystem = FindObjectOfType<PlacementSystem>();
@@ -151,7 +163,7 @@ public class UIController : MonoBehaviour
         }
 
         //Brightness Slider
-        brightnessSlider = ui.Q<Slider>("BrightnessSlider");
+        brightnessSlider = ui.Q<UnityEngine.UIElements.Slider>("BrightnessSlider");
         if (brightnessSlider != null)
         {
             Debug.Log("BrightnessSlider found.");
@@ -203,19 +215,19 @@ public class UIController : MonoBehaviour
     {
 
         //bottomContainer Buttons
-        Harvest = ui.Q<Button>("Harvest");
+        Harvest = ui.Q<UnityEngine.UIElements.Button> ("Harvest");
         if (Harvest != null)
         {
             Harvest.clicked += OnHarvestButtonClicked;
         }
 
-        Spray = ui.Q<Button>("Spray");
+        Spray = ui.Q<UnityEngine.UIElements.Button> ("Spray");
         if (Spray != null)
         {
             Spray.clicked += OnSprayButtonClicked;
         }
 
-        Move = ui.Q<Button>("Move");
+        Move = ui.Q<UnityEngine.UIElements.Button> ("Move");
         if (Move != null)
         {
             Move.clicked += OnMoveButtonClicked;
@@ -223,38 +235,38 @@ public class UIController : MonoBehaviour
 
         //SideBar Buttons
 
-        Shop = ui.Q<Button>("Shop");
+        Shop = ui.Q<UnityEngine.UIElements.Button> ("Shop");
         if (Shop != null)
         {
             Shop.clicked += OnShopButtonClicked;
         }
 
-        Inventory = ui.Q<Button>("Inventory");
+        Inventory = ui.Q<UnityEngine.UIElements.Button> ("Inventory");
         if (Inventory != null)
         {
             Inventory.clicked += OnInventoryButtonClicked;
         }
 
 
-        Build = ui.Q<Button>("Build");
+        Build = ui.Q<UnityEngine.UIElements.Button> ("Build");
         if (Shop != null)
         {
             Build.clicked += OnBuildButtonClicked;
         }
 
-        NewDay = ui.Q<Button>("NewDay");
+        NewDay = ui.Q< UnityEngine.UIElements.Button> ("NewDay");
         if (NewDay != null)
         {
             NewDay.clicked += OnNewDayButtonClicked;
         }
 
-        PlayPause = ui.Q<Button>("PlayPause");
+        PlayPause = ui.Q<UnityEngine.UIElements.Button> ("PlayPause");
         if (PlayPause != null)
         {
             PlayPause.clicked += OnPlayPauseButtonClicked;
         }
 
-        Settings = ui.Q<Button>("Settings");
+        Settings = ui.Q<UnityEngine.UIElements.Button> ("Settings");
         if (Settings != null)
         {
             Settings.clicked += OnSettingsButtonClicked;
@@ -262,27 +274,27 @@ public class UIController : MonoBehaviour
         }
 
         //inventory buttons
-        Broccoli = ui.Q<Button>("Broccoli");
+        Broccoli = ui.Q<UnityEngine.UIElements.Button> ("Broccoli");
         if (Broccoli != null)
             Broccoli.clicked += () => OnVegetableButtonClicked(0);
 
-        Carrot = ui.Q<Button>("Carrot");
+        Carrot = ui.Q<UnityEngine.UIElements.Button> ("Carrot");
         if (Carrot != null)
             Carrot.clicked += () => OnVegetableButtonClicked(1);
 
-        Cauliflower = ui.Q<Button>("Cauliflower");
+        Cauliflower = ui.Q<UnityEngine.UIElements.Button> ("Cauliflower");
         if (Cauliflower != null)
             Cauliflower.clicked += () => OnVegetableButtonClicked(2);
 
-        Lettuce = ui.Q<Button>("Lettuce");
+        Lettuce = ui.Q<UnityEngine.UIElements.Button> ("Lettuce");
         if (Lettuce != null)
             Lettuce.clicked += () => OnVegetableButtonClicked(3);
 
-        Pumpkin = ui.Q<Button>("Pumpkin");
+        Pumpkin = ui.Q<UnityEngine.UIElements.Button> ("Pumpkin");
         if (Pumpkin != null)
             Pumpkin.clicked += () => OnVegetableButtonClicked(4);
 
-        Watermelon = ui.Q<Button>("Watermelon");
+        Watermelon = ui.Q<UnityEngine.UIElements.Button> ("Watermelon");
         if (Watermelon != null)
             Watermelon.clicked += () => OnVegetableButtonClicked(5);
     }
@@ -383,21 +395,26 @@ public class UIController : MonoBehaviour
 
         if (buildUI != null)
         {
-            // Build inventory
-            buildUI.style.display = (buildUI.style.display == DisplayStyle.None) ? DisplayStyle.Flex : DisplayStyle.None;
+            bool isActive = buildUI.style.display == DisplayStyle.Flex;
+            buildUI.style.display = isActive ? DisplayStyle.None : DisplayStyle.Flex;
         }
 
-        //Removes grid
         if (isBuild)
         {
+            Debug.Log("Stopping Placement System");
             placementSystem.StopPlacementWrapper();
-            isBuild = false;
+            isBuild = false; // Disable build mode
+
         }
         else
         {
-            isBuild = true;
+            Debug.Log("Starting Placement System");
+            isBuild = true; // Enable build mode
+
         }
     }
+
+
 
     //NEXT DAY PHASE 
     private void OnNewDayButtonClicked()
@@ -473,8 +490,12 @@ public class UIController : MonoBehaviour
 
     private void OnVegetableButtonClicked(int vegetableIndex)
     {
+        Debug.Log($"Inventory Button Clicked - Starting Placement System for ID: {vegetableIndex}");
+
         if (placementSystem != null)
-        {
+        { 
+
+            // Start placement
             placementSystem.StartPlacement(vegetableIndex);
         }
         else
@@ -528,8 +549,8 @@ public class UIController : MonoBehaviour
             {
                 settingsPanel.style.display = DisplayStyle.Flex;
             }
-            else
-            {
+            else { 
+            
                 settingsPanel.style.display = DisplayStyle.None;
             }
         }
