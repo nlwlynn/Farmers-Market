@@ -35,6 +35,7 @@ public class InputManager : MonoBehaviour
     {
         if (eventSystem == null)
         {
+            Debug.Log("event sys bug");
             return false;
         }
 

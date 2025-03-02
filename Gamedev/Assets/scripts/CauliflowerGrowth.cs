@@ -33,6 +33,9 @@ public class CauliflowerGrowth : MonoBehaviour
 
     private void Update()
     {
+        Vector3 currentPosition = transform.position;
+        transform.position = new Vector3(currentPosition.x, -3.27f, currentPosition.z);
+
         // checks if they player is in farming mode
         if (Input.GetKeyDown(KeyCode.E))
         {
