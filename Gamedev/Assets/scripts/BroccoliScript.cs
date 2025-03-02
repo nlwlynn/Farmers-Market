@@ -13,13 +13,27 @@ public class BroccoliGrowth : MonoBehaviour
     public Canvas progressCanvas;
     public Image progressCircle;
 
-    // Player's shovel and attack animation trigger
-    public GameObject shovel;  // Shovel GameObject
-    public Animator playerAnimator;  // Player Animator for attack animation
+    // Player's shovel and plant animation trigger
+    [SerializeField] private GameObject shovel;
+    public Animator playerAnimator;  
+
     private int growingPhase = 0;
     private bool growing = false;
 
     private bool isFarmingMode = true;
+
+    private void Awake()
+    {
+        if (playerAnimator == null)
+        {
+            playerAnimator = FindObjectOfType<Animator>(); // Ensure player animator is found
+        }
+
+        if (shovel == null)
+        {
+            shovel = GameObject.Find("player/character-male-b/root/torso/arm-left/shovel");
+        }
+    }
 
     private void Start()
     {
@@ -73,18 +87,17 @@ public class BroccoliGrowth : MonoBehaviour
 
         if (growingPhase == 0)   // Planting Phase
         {
-            // Trigger attack animation and lock movement
+            // Planting shovel animation
             if (playerAnimator != null)
-                playerAnimator.SetBool("isPlanting", true);  // Trigger attack animation
+                playerAnimator.SetBool("isPlanting", true); 
 
-            // Show the shovel
             if (shovel != null)
                 shovel.SetActive(true);
 
             // Timer for 3 seconds for planting animation
             yield return StartCoroutine(FillBar(0.25f, 3f));
 
-            plantStem.SetActive(true);    // Stem asset appears
+            plantStem.SetActive(true);  // Stem asset appears
             growingPhase++;  // Move to next phase
 
             // Hide the shovel after planting is done

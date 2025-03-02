@@ -13,10 +13,27 @@ public class PumpkinGrowth : MonoBehaviour
     public Canvas progressCanvas;
     public Image progressCircle;
 
+    // Player's shovel and plant animation trigger
+    [SerializeField] private GameObject shovel;
+    public Animator playerAnimator;
+
     private int growingPhase = 0;
     private bool growing = false;
 
     private bool isFarmingMode = true;
+
+    private void Awake()
+    {
+        if (playerAnimator == null)
+        {
+            playerAnimator = FindObjectOfType<Animator>(); // Ensure player animator is found
+        }
+
+        if (shovel == null)
+        {
+            shovel = GameObject.Find("player/character-male-b/root/torso/arm-left/shovel");
+        }
+    }
 
     private void Start()
     {
@@ -66,10 +83,28 @@ public class PumpkinGrowth : MonoBehaviour
 
         if (growingPhase == 0)   // Planting Phase
         {
-            // Timer for 3 seconds
+            // Planting shovel animation
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isPlanting", true);
+
+            if (shovel != null)
+                shovel.SetActive(true);
+
+            // Timer for 3 seconds for planting animation
             yield return StartCoroutine(FillBar(0.25f, 3f));
-            plantStem.SetActive(true);    // Stem asset appears
+
+            plantStem.SetActive(true);  // Stem asset appears
             growingPhase++;  // Move to next phase
+
+            // Hide the shovel after planting is done
+            if (shovel != null)
+                shovel.SetActive(false);
+
+            // Reset the attack animation and unlock movement
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
+            }
         }
         else if (growingPhase == 1)  // Watering Phase
         {
