@@ -16,6 +16,8 @@ public class WatermelonGrowth : MonoBehaviour
     private int growingPhase = 0;
     private bool growing = false;
 
+    private bool isFarmingMode = true;
+
     private void Start()
     {
         // All phases start as inactive
@@ -29,11 +31,24 @@ public class WatermelonGrowth : MonoBehaviour
             progressCircle.fillAmount = 0f;
     }
 
+    private void Update()
+    {
+        // checks if they player is in farming mode
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isFarmingMode = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            isFarmingMode = true;
+        }
+    }
+
     // Player interacts with plot
     private void OnMouseDown()
     {
         // Checks if planting has started and growth is not in progress
-        if (!growing)
+        if (isFarmingMode && !growing)
         {
             // Begins progress circle
             progressCanvas.gameObject.SetActive(true);
