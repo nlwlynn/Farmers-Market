@@ -67,7 +67,8 @@ public class ShopManager : MonoBehaviour
         {
             shopPanels[i].titleTxt.text = shopItemsSO[i].title;
             shopPanels[i].descriptionTxt.text = shopItemsSO[i].description;
-            shopPanels[i].costTxt.text = "Coins: " + shopItemsSO[i].baseCost.ToString();
+            shopPanels[i].costTxt.text = "Cost: " + shopItemsSO[i].baseCost.ToString()+ " Coins";
+            shopPanels[i].profitTxt.text = "Profit: " + shopItemsSO[i].profit.ToString()+" Coins";
             if (shopItemsSO[i].itemImage != null) // Ensure there's an image
             {
 
