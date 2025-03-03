@@ -17,12 +17,15 @@ public class CauliflowerGrowth : MonoBehaviour
     [SerializeField] private GameObject shovel;
     [SerializeField] private GameObject watering_can;
     [SerializeField] private GameObject sickle;
+    [SerializeField] private GameObject cauliflower;
     public Animator playerAnimator;
 
     private int growingPhase = 0;
     private bool growing = false;
 
     private bool isFarmingMode = true;
+
+    public Cauliflower cauliflowerScript;
 
     private void Awake()
     {
@@ -42,6 +45,14 @@ public class CauliflowerGrowth : MonoBehaviour
         if (sickle == null)
         {
             sickle = GameObject.Find("player/character-male-b/root/torso/arm-left/sickle");
+        }
+        if (cauliflower == null)
+        {
+            cauliflower = GameObject.Find("player/character-male-b/root/torso/arm-left/cauliflower");
+        }
+        if (cauliflower != null)
+        {
+            cauliflowerScript = cauliflower.GetComponent<Cauliflower>();
         }
     }
 
@@ -168,6 +179,17 @@ public class CauliflowerGrowth : MonoBehaviour
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
             ResetPlot();        // Reset plot
+
+            if (cauliflower != null)
+            {
+                cauliflower.SetActive(true);
+
+                // palyer holds animation
+                if (cauliflowerScript != null)
+                {
+                    cauliflowerScript.StartHoldingCauliflower();
+                }
+            }
         }
 
         growing = false;
