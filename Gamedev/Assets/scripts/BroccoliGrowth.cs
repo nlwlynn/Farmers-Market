@@ -36,7 +36,6 @@ public class BroccoliGrowth : MonoBehaviour
         {
             player = GameObject.Find("player");
         }
-
         if (playerAnimator == null)
         {
             playerAnimator = FindObjectOfType<Animator>(); 
@@ -108,10 +107,6 @@ public class BroccoliGrowth : MonoBehaviour
             {
                 progressCanvas.gameObject.SetActive(true);
                 StartCoroutine(HandleGrowth());
-            }
-            else
-            {
-                Debug.Log("You are too far from the plot to interact!");
             }
         }
     }
