@@ -261,7 +261,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1354996048308653523, guid: da30c56b3f093764d9d473da3bb794ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2066262178}
   m_SourcePrefab: {fileID: 100100000, guid: da30c56b3f093764d9d473da3bb794ef, type: 3}
 --- !u!4 &88473614 stripped
 Transform:
@@ -2531,6 +2534,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &2066262175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1354996048308653523, guid: da30c56b3f093764d9d473da3bb794ef, type: 3}
+  m_PrefabInstance: {fileID: 88473613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2066262178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066262175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f77f376a16ac784e8b04423f9d843f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carrot: {fileID: 2066262175}
 --- !u!114 &2111931731 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1226341781213399347, guid: 38629499230ef8048a85f0492fc62fd1, type: 3}

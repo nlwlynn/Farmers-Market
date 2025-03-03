@@ -180,7 +180,7 @@ public class BroccoliGrowth : MonoBehaviour
             {
                 broccoli.SetActive(true);
 
-                // Call StartHoldingBroccoli() from the Broccoli script
+                // palyer holds animation
                 if (broccoliScript != null)
                 {
                     broccoliScript.StartHoldingBroccoli();

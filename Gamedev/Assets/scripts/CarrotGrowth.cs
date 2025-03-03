@@ -17,12 +17,15 @@ public class CarrotGrowth : MonoBehaviour
     [SerializeField] private GameObject shovel;
     [SerializeField] private GameObject watering_can;
     [SerializeField] private GameObject sickle;
+    [SerializeField] private GameObject carrot;
     public Animator playerAnimator;
 
     private int growingPhase = 0;
     private bool growing = false;
 
     private bool isFarmingMode = true;
+
+    public Carrot carrotScript;
 
     private void Awake()
     {
@@ -42,6 +45,14 @@ public class CarrotGrowth : MonoBehaviour
         if (sickle == null)
         {
             sickle = GameObject.Find("player/character-male-b/root/torso/arm-left/sickle");
+        }
+        if (carrot == null)
+        {
+            carrot = GameObject.Find("player/character-male-b/root/torso/arm-left/carrot");
+        }
+        if (carrot != null)
+        {
+            carrotScript = carrot.GetComponent<Carrot>();
         }
     }
 
@@ -168,6 +179,17 @@ public class CarrotGrowth : MonoBehaviour
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
             ResetPlot();        // Reset plot
+
+            if (carrot != null)
+            {
+                carrot.SetActive(true);
+
+                // palyer holds animation
+                if (carrotScript != null)
+                {
+                    carrotScript.StartHoldingCarrot();
+                }
+            }
         }
 
         growing = false;
