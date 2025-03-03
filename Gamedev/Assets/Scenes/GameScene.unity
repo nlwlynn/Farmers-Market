@@ -1116,13 +1116,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1843047611692261039, guid: 256ee734e1107824e95e2e8f58e3e099, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 488650357}
   m_SourcePrefab: {fileID: 100100000, guid: 256ee734e1107824e95e2e8f58e3e099, type: 3}
 --- !u!4 &439121241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1357838196112409621, guid: 256ee734e1107824e95e2e8f58e3e099, type: 3}
   m_PrefabInstance: {fileID: 439121240}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &488650354 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1843047611692261039, guid: 256ee734e1107824e95e2e8f58e3e099, type: 3}
+  m_PrefabInstance: {fileID: 439121240}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &488650357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 488650354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a40aa7c89e92a646b95325e05c67426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  broccoli: {fileID: 488650354}
 --- !u!114 &575871956 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2316921682030111310, guid: 38629499230ef8048a85f0492fc62fd1, type: 3}
@@ -1694,10 +1715,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: test-customer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 31150e380bca48940a315532eeb17ebf, type: 3}
+      propertyPath: m_TagString
+      value: NPC
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 31150e380bca48940a315532eeb17ebf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1728381887}
   m_SourcePrefab: {fileID: 100100000, guid: 31150e380bca48940a315532eeb17ebf, type: 3}
 --- !u!114 &1376028560 stripped
 MonoBehaviour:
@@ -1915,6 +1943,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 440962553931611138, guid: 38629499230ef8048a85f0492fc62fd1, type: 3}
   m_PrefabInstance: {fileID: 104468492}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1728381885 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 31150e380bca48940a315532eeb17ebf, type: 3}
+  m_PrefabInstance: {fileID: 1374372490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1728381887
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728381885}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7548064, y: 1.1837164, z: 0.35410944}
+  m_Center: {x: -0.00048725947, y: 0.09184935, z: -0.04559173}
 --- !u!1 &1750852703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,6 +2821,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4691893406088254234, guid: 841f8145554830249bb48d9e7b540250, type: 3}
+      propertyPath: broccoliScript
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5455568181627956760, guid: 841f8145554830249bb48d9e7b540250, type: 3}
       propertyPath: m_LocalPosition.x
       value: 151.24

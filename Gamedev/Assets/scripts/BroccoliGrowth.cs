@@ -50,6 +50,10 @@ public class BroccoliGrowth : MonoBehaviour
         {
             broccoli = GameObject.Find("player/character-male-b/root/torso/arm-left/broccoli");
         }
+        if (broccoli != null)
+        {
+            broccoliScript = broccoli.GetComponent<Broccoli>(); 
+        }
     }
 
     private void Start()
