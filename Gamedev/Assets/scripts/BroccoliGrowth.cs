@@ -23,15 +23,23 @@ public class BroccoliGrowth : MonoBehaviour
     private int growingPhase = 0;
     private bool growing = false;
 
-    private bool isFarmingMode = true;
-
     public Broccoli broccoliScript;
+
+    // interactions
+    private GameObject player;
+    public float interactionRange = 5f;
+    private bool isFarmingMode = true;
 
     private void Awake()
     {
+        if (player == null)
+        {
+            player = GameObject.Find("player");
+        }
+
         if (playerAnimator == null)
         {
-            playerAnimator = FindObjectOfType<Animator>(); // Ensure player animator is found
+            playerAnimator = FindObjectOfType<Animator>(); 
         }
 
         if (shovel == null)
@@ -88,13 +96,23 @@ public class BroccoliGrowth : MonoBehaviour
     // Player interacts with plot
     private void OnMouseDown()
     {
-        // Checks if planting has started and growth is not in progress
-        if (isFarmingMode && !growing)
+        // Checks if planting has started and growth is not in progress and if the player is in close proximity
+        if (isFarmingMode && !growing && player != null)
         {
-            // Begins progress circle
-            progressCanvas.gameObject.SetActive(true);
-            // Starting growing process
-            StartCoroutine(HandleGrowth());
+            // Only compares X and Z distance
+            Vector3 playerXZ = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+            Vector3 plotXZ = new Vector3(transform.position.x, 0, transform.position.z);
+            float distance = Vector3.Distance(playerXZ, plotXZ);
+
+            if (distance <= interactionRange) // Check if player is close enough
+            {
+                progressCanvas.gameObject.SetActive(true);
+                StartCoroutine(HandleGrowth());
+            }
+            else
+            {
+                Debug.Log("You are too far from the plot to interact!");
+            }
         }
     }
 
