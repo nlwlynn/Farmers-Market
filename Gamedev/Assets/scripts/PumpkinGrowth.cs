@@ -17,12 +17,15 @@ public class PumpkinGrowth : MonoBehaviour
     [SerializeField] private GameObject shovel;
     [SerializeField] private GameObject watering_can;
     [SerializeField] private GameObject sickle;
+    [SerializeField] private GameObject pumpkin;
     public Animator playerAnimator;
 
     private int growingPhase = 0;
     private bool growing = false;
 
     private bool isFarmingMode = true;
+
+    public Pumpkin pumpkinScript;
 
     private void Awake()
     {
@@ -42,6 +45,14 @@ public class PumpkinGrowth : MonoBehaviour
         if (sickle == null)
         {
             sickle = GameObject.Find("player/character-male-b/root/torso/arm-left/sickle");
+        }
+        if (pumpkin == null)
+        {
+            pumpkin = GameObject.Find("player/character-male-b/root/torso/arm-left/corn");
+        }
+        if (pumpkin != null)
+        {
+            pumpkinScript = pumpkin.GetComponent<Pumpkin>();
         }
     }
 
@@ -168,6 +179,17 @@ public class PumpkinGrowth : MonoBehaviour
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
             ResetPlot();        // Reset plot
+
+            if (pumpkin != null)
+            {
+                pumpkin.SetActive(true);
+
+                // palyer holds animation
+                if (pumpkinScript != null)
+                {
+                    pumpkinScript.StartHoldingPumpkin();
+                }
+            }
         }
 
         growing = false;

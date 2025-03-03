@@ -17,12 +17,15 @@ public class LettuceGrowth : MonoBehaviour
     [SerializeField] private GameObject shovel;
     [SerializeField] private GameObject watering_can;
     [SerializeField] private GameObject sickle;
+    [SerializeField] private GameObject lettuce;
     public Animator playerAnimator;
 
     private int growingPhase = 0;
     private bool growing = false;
 
     private bool isFarmingMode = true;
+
+    public Lettuce lettuceScript;
 
     private void Awake()
     {
@@ -42,6 +45,14 @@ public class LettuceGrowth : MonoBehaviour
         if (sickle == null)
         {
             sickle = GameObject.Find("player/character-male-b/root/torso/arm-left/sickle");
+        }
+        if (lettuce == null)
+        {
+            lettuce = GameObject.Find("player/character-male-b/root/torso/arm-left/mushroom");
+        }
+        if (lettuce != null)
+        {
+            lettuceScript = lettuce.GetComponent<Lettuce>();
         }
     }
 
@@ -168,6 +179,17 @@ public class LettuceGrowth : MonoBehaviour
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
             ResetPlot();        // Reset plot
+
+            if (lettuce != null)
+            {
+                lettuce.SetActive(true);
+
+                // palyer holds animation
+                if (lettuceScript != null)
+                {
+                    lettuceScript.StartHoldingLettuce();
+                }
+            }
         }
 
         growing = false;
