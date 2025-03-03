@@ -21,6 +21,7 @@ public class WatermelonGrowth : MonoBehaviour
     // Player's shovel and plant animation trigger
     [SerializeField] private GameObject shovel;
     [SerializeField] private GameObject watering_can;
+    [SerializeField] private GameObject sickle;
     public Animator playerAnimator;
 
     private void Awake()
@@ -37,6 +38,10 @@ public class WatermelonGrowth : MonoBehaviour
         if (watering_can == null)
         {
             watering_can = GameObject.Find("player/character-male-b/root/torso/arm-left/watering_can");
+        }
+        if (sickle == null)
+        {
+            sickle = GameObject.Find("player/character-male-b/root/torso/arm-left/sickle");
         }
     }
 
@@ -141,8 +146,24 @@ public class WatermelonGrowth : MonoBehaviour
         }
         else if (growingPhase == 2)  // Harvesting Phase
         {
+            // Harvesting animation
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isHarvesting", true);
+
+            if (sickle != null)
+                sickle.SetActive(true);
+
             // Timer for 3 seconds
             yield return StartCoroutine(FillBar(0f, 3f));
+
+            if (sickle != null)
+                sickle.SetActive(false);
+
+            // Reset animation
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isHarvesting", false);
+
+
             fullPlant.SetActive(false);
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
