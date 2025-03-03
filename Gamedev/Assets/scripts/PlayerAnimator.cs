@@ -68,12 +68,12 @@ public class PlayerAnimator : MonoBehaviour
         }
     }
 
-    // This method will trigger the attack animation
+    // the attack animation will play
     public void TriggerAttackAnimation()
     {
         if (playerAnimator != null)
         {
-            playerAnimator.SetTrigger("attack-melee-left");  // Trigger the attack animation
+            playerAnimator.SetTrigger("attack-melee-left");  
         }
     }
 

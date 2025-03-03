@@ -15,6 +15,7 @@ public class BroccoliGrowth : MonoBehaviour
 
     // Player's shovel and plant animation trigger
     [SerializeField] private GameObject shovel;
+    [SerializeField] private GameObject watering_can;
     public Animator playerAnimator;  
 
     private int growingPhase = 0;
@@ -32,6 +33,10 @@ public class BroccoliGrowth : MonoBehaviour
         if (shovel == null)
         {
             shovel = GameObject.Find("player/character-male-b/root/torso/arm-left/shovel");
+        }
+        if (watering_can == null)
+        {
+            watering_can = GameObject.Find("player/character-male-b/root/torso/arm-left/watering_can");
         }
     }
 
@@ -100,18 +105,24 @@ public class BroccoliGrowth : MonoBehaviour
             plantStem.SetActive(true);  // Stem asset appears
             growingPhase++;  // Move to next phase
 
-            // Hide the shovel after planting is done
             if (shovel != null)
                 shovel.SetActive(false);
 
-            // Reset the attack animation and unlock movement
+            // Reset animation
             if (playerAnimator != null)
             {
-                playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
+                playerAnimator.SetBool("isPlanting", false);  
             }
         }
         else if (growingPhase == 1)  // Watering Phase
         {
+            // Watering animation
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isWatering", true);
+
+            if (watering_can != null)
+                watering_can.SetActive(true);
+
             // Timer for 5 seconds
             yield return StartCoroutine(FillBar(0.5f, 5f));
             plantStem.SetActive(false);
@@ -120,6 +131,15 @@ public class BroccoliGrowth : MonoBehaviour
             // Wait for growth phase
             yield return new WaitUntil(() => !growing);
             growingPhase++;    // Move to next phase
+
+            if (watering_can != null)
+                watering_can.SetActive(false);
+
+            // Reset animation
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("isWatering", false);
+            }
         }
         else if (growingPhase == 2)  // Harvesting Phase
         {
