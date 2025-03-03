@@ -15,6 +15,7 @@ public class PumpkinGrowth : MonoBehaviour
 
     // Player's shovel and plant animation trigger
     [SerializeField] private GameObject shovel;
+    [SerializeField] private GameObject watering_can;
     public Animator playerAnimator;
 
     private int growingPhase = 0;
@@ -32,6 +33,10 @@ public class PumpkinGrowth : MonoBehaviour
         if (shovel == null)
         {
             shovel = GameObject.Find("player/character-male-b/root/torso/arm-left/shovel");
+        }
+        if (watering_can == null)
+        {
+            watering_can = GameObject.Find("player/character-male-b/root/torso/arm-left/watering_can");
         }
     }
 
@@ -108,13 +113,30 @@ public class PumpkinGrowth : MonoBehaviour
         }
         else if (growingPhase == 1)  // Watering Phase
         {
+            // Watering animation
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isWatering", true);
+
+            if (watering_can != null)
+                watering_can.SetActive(true);
+
             // Timer for 5 seconds
             yield return StartCoroutine(FillBar(0.5f, 5f));
             plantStem.SetActive(false);
             halfPlant.SetActive(true);    // Half plant asset appears
+
+            if (watering_can != null)
+                watering_can.SetActive(false);
+
+            // Reset animation
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("isWatering", false);
+            }
+
             StartCoroutine(GrowthPhase());  // Growing starts without user interaction
             // Wait for growth phase
-            yield return new WaitUntil(() => !growing); 
+            yield return new WaitUntil(() => !growing);
             growingPhase++;    // Move to next phase
         }
         else if (growingPhase == 2)  // Harvesting Phase

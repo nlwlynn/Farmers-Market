@@ -48,10 +48,6 @@ public class BroccoliGrowth : MonoBehaviour
         fullPlant.SetActive(false);
         progressCanvas.gameObject.SetActive(false);
 
-        // Shovel should be inactive at the start
-        if (shovel != null)
-            shovel.SetActive(false);
-
         // Progress circle is not visible
         if (progressCircle != null)
             progressCircle.fillAmount = 0f;
@@ -94,7 +90,7 @@ public class BroccoliGrowth : MonoBehaviour
         {
             // Planting shovel animation
             if (playerAnimator != null)
-                playerAnimator.SetBool("isPlanting", true); 
+                playerAnimator.SetBool("isPlanting", true);
 
             if (shovel != null)
                 shovel.SetActive(true);
@@ -110,9 +106,8 @@ public class BroccoliGrowth : MonoBehaviour
 
             // Reset animation
             if (playerAnimator != null)
-            {
                 playerAnimator.SetBool("isPlanting", false);  
-            }
+            
         }
         else if (growingPhase == 1)  // Watering Phase
         {
@@ -127,10 +122,6 @@ public class BroccoliGrowth : MonoBehaviour
             yield return StartCoroutine(FillBar(0.5f, 5f));
             plantStem.SetActive(false);
             halfPlant.SetActive(true);    // Half plant asset appears
-            StartCoroutine(GrowthPhase());  // Growing starts without user interaction
-            // Wait for growth phase
-            yield return new WaitUntil(() => !growing);
-            growingPhase++;    // Move to next phase
 
             if (watering_can != null)
                 watering_can.SetActive(false);
@@ -140,6 +131,11 @@ public class BroccoliGrowth : MonoBehaviour
             {
                 playerAnimator.SetBool("isWatering", false);
             }
+
+            StartCoroutine(GrowthPhase());  // Growing starts without user interaction
+            // Wait for growth phase
+            yield return new WaitUntil(() => !growing);
+            growingPhase++;    // Move to next phase
         }
         else if (growingPhase == 2)  // Harvesting Phase
         {
