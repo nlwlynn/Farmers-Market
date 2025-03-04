@@ -14,26 +14,16 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public VisualElement ui;
-    public Button Shop;
-    public Button Inventory;
-    public Button PlayPause;
-    public Button Settings;
-    public Button NewDay;
     public static UIController Instance { get; private set; } // Singleton pattern
 
     private Label coinsLabel;     // Reference to the UXML coins label
     private Label coinsLabelNight;
     private int coinCount = 20;    // Default coin amount
 
-
-    public UnityEngine.UIElements.Button Harvest;
-    public UnityEngine.UIElements.Button Spray;
-    public UnityEngine.UIElements.Button Move;
     public UnityEngine.UIElements.Button Shop;
     public UnityEngine.UIElements.Button Inventory;
     public UnityEngine.UIElements.Button PlayPause;
     public UnityEngine.UIElements.Button Settings;
-    public UnityEngine.UIElements.Button Build;
     public UnityEngine.UIElements.Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
@@ -234,26 +224,6 @@ public class UIController : MonoBehaviour
 
     private void OnEnable()
     {
-
-        //bottomContainer Buttons
-        Harvest = ui.Q<UnityEngine.UIElements.Button> ("Harvest");
-        if (Harvest != null)
-        {
-            Harvest.clicked += OnHarvestButtonClicked;
-        }
-
-        Spray = ui.Q<UnityEngine.UIElements.Button> ("Spray");
-        if (Spray != null)
-        {
-            Spray.clicked += OnSprayButtonClicked;
-        }
-
-        Move = ui.Q<UnityEngine.UIElements.Button> ("Move");
-        if (Move != null)
-        {
-            Move.clicked += OnMoveButtonClicked;
-        }
-
         //SideBar Buttons
 
         Shop = ui.Q<UnityEngine.UIElements.Button> ("Shop");
@@ -267,13 +237,6 @@ public class UIController : MonoBehaviour
         {
             Inventory.clicked += OnInventoryButtonClicked;
         }
-
-
-        //Build = ui.Q<UnityEngine.UIElements.Button> ("Build");
-        //if (Shop != null)
-        //{
-        //    Build.clicked += OnBuildButtonClicked;
-        //}
 
         NewDay = ui.Q< UnityEngine.UIElements.Button> ("NewDay");
         if (NewDay != null)
