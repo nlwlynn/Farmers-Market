@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShopItemSO : ScriptableObject
 {
     public string title;
+    public int ID;
     public string description;
     public int baseCost;
     public int profit;

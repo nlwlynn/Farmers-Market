@@ -14,7 +14,11 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public VisualElement ui;
-    public static UIController Instance { get; private set; }
+    public static UIController Instance { get; private set; } // Singleton pattern
+
+    private Label coinsLabel;     // Reference to the UXML coins label
+    private Label coinsLabelNight;
+    private int coinCount = 20;    // Default coin amount
 
 
     public UnityEngine.UIElements.Button Harvest;
@@ -28,20 +32,9 @@ public class UIController : MonoBehaviour
     public UnityEngine.UIElements.Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
-    private int coinCount = 20; // Default coin count
-    public TMP_Text coinUI;
+    public TMP_Text coinsLabelShop; // Shop panel coin label
 
-    // some inventory buttons
-    public UnityEngine.UIElements.Button Broccoli;
-    public UnityEngine.UIElements.Button Carrot;
-    public UnityEngine.UIElements.Button Cauliflower;
-    public UnityEngine.UIElements.Button Lettuce;
-    public UnityEngine.UIElements.Button Pumpkin;
-    public UnityEngine.UIElements.Button Watermelon;
-
-    //for build system
-    public PlacementSystem placementSystem;
-    public static bool isBuild = false;
+    //public static bool isBuild = false;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -86,11 +79,7 @@ public class UIController : MonoBehaviour
         DontDestroyOnLoad(gameObject); 
         ui = GetComponent<UIDocument>().rootVisualElement;
 
-        placementSystem = FindObjectOfType<PlacementSystem>();
-
-
-        // Initialize UI
-        UpdateCoinUI();
+        //placementSystem = FindObjectOfType<PlacementSystem>();
 
         // Hide the settings panel initially
         settingsPanel = ui.Q<VisualElement>("settingsPanel");
@@ -211,6 +200,31 @@ public class UIController : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+
+        // Get coin labels correctly
+        coinsLabel = root.Q<Label>("coinsLabel");  // For dayUI
+        coinsLabelNight = root.Q<Label>("coinsLabelNight"); // For nightUI
+
+        // Find TMP Text inside the Shop Panel
+        if (shopPanel != null)
+        {
+            coinsLabelShop = shopPanel.transform.Find("CoinUI").GetComponent<TMP_Text>();
+        }
+
+        // Debug if missing
+        if (coinsLabel == null) Debug.LogError("coinsLabel (Day UI) not found in UXML!");
+        if (coinsLabelNight == null) Debug.LogError("coinsLabelNight (Night UI) not found in UXML!");
+        if (coinsLabelShop == null) Debug.LogError("coinsLabelShop (Shop UI) not found in GameObject!");
+
+
+        UpdateCoinUI();
+    }
+
+
+
     private void OnEnable()
     {
 
@@ -248,11 +262,11 @@ public class UIController : MonoBehaviour
         }
 
 
-        Build = ui.Q<UnityEngine.UIElements.Button> ("Build");
-        if (Shop != null)
-        {
-            Build.clicked += OnBuildButtonClicked;
-        }
+        //Build = ui.Q<UnityEngine.UIElements.Button> ("Build");
+        //if (Shop != null)
+        //{
+        //    Build.clicked += OnBuildButtonClicked;
+        //}
 
         NewDay = ui.Q< UnityEngine.UIElements.Button> ("NewDay");
         if (NewDay != null)
@@ -273,30 +287,6 @@ public class UIController : MonoBehaviour
 
         }
 
-        //inventory buttons
-        Broccoli = ui.Q<UnityEngine.UIElements.Button> ("Broccoli");
-        if (Broccoli != null)
-            Broccoli.clicked += () => OnVegetableButtonClicked(0);
-
-        Carrot = ui.Q<UnityEngine.UIElements.Button> ("Carrot");
-        if (Carrot != null)
-            Carrot.clicked += () => OnVegetableButtonClicked(1);
-
-        Cauliflower = ui.Q<UnityEngine.UIElements.Button> ("Cauliflower");
-        if (Cauliflower != null)
-            Cauliflower.clicked += () => OnVegetableButtonClicked(2);
-
-        Lettuce = ui.Q<UnityEngine.UIElements.Button> ("Lettuce");
-        if (Lettuce != null)
-            Lettuce.clicked += () => OnVegetableButtonClicked(3);
-
-        Pumpkin = ui.Q<UnityEngine.UIElements.Button> ("Pumpkin");
-        if (Pumpkin != null)
-            Pumpkin.clicked += () => OnVegetableButtonClicked(4);
-
-        Watermelon = ui.Q<UnityEngine.UIElements.Button> ("Watermelon");
-        if (Watermelon != null)
-            Watermelon.clicked += () => OnVegetableButtonClicked(5);
     }
 
     private void Update()
@@ -389,30 +379,30 @@ public class UIController : MonoBehaviour
 
     }
 
-    private void OnBuildButtonClicked()
-    {
-        Debug.Log("Build Button Clicked");
+    //private void OnBuildButtonClicked()
+    //{
+    //    Debug.Log("Build Button Clicked");
 
-        if (buildUI != null)
-        {
-            bool isActive = buildUI.style.display == DisplayStyle.Flex;
-            buildUI.style.display = isActive ? DisplayStyle.None : DisplayStyle.Flex;
-        }
+    //    if (buildUI != null)
+    //    {
+    //        bool isActive = buildUI.style.display == DisplayStyle.Flex;
+    //        buildUI.style.display = isActive ? DisplayStyle.None : DisplayStyle.Flex;
+    //    }
 
-        if (isBuild)
-        {
-            Debug.Log("Stopping Placement System");
-            placementSystem.StopPlacementWrapper();
-            isBuild = false; // Disable build mode
+    //    if (isBuild)
+    //    {
+    //        Debug.Log("Stopping Placement System");
+    //        placementSystem.StopPlacementWrapper();
+    //        isBuild = false; // Disable build mode
 
-        }
-        else
-        {
-            Debug.Log("Starting Placement System");
-            isBuild = true; // Enable build mode
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Starting Placement System");
+    //        isBuild = true; // Enable build mode
 
-        }
-    }
+    //    }
+    //}
 
 
 
@@ -488,22 +478,6 @@ public class UIController : MonoBehaviour
         yield return null;
     }
 
-    private void OnVegetableButtonClicked(int vegetableIndex)
-    {
-        Debug.Log($"Inventory Button Clicked - Starting Placement System for ID: {vegetableIndex}");
-
-        if (placementSystem != null)
-        { 
-
-            // Start placement
-            placementSystem.StartPlacement(vegetableIndex);
-        }
-        else
-        {
-            Debug.LogError("PlacementSystem not found!");
-        }
-    }
-
 
     //PAUSE AND PLAY GAME
     private void OnPlayPauseButtonClicked()
@@ -558,6 +532,7 @@ public class UIController : MonoBehaviour
 
     }
 
+
     public void AddCoins(int amount)
     {
         coinCount += amount;
@@ -579,15 +554,20 @@ public class UIController : MonoBehaviour
 
     private void UpdateCoinUI()
     {
-        if (coinUI != null)
+        if (coinsLabel != null)
         {
-            coinUI.text = "Coins: " + coinCount.ToString();
+            coinsLabel.text = "Coins: " + coinCount.ToString();
         }
-        else
+
+        if (coinsLabelNight != null)
         {
-            Debug.LogError("coinText is not assigned in UIController!");
+            coinsLabelNight.text = "Coins: " + coinCount.ToString();
         }
-    }
+        if (coinsLabelShop != null)
+        {
+            coinsLabelShop.text = "Coins: " + coinCount.ToString();
+        }
+     }
 
     public int GetCoins()
     {
