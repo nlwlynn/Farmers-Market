@@ -62,7 +62,10 @@ public class BroccoliGrowth : MonoBehaviour
         {
             broccoliScript = broccoli.GetComponent<Broccoli>();
         }
-        uiController = FindObjectOfType<UIController>();
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
     }
 
     private void Start()

@@ -27,6 +27,7 @@ public class PumpkinGrowth : MonoBehaviour
     private GameObject player;
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
+    public UIController uiController;
 
     public Pumpkin pumpkinScript;
 
@@ -61,6 +62,10 @@ public class PumpkinGrowth : MonoBehaviour
         {
             pumpkinScript = pumpkin.GetComponent<Pumpkin>();
         }
+        if(uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
     }
 
     private void Start()
@@ -89,6 +94,15 @@ public class PumpkinGrowth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isFarmingMode = true;
+        }
+
+        // checks the phase
+        if (uiController.IsNightPhase)
+        {
+            isFarmingMode = false;
+            progressCanvas.gameObject.SetActive(false); // Hide progress circle
+            growingPhase = 0;   // Reset phase
+            ResetPlot();        // Reset plot
         }
     }
 

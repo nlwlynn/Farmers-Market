@@ -20,6 +20,7 @@ public class WatermelonGrowth : MonoBehaviour
     private GameObject player;
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
+    public UIController uiController;
 
     public Watermelon watermelonScript;
 
@@ -61,6 +62,10 @@ public class WatermelonGrowth : MonoBehaviour
         {
             watermelonScript = watermelon.GetComponent<Watermelon>();
         }
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
     }
 
     private void Start()
@@ -89,6 +94,14 @@ public class WatermelonGrowth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isFarmingMode = true;
+        }
+        // checks the phase
+        if (uiController.IsNightPhase)
+        {
+            isFarmingMode = false;
+            progressCanvas.gameObject.SetActive(false); // Hide progress circle
+            growingPhase = 0;   // Reset phase
+            ResetPlot();        // Reset plot
         }
     }
 
