@@ -19,6 +19,7 @@ public class PlacementSystem : MonoBehaviour
     private GameObject gridVisualization;
     [SerializeField]
     private GameObject inventoryPanel;
+    public Inventory inventory; // Reference to the Inventory Manager
 
     private void Start()
     {
@@ -28,19 +29,28 @@ public class PlacementSystem : MonoBehaviour
     public void StartPlacement(int ID)
     {
         Debug.Log($"StartPlacement called with ID: {ID}");
-        StopPlacement();
 
-        selectedObjectIndex = database.objectsData.FindIndex(database => database.ID == ID);
-        if (selectedObjectIndex < 0)
+        // Ensure we find the correct stock index in inventory
+        int itemIndex = database.objectsData.FindIndex(obj => obj.ID == ID);
+
+        if (itemIndex < 0 || itemIndex >= inventory.stock.Length)
         {
-            Debug.LogError($"No ID found for {ID}");
+            Debug.LogError($"No valid inventory stock entry for ID: {ID} (Mapped Index: {itemIndex})");
             return;
         }
 
-        // Allow one UI click bypass after selecting an object
-        InputManager.ignoreNextUIInteraction = true;
+        Debug.Log($"Checking stock for itemIndex: {itemIndex}, Current Stock: {inventory.stock[itemIndex]}");
 
-        // Disable UI raycasts during placement
+        if (inventory.stock[itemIndex] <= 0)
+        {
+            Debug.Log("Not enough stock to place this item!");
+            return;
+        }
+
+        StopPlacement();
+        selectedObjectIndex = itemIndex;
+
+        InputManager.ignoreNextUIInteraction = true;
         SetUIRaycasts(false);
 
         gridVisualization.SetActive(true);
@@ -50,6 +60,8 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
+
+
 
 
 
@@ -119,10 +131,21 @@ public class PlacementSystem : MonoBehaviour
                 return;
             }
 
+            // Ensure stock is available before placing
+            if (inventory.stock[selectedObjectIndex] <= 0)
+            {
+                Debug.Log("Not enough stock to place this item!");
+                return;
+            }
+
+            // Deduct stock
+            inventory.stock[selectedObjectIndex]--;
+            inventory.UpdateStockUI(); // Refresh UI immediately
+
+            Debug.Log($"Placed object at {grid.CellToWorld(gridPosition)}. Remaining stock: {inventory.stock[selectedObjectIndex]}");
+
             GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
             newObject.transform.position = grid.CellToWorld(gridPosition);
-
-            Debug.Log($"Placed object at {grid.CellToWorld(gridPosition)}");
 
             // Re-enable UI raycasts after placement
             SetUIRaycasts(true);
@@ -133,6 +156,10 @@ public class PlacementSystem : MonoBehaviour
             Debug.Log("Pointer is over UI, skipping placement.");
         }
     }
+
+
+
+
     private void Update()
     {
       if(selectedObjectIndex < 0)
