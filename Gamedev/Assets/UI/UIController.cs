@@ -330,7 +330,6 @@ public class UIController : MonoBehaviour
         // Switch to night phase
         isNightPhase = true;
 
-
         // Makes end of day screen appear
         if (dayUI != null)
         {

@@ -5,12 +5,11 @@ using UnityEngine;
 public class Watermelon : MonoBehaviour
 {
     public GameObject watermelon;
-    private bool isHolding = false;
 
     void Update()
     {
         // checks if the player clicks on the npc and is holding the vegtable
-        if (isHolding && Input.GetMouseButtonDown(0))
+        if (FarmManager.IsHolding && Input.GetMouseButtonDown(0))
         {
             // creates a ray from the mouse click position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,7 +22,7 @@ public class Watermelon : MonoBehaviour
                 {
                     // gives the vegtable to npc
                     watermelon.SetActive(false);
-                    isHolding = false;
+                    FarmManager.IsHolding = false;
                 }
             }
         }
@@ -32,7 +31,7 @@ public class Watermelon : MonoBehaviour
     // player is holding vegtable
     public void StartHoldingWatermelon()
     {
-        isHolding = true;
+        FarmManager.IsHolding = true;
         watermelon.SetActive(true);
     }
 }

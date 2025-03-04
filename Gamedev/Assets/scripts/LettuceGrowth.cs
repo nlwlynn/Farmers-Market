@@ -103,6 +103,15 @@ public class LettuceGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             ResetPlot();        // Reset plot
         }
+
+        if (FarmManager.IsHolding)
+        {
+            FarmManager.IsAnimationPlaying = true;
+        }
+        else
+        {
+            FarmManager.IsAnimationPlaying = false;
+        }
     }
 
     // Player interacts with plot

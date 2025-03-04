@@ -3,12 +3,11 @@ using UnityEngine;
 public class Broccoli : MonoBehaviour
 {
     public GameObject broccoli;  
-    private bool isHolding = false;  
 
     void Update()
     {
         // checks if the player clicks on the npc and is holding the vegtable
-        if (isHolding && Input.GetMouseButtonDown(0))  
+        if (FarmManager.IsHolding && Input.GetMouseButtonDown(0))  
         {
             // creates a ray from the mouse click position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -21,7 +20,7 @@ public class Broccoli : MonoBehaviour
                 {
                     // gives the vegtable to npc
                     broccoli.SetActive(false);
-                    isHolding = false;  
+                    FarmManager.IsHolding = false;
                 }
             }
         }
@@ -30,13 +29,7 @@ public class Broccoli : MonoBehaviour
     // player is holding vegtable
     public void StartHoldingBroccoli()
     {
-        isHolding = true;
+        FarmManager.IsHolding = true;
         broccoli.SetActive(true);  
-    }
-
-    // checks if player is holding vegtable
-    public bool IsHoldingBroccoli()
-    {
-        return isHolding;
     }
 }

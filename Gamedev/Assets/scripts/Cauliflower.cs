@@ -5,12 +5,11 @@ using UnityEngine;
 public class Cauliflower : MonoBehaviour
 {
     public GameObject cauliflower;
-    private bool isHolding = false;
 
     void Update()
     {
         // checks if the player clicks on the npc and is holding the vegtable
-        if (isHolding && Input.GetMouseButtonDown(0))
+        if (FarmManager.IsHolding && Input.GetMouseButtonDown(0))
         {
             // creates a ray from the mouse click position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,7 +22,7 @@ public class Cauliflower : MonoBehaviour
                 {
                     // gives the vegtable to npc
                     cauliflower.SetActive(false);
-                    isHolding = false;
+                    FarmManager.IsHolding = false;
                 }
             }
         }
@@ -32,7 +31,7 @@ public class Cauliflower : MonoBehaviour
     // player is holding vegtable
     public void StartHoldingCauliflower()
     {
-        isHolding = true;
+        FarmManager.IsHolding = true;
         cauliflower.SetActive(true);
     }
 }
