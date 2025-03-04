@@ -12,32 +12,18 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     public VisualElement ui;
-
-    public Button Harvest;
-    public Button Spray;
-    public Button Move;
     public Button Shop;
     public Button Inventory;
     public Button PlayPause;
     public Button Settings;
-    public Button Build;
     public Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
     private int coinCount = 20; // Default coin count
     public TMP_Text coinUI;
 
-    // some inventory buttons
-    public Button Broccoli;
-    public Button Carrot;
-    public Button Cauliflower;
-    public Button Lettuce;
-    public Button Pumpkin;
-    public Button Watermelon;
-
     //for build system
     public PlacementSystem placementSystem;
-    private bool isBuild = false;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -201,26 +187,6 @@ public class UIController : MonoBehaviour
 
     private void OnEnable()
     {
-
-        //bottomContainer Buttons
-        Harvest = ui.Q<Button>("Harvest");
-        if (Harvest != null)
-        {
-            Harvest.clicked += OnHarvestButtonClicked;
-        }
-
-        Spray = ui.Q<Button>("Spray");
-        if (Spray != null)
-        {
-            Spray.clicked += OnSprayButtonClicked;
-        }
-
-        Move = ui.Q<Button>("Move");
-        if (Move != null)
-        {
-            Move.clicked += OnMoveButtonClicked;
-        }
-
         //SideBar Buttons
 
         Shop = ui.Q<Button>("Shop");
@@ -233,13 +199,6 @@ public class UIController : MonoBehaviour
         if (Inventory != null)
         {
             Inventory.clicked += OnInventoryButtonClicked;
-        }
-
-
-        Build = ui.Q<Button>("Build");
-        if (Shop != null)
-        {
-            Build.clicked += OnBuildButtonClicked;
         }
 
         NewDay = ui.Q<Button>("NewDay");
@@ -260,31 +219,6 @@ public class UIController : MonoBehaviour
             Settings.clicked += OnSettingsButtonClicked;
 
         }
-
-        //inventory buttons
-        Broccoli = ui.Q<Button>("Broccoli");
-        if (Broccoli != null)
-            Broccoli.clicked += () => OnVegetableButtonClicked(0);
-
-        Carrot = ui.Q<Button>("Carrot");
-        if (Carrot != null)
-            Carrot.clicked += () => OnVegetableButtonClicked(1);
-
-        Cauliflower = ui.Q<Button>("Cauliflower");
-        if (Cauliflower != null)
-            Cauliflower.clicked += () => OnVegetableButtonClicked(2);
-
-        Lettuce = ui.Q<Button>("Lettuce");
-        if (Lettuce != null)
-            Lettuce.clicked += () => OnVegetableButtonClicked(3);
-
-        Pumpkin = ui.Q<Button>("Pumpkin");
-        if (Pumpkin != null)
-            Pumpkin.clicked += () => OnVegetableButtonClicked(4);
-
-        Watermelon = ui.Q<Button>("Watermelon");
-        if (Watermelon != null)
-            Watermelon.clicked += () => OnVegetableButtonClicked(5);
     }
 
     private void Update()
@@ -348,21 +282,6 @@ public class UIController : MonoBehaviour
     }
     */
 
-    private void OnHarvestButtonClicked()
-    {
-        Debug.Log("Harvest Button Clicked");
-    }
-
-    private void OnSprayButtonClicked()
-    {
-        Debug.Log("Spray Button Clicked");
-    }
-
-    private void OnMoveButtonClicked()
-    {
-        Debug.Log("Move Button Clicked");
-    }
-
     private void OnShopButtonClicked()
     {
 
@@ -375,28 +294,6 @@ public class UIController : MonoBehaviour
 
         inventoryPanel.SetActive(true);
 
-    }
-
-    private void OnBuildButtonClicked()
-    {
-        Debug.Log("Build Button Clicked");
-
-        if (buildUI != null)
-        {
-            // Build inventory
-            buildUI.style.display = (buildUI.style.display == DisplayStyle.None) ? DisplayStyle.Flex : DisplayStyle.None;
-        }
-
-        //Removes grid
-        if (isBuild)
-        {
-            placementSystem.StopPlacementWrapper();
-            isBuild = false;
-        }
-        else
-        {
-            isBuild = true;
-        }
     }
 
     //NEXT DAY PHASE 
@@ -457,11 +354,6 @@ public class UIController : MonoBehaviour
             });
         }
 
-        if (Build != null)
-        {
-            Build.style.display = DisplayStyle.Flex;
-        }
-
         if (Shop != null)
         {
             Shop.style.display = DisplayStyle.Flex;
@@ -470,20 +362,6 @@ public class UIController : MonoBehaviour
         // Stays night until new day button is clicked
         yield return null;
     }
-
-    private void OnVegetableButtonClicked(int vegetableIndex)
-    {
-
-        if (isBuild && placementSystem != null)
-        {
-            placementSystem.StartPlacement(vegetableIndex);
-        }
-        else
-        {
-            Debug.LogError("PlacementSystem not found!");
-        }
-    }
-
 
     //PAUSE AND PLAY GAME
     private void OnPlayPauseButtonClicked()
@@ -511,9 +389,6 @@ public class UIController : MonoBehaviour
 
     private void SetButtonInteractivity(bool isEnabled)
     {
-        Harvest.SetEnabled(isEnabled);
-        Spray.SetEnabled(isEnabled);
-        Move.SetEnabled(isEnabled);
         Shop.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
