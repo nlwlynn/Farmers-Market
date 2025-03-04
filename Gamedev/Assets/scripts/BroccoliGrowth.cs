@@ -104,6 +104,19 @@ public class BroccoliGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             ResetPlot();        // Reset plot
         }
+
+        // checks if holding vegtable
+        if (broccoli != null && broccoliScript != null)
+        {
+            if (broccoliScript.IsHoldingBroccoli()) 
+            {
+                FarmManager.IsAnimationPlaying = true;  
+            }
+            else
+            {
+                FarmManager.IsAnimationPlaying = false;  
+            }
+        }
     }
 
     // Player interacts with plot

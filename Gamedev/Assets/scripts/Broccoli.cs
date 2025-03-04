@@ -33,4 +33,10 @@ public class Broccoli : MonoBehaviour
         isHolding = true;
         broccoli.SetActive(true);  
     }
+
+    // checks if player is holding vegtable
+    public bool IsHoldingBroccoli()
+    {
+        return isHolding;
+    }
 }
