@@ -95,6 +95,10 @@ public class PumpkinGrowth : MonoBehaviour
     // Player interacts with plot
     private void OnMouseDown()
     {
+        // Stops interaction if an animation is playing on another plot
+        if (FarmManager.IsAnimationPlaying)
+            return;
+
         // Checks if planting has started and growth is not in progress and if the player is in close proximity
         if (isFarmingMode && !growing && player != null)
         {
@@ -121,6 +125,8 @@ public class PumpkinGrowth : MonoBehaviour
             if (playerAnimator != null)
                 playerAnimator.SetBool("isPlanting", true);
 
+            FarmManager.IsAnimationPlaying = true;
+
             if (shovel != null)
                 shovel.SetActive(true);
 
@@ -139,12 +145,17 @@ public class PumpkinGrowth : MonoBehaviour
             {
                 playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
             }
+
+            FarmManager.IsAnimationPlaying = false;
+
         }
         else if (growingPhase == 1)  // Watering Phase
         {
             // Watering animation
             if (playerAnimator != null)
                 playerAnimator.SetBool("isWatering", true);
+
+            FarmManager.IsAnimationPlaying = true;
 
             if (watering_can != null)
                 watering_can.SetActive(true);
@@ -163,6 +174,8 @@ public class PumpkinGrowth : MonoBehaviour
                 playerAnimator.SetBool("isWatering", false);
             }
 
+            FarmManager.IsAnimationPlaying = false;
+
             StartCoroutine(GrowthPhase());  // Growing starts without user interaction
             // Wait for growth phase
             yield return new WaitUntil(() => !growing);
@@ -173,6 +186,8 @@ public class PumpkinGrowth : MonoBehaviour
             // Harvesting animation
             if (playerAnimator != null)
                 playerAnimator.SetBool("isHarvesting", true);
+
+            FarmManager.IsAnimationPlaying = true;
 
             if (sickle != null)
                 sickle.SetActive(true);
@@ -187,6 +202,7 @@ public class PumpkinGrowth : MonoBehaviour
             if (playerAnimator != null)
                 playerAnimator.SetBool("isHarvesting", false);
 
+            FarmManager.IsAnimationPlaying = false;
 
             fullPlant.SetActive(false);
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
