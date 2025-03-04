@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2022.3/staging' branch; Version is '2022.3.55f1 (9f374180d209) revision 10434369'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'en' Physical Memory: 16333 MB
+OS: 'Windows 10  (10.0.19045) 64bit Professional' Language: 'en' Physical Memory: 16332 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
 
 COMMAND LINE ARGUMENTS:
@@ -11,13 +11,14 @@ C:\Program Files\Unity\Hub\Editor\2022.3.55f1\Editor\Unity.exe
 -name
 AssetImportWorker2
 -projectPath
-C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
+C:/Users/ImThund3r0us/Documents/GitHub/Team9/Gamedev
 -logFile
 Logs/AssetImportWorker2.log
 -srvPort
 51922
 Successfully changed project path to: C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
 C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
+
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
@@ -59,17 +60,18 @@ Player connection [13812] Host joined multi-casting on [225.0.0.222:54997]...
 Player connection [13812] Host joined alternative multi-casting on [225.0.0.222:34997]...
 [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
 Refreshing native plugins compatible for Editor in 12.26 ms, found 1 plugins.
+
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.55f1 (9f374180d209)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev/Assets
+[Subsystems] Discovering subsystems at path C:/Users/ImThund3r0us/Documents/GitHub/Team9/Gamedev/Assets
 GfxDevice: creating device client; threaded=0; jobified=0
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: NVIDIA GeForce GTX 1660 (ID=0x2184)
+    Renderer: NVIDIA GeForce RTX 2070 SUPER (ID=0x1e84)
     Vendor:   NVIDIA
-    VRAM:     5966 MB
-    Driver:   32.0.15.7242
+    VRAM:     7989 MB
+    Driver:   32.0.15.6094
 Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
@@ -85,6 +87,7 @@ Mono: successfully reloaded assembly
 - Finished resetting the current domain, in  0.253 seconds
 Domain Reload Profiling: 610ms
 	BeginReloadAssembly (112ms)
+
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
@@ -105,6 +108,7 @@ Domain Reload Profiling: 610ms
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
 		SetupLoadedEditorAssemblies (209ms)
+
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (11ms)
 			SetLoadedEditorAssemblies (7ms)
@@ -112,6 +116,7 @@ Domain Reload Profiling: 610ms
 			BeforeProcessingInitializeOnLoad (2ms)
 			ProcessInitializeOnLoadAttributes (144ms)
 			ProcessInitializeOnLoadMethodAttributes (45ms)
+
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -301,7 +306,6 @@ Unloading 16 unused Assets / (385.1 KB). Loaded Objects now: 5783.
 Memory consumption went from 191.0 MB to 190.6 MB.
 Total: 5.918500 ms (FindLiveObjects: 1.197800 ms CreateObjectMapping: 0.204300 ms MarkObjects: 4.316300 ms  DeleteObjects: 0.198500 ms)
 
-Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -324,3 +328,4 @@ Start importing Assets/scripts/Database.asset using Guid(94b095cda37065747af750a
  -> (artifact id: '11f2613597f5ccd3fbcc1dfed6f48e46') in 0.054312 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 231
+
