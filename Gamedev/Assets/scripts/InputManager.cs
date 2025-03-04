@@ -29,18 +29,35 @@ public class InputManager : MonoBehaviour
             OnClicked?.Invoke();
         if (Input.GetKeyDown(KeyCode.Escape))
             OnExit?.Invoke();
+
     }
+    public static bool ignoreNextUIInteraction = false;
 
     public bool IsPointerOverUI()
     {
-        if (eventSystem == null)
+        if (EventSystem.current == null) return false;
+
+        if (ignoreNextUIInteraction)
         {
-            Debug.Log("event sys bug");
+            Debug.Log("Ignoring UI click (temporary override)");
+            ignoreNextUIInteraction = false; // Reset after bypassing UI for one click
             return false;
         }
 
-        return eventSystem.IsPointerOverGameObject();
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        bool isOverUI = results.Count > 0;
+        Debug.Log($"Pointer Over UI: {isOverUI}");
+        return isOverUI;
     }
+
+
 
     public Vector3 GetSelectedMapPosition()
     {

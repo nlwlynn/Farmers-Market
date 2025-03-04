@@ -8,8 +8,6 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
-    public int coins=20;
-    public TMP_Text coinUI;
     public ShopItemSO[] shopItemsSO;
     public GameObject[] shopPanelsGO;
     public ShopTemplate[] shopPanels;
@@ -17,13 +15,14 @@ public class ShopManager : MonoBehaviour
     public GameObject shopPanel; // Reference to the Shop Canvas
     // Start is called before the first frame update
     public UIController uiController; // Reference to UIController
+    public Inventory inventory; // Reference to the Inventory Manager
 
     void Start()
     {
        
         for (int i = 0; i < shopItemsSO.Length; i++)
             shopPanelsGO[i].SetActive(true);
-        coinUI.text = "Coins: " + coins.ToString();
+
         LoadPanels();
         CheckPurchaseable();
         
@@ -38,10 +37,9 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     public void AddCoins()
     {
-        coins++;
-        coinUI.text = "Coins: " + coins.ToString();
-        Debug.Log("Button Clicked");
-        CheckPurchaseable(); 
+        UIController.Instance.AddCoins(1);
+        Debug.Log("Coins Added!");
+        CheckPurchaseable();
     }
 
     public void TestButton()
@@ -52,12 +50,11 @@ public class ShopManager : MonoBehaviour
 
     public void CheckPurchaseable()
     {
-        for(int i=0; i<shopItemsSO.Length; i++)
+        int currentCoins = UIController.Instance.GetCoins(); // Get global coins
+
+        for (int i = 0; i < shopItemsSO.Length; i++)
         {
-            if(coins>= shopItemsSO[i].baseCost)
-                myPurchaseBtns[i].interactable = true;
-            else
-                myPurchaseBtns[i].interactable = false;
+            myPurchaseBtns[i].interactable = (currentCoins >= shopItemsSO[i].baseCost);
         }
     }
 
@@ -67,7 +64,8 @@ public class ShopManager : MonoBehaviour
         {
             shopPanels[i].titleTxt.text = shopItemsSO[i].title;
             shopPanels[i].descriptionTxt.text = shopItemsSO[i].description;
-            shopPanels[i].costTxt.text = "Coins: " + shopItemsSO[i].baseCost.ToString();
+            shopPanels[i].costTxt.text = "Cost: " + shopItemsSO[i].baseCost.ToString()+ " Coins";
+            shopPanels[i].profitTxt.text = "Profit: " + shopItemsSO[i].profit.ToString()+" Coins";
             if (shopItemsSO[i].itemImage != null) // Ensure there's an image
             {
 
@@ -79,13 +77,20 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItem(int btnNo)
     {
-        if (coins >= shopItemsSO[btnNo].baseCost)
+        if (UIController.Instance.GetCoins() >= shopItemsSO[btnNo].baseCost)
         {
-            coins = coins - shopItemsSO[btnNo].baseCost;
-            coinUI.text = "Coins: " + coins.ToString();
+            UIController.Instance.SpendCoins(shopItemsSO[btnNo].baseCost); // Deduct coins globally
+            Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
+
+            inventory.AddItemToStock(btnNo);
             CheckPurchaseable();
         }
+        else
+        {
+            Debug.Log("Not enough coins to purchase this item!");
+        }
     }
+
 
 
     public void Exit()

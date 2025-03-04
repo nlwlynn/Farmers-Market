@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using TMPro;
+using UnityEngine.UI;
+
 
 
 public class UIController : MonoBehaviour
@@ -17,13 +19,29 @@ public class UIController : MonoBehaviour
     public Button PlayPause;
     public Button Settings;
     public Button NewDay;
+    public static UIController Instance { get; private set; } // Singleton pattern
+
+    private Label coinsLabel;     // Reference to the UXML coins label
+    private Label coinsLabelNight;
+    private int coinCount = 20;    // Default coin amount
+
+
+    public UnityEngine.UIElements.Button Harvest;
+    public UnityEngine.UIElements.Button Spray;
+    public UnityEngine.UIElements.Button Move;
+    public UnityEngine.UIElements.Button Shop;
+    public UnityEngine.UIElements.Button Inventory;
+    public UnityEngine.UIElements.Button PlayPause;
+    public UnityEngine.UIElements.Button Settings;
+    public UnityEngine.UIElements.Button Build;
+    public UnityEngine.UIElements.Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
-    private int coinCount = 20; // Default coin count
-    public TMP_Text coinUI;
+    public TMP_Text coinsLabelShop; // Shop panel coin label
 
     //for build system
     public PlacementSystem placementSystem;
+    //public static bool isBuild = false;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -51,20 +69,24 @@ public class UIController : MonoBehaviour
     public bool isNightPhase = false;
 
     //brightness slider
-    public Slider brightnessSlider;
+    public UnityEngine.UIElements.Slider brightnessSlider;
 
     //volume slider
-    public Slider volumeSlider;
+    public UnityEngine.UIElements.Slider volumeSlider;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this; 
+        DontDestroyOnLoad(gameObject); 
         ui = GetComponent<UIDocument>().rootVisualElement;
 
-        placementSystem = FindObjectOfType<PlacementSystem>();
-
-
-        // Initialize UI
-        UpdateCoinUI();
+        //placementSystem = FindObjectOfType<PlacementSystem>();
 
         // Hide the settings panel initially
         settingsPanel = ui.Q<VisualElement>("settingsPanel");
@@ -137,7 +159,7 @@ public class UIController : MonoBehaviour
         }
 
         //Brightness Slider
-        brightnessSlider = ui.Q<Slider>("BrightnessSlider");
+        brightnessSlider = ui.Q<UnityEngine.UIElements.Slider>("BrightnessSlider");
         if (brightnessSlider != null)
         {
             Debug.Log("BrightnessSlider found.");
@@ -185,40 +207,93 @@ public class UIController : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+
+        // Get coin labels correctly
+        coinsLabel = root.Q<Label>("coinsLabel");  // For dayUI
+        coinsLabelNight = root.Q<Label>("coinsLabelNight"); // For nightUI
+
+        // Find TMP Text inside the Shop Panel
+        if (shopPanel != null)
+        {
+            coinsLabelShop = shopPanel.transform.Find("CoinUI").GetComponent<TMP_Text>();
+        }
+
+        // Debug if missing
+        if (coinsLabel == null) Debug.LogError("coinsLabel (Day UI) not found in UXML!");
+        if (coinsLabelNight == null) Debug.LogError("coinsLabelNight (Night UI) not found in UXML!");
+        if (coinsLabelShop == null) Debug.LogError("coinsLabelShop (Shop UI) not found in GameObject!");
+
+
+        UpdateCoinUI();
+    }
+
+
+
     private void OnEnable()
     {
+
+        //bottomContainer Buttons
+        Harvest = ui.Q<UnityEngine.UIElements.Button> ("Harvest");
+        if (Harvest != null)
+        {
+            Harvest.clicked += OnHarvestButtonClicked;
+        }
+
+        Spray = ui.Q<UnityEngine.UIElements.Button> ("Spray");
+        if (Spray != null)
+        {
+            Spray.clicked += OnSprayButtonClicked;
+        }
+
+        Move = ui.Q<UnityEngine.UIElements.Button> ("Move");
+        if (Move != null)
+        {
+            Move.clicked += OnMoveButtonClicked;
+        }
+
         //SideBar Buttons
 
-        Shop = ui.Q<Button>("Shop");
+        Shop = ui.Q<UnityEngine.UIElements.Button> ("Shop");
         if (Shop != null)
         {
             Shop.clicked += OnShopButtonClicked;
         }
 
-        Inventory = ui.Q<Button>("Inventory");
+        Inventory = ui.Q<UnityEngine.UIElements.Button> ("Inventory");
         if (Inventory != null)
         {
             Inventory.clicked += OnInventoryButtonClicked;
         }
 
-        NewDay = ui.Q<Button>("NewDay");
+
+        //Build = ui.Q<UnityEngine.UIElements.Button> ("Build");
+        //if (Shop != null)
+        //{
+        //    Build.clicked += OnBuildButtonClicked;
+        //}
+
+        NewDay = ui.Q< UnityEngine.UIElements.Button> ("NewDay");
         if (NewDay != null)
         {
             NewDay.clicked += OnNewDayButtonClicked;
         }
 
-        PlayPause = ui.Q<Button>("PlayPause");
+        PlayPause = ui.Q<UnityEngine.UIElements.Button> ("PlayPause");
         if (PlayPause != null)
         {
             PlayPause.clicked += OnPlayPauseButtonClicked;
         }
 
-        Settings = ui.Q<Button>("Settings");
+        Settings = ui.Q<UnityEngine.UIElements.Button> ("Settings");
         if (Settings != null)
         {
             Settings.clicked += OnSettingsButtonClicked;
 
         }
+
     }
 
     private void Update()
@@ -296,6 +371,33 @@ public class UIController : MonoBehaviour
 
     }
 
+    //private void OnBuildButtonClicked()
+    //{
+    //    Debug.Log("Build Button Clicked");
+
+    //    if (buildUI != null)
+    //    {
+    //        bool isActive = buildUI.style.display == DisplayStyle.Flex;
+    //        buildUI.style.display = isActive ? DisplayStyle.None : DisplayStyle.Flex;
+    //    }
+
+    //    if (isBuild)
+    //    {
+    //        Debug.Log("Stopping Placement System");
+    //        placementSystem.StopPlacementWrapper();
+    //        isBuild = false; // Disable build mode
+
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Starting Placement System");
+    //        isBuild = true; // Enable build mode
+
+    //    }
+    //}
+
+
+
     //NEXT DAY PHASE 
     private void OnNewDayButtonClicked()
     {
@@ -362,6 +464,7 @@ public class UIController : MonoBehaviour
         yield return null;
     }
 
+
     //PAUSE AND PLAY GAME
     private void OnPlayPauseButtonClicked()
     {
@@ -403,14 +506,15 @@ public class UIController : MonoBehaviour
             {
                 settingsPanel.style.display = DisplayStyle.Flex;
             }
-            else
-            {
+            else { 
+            
                 settingsPanel.style.display = DisplayStyle.None;
             }
         }
 
 
     }
+
 
     public void AddCoins(int amount)
     {
@@ -433,15 +537,20 @@ public class UIController : MonoBehaviour
 
     private void UpdateCoinUI()
     {
-        if (coinUI != null)
+        if (coinsLabel != null)
         {
-            coinUI.text = "Coins: " + coinCount.ToString();
+            coinsLabel.text = "Coins: " + coinCount.ToString();
         }
-        else
+
+        if (coinsLabelNight != null)
         {
-            Debug.LogError("coinText is not assigned in UIController!");
+            coinsLabelNight.text = "Coins: " + coinCount.ToString();
         }
-    }
+        if (coinsLabelShop != null)
+        {
+            coinsLabelShop.text = "Coins: " + coinCount.ToString();
+        }
+     }
 
     public int GetCoins()
     {
