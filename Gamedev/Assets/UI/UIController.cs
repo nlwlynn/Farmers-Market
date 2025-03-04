@@ -43,12 +43,12 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
     //for night phase
-    private bool isNightPhase = false;
+    public bool isNightPhase = false;
 
     //brightness slider
     public Slider brightnessSlider;
@@ -447,6 +447,11 @@ public class UIController : MonoBehaviour
     public int GetCoins()
     {
         return coinCount;
+    }
+
+    public bool IsNightPhase
+    {
+        get { return isNightPhase; }
     }
 
 }

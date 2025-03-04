@@ -29,6 +29,7 @@ public class BroccoliGrowth : MonoBehaviour
     private GameObject player;
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
+    public UIController uiController;
 
     private void Awake()
     {
@@ -61,6 +62,7 @@ public class BroccoliGrowth : MonoBehaviour
         {
             broccoliScript = broccoli.GetComponent<Broccoli>();
         }
+        uiController = FindObjectOfType<UIController>();
     }
 
     private void Start()
@@ -89,6 +91,15 @@ public class BroccoliGrowth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isFarmingMode = true;
+        }
+
+        // checks the phase
+        if (uiController.IsNightPhase)
+        {
+            isFarmingMode = false;
+            progressCanvas.gameObject.SetActive(false); // Hide progress circle
+            growingPhase = 0;   // Reset phase
+            ResetPlot();        // Reset plot
         }
     }
 
