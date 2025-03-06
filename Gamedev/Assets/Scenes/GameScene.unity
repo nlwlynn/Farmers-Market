@@ -1791,8 +1791,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6403328266048208830, guid: b593c8d74e5b4fa478aef2bbb0998f1f, type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403328266048208830, guid: b593c8d74e5b4fa478aef2bbb0998f1f, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403328266048208830, guid: b593c8d74e5b4fa478aef2bbb0998f1f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6403328266048208830, guid: b593c8d74e5b4fa478aef2bbb0998f1f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6403328266048208830, guid: b593c8d74e5b4fa478aef2bbb0998f1f, type: 3}
       propertyPath: m_Intensity
@@ -1816,7 +1828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7956171549976681319, guid: b593c8d74e5b4fa478aef2bbb0998f1f, type: 3}
       propertyPath: m_Name
-      value: Directional Light (1)
+      value: Directional Light Night
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3592,6 +3604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1609365253}
   - component: {fileID: 1609365252}
+  - component: {fileID: 1609365254}
   m_Layer: 6
   m_Name: Global Volume
   m_TagString: Untagged
@@ -3631,6 +3644,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 5.248, y: -24.628, z: 7.33}
+--- !u!114 &1609365254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609365251}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 96f127faa88666a438e6cde3d2d697d9, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1001 &1670217899
 PrefabInstance:
   m_ObjectHideFlags: 0
