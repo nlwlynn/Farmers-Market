@@ -23,6 +23,10 @@ public class LettuceGrowth : MonoBehaviour
     private int growingPhase = 0;
     private bool growing = false;
 
+    // Fly interactions
+    public int plantHealth = 10;
+    private bool isBeingDamaged = false;
+
     // interactions
     private GameObject player;
     public float interactionRange = 5f;
@@ -101,6 +105,7 @@ public class LettuceGrowth : MonoBehaviour
             isFarmingMode = false;
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
+            StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
 
@@ -111,6 +116,16 @@ public class LettuceGrowth : MonoBehaviour
         else
         {
             FarmManager.IsAnimationPlaying = false;
+        }
+
+        // checks fly health
+        if (plantHealth <= 0 && growing)
+        {
+            growing = false;
+            growingPhase = 0;
+            StopAllCoroutines();
+            NotifyFly();
+            ResetPlot();
         }
     }
 
@@ -143,6 +158,9 @@ public class LettuceGrowth : MonoBehaviour
 
         if (growingPhase == 0)   // Planting Phase
         {
+            // Reset health
+            plantHealth = 10;
+
             // Planting shovel animation
             if (playerAnimator != null)
                 playerAnimator.SetBool("isPlanting", true);
@@ -281,5 +299,53 @@ public class LettuceGrowth : MonoBehaviour
         fullPlant.SetActive(false);
         progressCanvas.gameObject.SetActive(false);
         progressCircle.fillAmount = 0f;
+        isBeingDamaged = false;
+    }
+
+    // Fly interactions
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("FlySwarm") && !isBeingDamaged)
+        {
+            isBeingDamaged = true;
+            StartCoroutine(ApplyFlyDamage());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("FlySwarm"))
+        {
+            isBeingDamaged = false;
+        }
+    }
+    private IEnumerator ApplyFlyDamage()
+    {
+        while (isBeingDamaged)
+        {
+            plantHealth -= 5;
+
+            // Reset plot if health is 0
+            if (plantHealth <= 0)
+            {
+                growing = false;
+                growingPhase = 0;   // Reset phase
+                StopAllCoroutines();
+                ResetPlot();        // Reset plot
+                NotifyFly();
+                yield break;
+            }
+
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
+    private void NotifyFly()
+    {
+        FlyAI fly = FindObjectOfType<FlyAI>();
+        if (fly != null)
+        {
+            fly.OnPlantDestroyed(this.gameObject);
+        }
     }
 }
