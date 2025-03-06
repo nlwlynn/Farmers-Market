@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 8845299094953706694}
   m_Layer: 0
   m_Name: carrot-plot
-  m_TagString: Untagged
+  m_TagString: Carrot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -446,12 +446,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.9874065, y: 4, z: 1.9956818}
-  m_Center: {x: 0.015253703, y: 0.049999952, z: -0.058799744}
+  m_Size: {x: 1.9874065, y: 5.99767, z: 1.9956818}
+  m_Center: {x: 0.015253703, y: 1.0488348, z: -0.058799744}
 --- !u!114 &8845299094953706694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +470,13 @@ MonoBehaviour:
   progressCanvas: {fileID: 6773483082969805624}
   progressCircle: {fileID: 8672016201541938860}
   shovel: {fileID: 0}
+  watering_can: {fileID: 0}
+  sickle: {fileID: 0}
+  carrot: {fileID: 0}
   playerAnimator: {fileID: 0}
+  interactionRange: 5
+  uiController: {fileID: 0}
+  carrotScript: {fileID: 0}
 --- !u!1 &8017919636515837758
 GameObject:
   m_ObjectHideFlags: 0

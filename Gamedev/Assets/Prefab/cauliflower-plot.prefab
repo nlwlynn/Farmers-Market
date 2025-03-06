@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6781253113985009358}
   m_Layer: 0
   m_Name: cauliflower-plot
-  m_TagString: Untagged
+  m_TagString: Cauliflower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,12 +178,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.9810436, y: 4, z: 1.9612377}
-  m_Center: {x: -0.0055109663, y: 0.049999952, z: -0.0051854453}
+  m_Size: {x: 1.9810436, y: 6.031557, z: 1.9612377}
+  m_Center: {x: -0.0055109663, y: 1.0657768, z: -0.0051854453}
 --- !u!114 &6781253113985009358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +202,13 @@ MonoBehaviour:
   progressCanvas: {fileID: 8267946999072792401}
   progressCircle: {fileID: 3600940776688604808}
   shovel: {fileID: 0}
+  watering_can: {fileID: 0}
+  sickle: {fileID: 0}
+  cauliflower: {fileID: 0}
   playerAnimator: {fileID: 0}
+  interactionRange: 5
+  uiController: {fileID: 0}
+  cauliflowerScript: {fileID: 0}
 --- !u!1 &3505230885709670845
 GameObject:
   m_ObjectHideFlags: 0
