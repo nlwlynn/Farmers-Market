@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 
 public class UIController : MonoBehaviour
@@ -19,7 +19,12 @@ public class UIController : MonoBehaviour
     private Label coinsLabel;     // Reference to the UXML coins label
     private Label coinsLabelNight;
     private int coinCount = 20;    // Default coin amount
+    private int dailyGoal = 25;// Goal for the day (can be dynamic)
 
+
+    public UnityEngine.UIElements.Button Harvest;
+    public UnityEngine.UIElements.Button Spray;
+    public UnityEngine.UIElements.Button Move;
     public UnityEngine.UIElements.Button Shop;
     public UnityEngine.UIElements.Button Inventory;
     public UnityEngine.UIElements.Button PlayPause;
@@ -29,9 +34,18 @@ public class UIController : MonoBehaviour
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
     public TMP_Text coinsLabelShop; // Shop panel coin label
 
-    //for build system
-    public PlacementSystem placementSystem;
-    //public static bool isBuild = false;
+    //EOD
+    private Label goalAmountLabel;
+    private Label revenueEarnedLabel;
+    private Label resultTextLabel;
+    private Label summaryMessageLabel;
+    private Label currentMoneyLabel;
+    private Label moneyGoalLabel;
+    private Label warningsLabel;
+    private UnityEngine.UIElements.Button continueButton;
+    private UnityEngine.UIElements.Button objectiveButton;
+    private UnityEngine.UIElements.Button StartButton;
+    private UnityEngine.UIElements.Button SettingsButton;
 
     //for playpause button
     private bool isGamePaused = false;
@@ -46,17 +60,19 @@ public class UIController : MonoBehaviour
     public VisualElement dayUI;
     public VisualElement nightUI;
 
-    //for build ui
-    public VisualElement buildUI;
+    public VisualElement objectivesScreen;
+
+    public VisualElement GameBackground;
+
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
     //for night phase
-    public bool isNightPhase = false;
+    private bool isNightPhase = false;
 
     //brightness slider
     public UnityEngine.UIElements.Slider brightnessSlider;
@@ -64,10 +80,13 @@ public class UIController : MonoBehaviour
     //volume slider
     public UnityEngine.UIElements.Slider volumeSlider;
 
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
+            Debug.Log("Destroying duplicate UIController");
             Destroy(gameObject);
             return;
         }
@@ -76,7 +95,43 @@ public class UIController : MonoBehaviour
         DontDestroyOnLoad(gameObject); 
         ui = GetComponent<UIDocument>().rootVisualElement;
 
-        //placementSystem = FindObjectOfType<PlacementSystem>();
+        // End of Day UI Elements
+        goalAmountLabel = ui.Q<Label>("goalAmount");
+        revenueEarnedLabel = ui.Q<Label>("revenueEarned");
+        resultTextLabel = ui.Q<Label>("result");
+        summaryMessageLabel = ui.Q<Label>("summaryMessage");
+        continueButton = ui.Q<UnityEngine.UIElements.Button>("continueButton");
+
+
+        //objectives element 
+        currentMoneyLabel = ui.Q<Label>("currentMoney");
+        moneyGoalLabel = ui.Q<Label>("moneyGoal");
+        warningsLabel = ui.Q<Label>("warningMessage");
+
+        // Get all Scenes
+        objectivesScreen = ui.Q<VisualElement>("objectivesScreen");
+        GameBackground = ui.Q<VisualElement>("GameBackground");
+        dayUI = ui.Q<VisualElement>("dayUI");
+        endDayScreen = ui.Q<VisualElement>("endDayScreen");
+        nightUI = ui.Q<VisualElement>("nightUI");
+
+        objectiveButton = ui.Q<UnityEngine.UIElements.Button>("objectiveButton");
+        StartButton = ui.Q<UnityEngine.UIElements.Button>("StartButton");
+        SettingsButton = ui.Q<UnityEngine.UIElements.Button>("SettingsButton");
+
+        // Hide all screens EXCEPT nightUI at the start
+        objectivesScreen.style.display = DisplayStyle.None;
+        dayUI.style.display = DisplayStyle.None;
+        endDayScreen.style.display = DisplayStyle.None;
+        nightUI.style.display = DisplayStyle.None;
+        GameBackground.style.display = DisplayStyle.Flex;
+
+        // Add button click event to transition from Main Menu -> Night UI
+        StartButton.clicked += () =>
+        {
+            GameBackground.style.display = DisplayStyle.None;  // Hide Main Menu
+            nightUI.style.display = DisplayStyle.Flex;// Start the night
+        };
 
         // Hide the settings panel initially
         settingsPanel = ui.Q<VisualElement>("settingsPanel");
@@ -87,50 +142,6 @@ public class UIController : MonoBehaviour
         else
         {
             Debug.LogError("Settings Panel not found");
-        }
-
-        //Hide the night phase screen till the day phase is over
-        endDayScreen = ui.Q<VisualElement>("endDayScreen");
-        if (endDayScreen != null)
-        {
-            endDayScreen.style.display = DisplayStyle.None;
-        }
-        else
-        {
-            Debug.LogError("End Day Screen not found");
-        }
-
-        // Day user interface
-        dayUI = ui.Q<VisualElement>("dayUI");
-        if (dayUI != null)
-        {
-            dayUI.style.display = DisplayStyle.Flex;
-        }
-        else
-        {
-            Debug.LogError("End Day Screen not found");
-        }
-
-        // Night user interface
-        nightUI = ui.Q<VisualElement>("nightUI");
-        if (nightUI != null)
-        {
-            nightUI.style.display = DisplayStyle.None;
-        }
-        else
-        {
-            Debug.LogError("Night UI not found");
-        }
-
-        // Build user interface
-        buildUI = ui.Q<VisualElement>("buildUI");
-        if (buildUI != null)
-        {
-            buildUI.style.display = DisplayStyle.None;
-        }
-        else
-        {
-            Debug.LogError("Build UI not found.");
         }
 
 
@@ -221,9 +232,28 @@ public class UIController : MonoBehaviour
     }
 
 
-
     private void OnEnable()
     {
+
+        //bottomContainer Buttons
+        Harvest = ui.Q<UnityEngine.UIElements.Button> ("Harvest");
+        if (Harvest != null)
+        {
+            Harvest.clicked += OnHarvestButtonClicked;
+        }
+
+        Spray = ui.Q<UnityEngine.UIElements.Button> ("Spray");
+        if (Spray != null)
+        {
+            Spray.clicked += OnSprayButtonClicked;
+        }
+
+        Move = ui.Q<UnityEngine.UIElements.Button> ("Move");
+        if (Move != null)
+        {
+            Move.clicked += OnMoveButtonClicked;
+        }
+
         //SideBar Buttons
 
         Shop = ui.Q<UnityEngine.UIElements.Button> ("Shop");
@@ -237,6 +267,7 @@ public class UIController : MonoBehaviour
         {
             Inventory.clicked += OnInventoryButtonClicked;
         }
+
 
         NewDay = ui.Q< UnityEngine.UIElements.Button> ("NewDay");
         if (NewDay != null)
@@ -261,6 +292,11 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
+        if (dayUI.style.display != DisplayStyle.Flex)
+        {
+            return; // Stop execution if Day UI is not active
+        }
+
         // running and the game is not paused
         if (isTimerRunning && !isGamePaused && !isNightPhase)
         {
@@ -320,6 +356,21 @@ public class UIController : MonoBehaviour
     }
     */
 
+    private void OnHarvestButtonClicked()
+    {
+        Debug.Log("Harvest Button Clicked");
+    }
+
+    private void OnSprayButtonClicked()
+    {
+        Debug.Log("Spray Button Clicked");
+    }
+
+    private void OnMoveButtonClicked()
+    {
+        Debug.Log("Move Button Clicked");
+    }
+
     private void OnShopButtonClicked()
     {
 
@@ -334,31 +385,6 @@ public class UIController : MonoBehaviour
 
     }
 
-    //private void OnBuildButtonClicked()
-    //{
-    //    Debug.Log("Build Button Clicked");
-
-    //    if (buildUI != null)
-    //    {
-    //        bool isActive = buildUI.style.display == DisplayStyle.Flex;
-    //        buildUI.style.display = isActive ? DisplayStyle.None : DisplayStyle.Flex;
-    //    }
-
-    //    if (isBuild)
-    //    {
-    //        Debug.Log("Stopping Placement System");
-    //        placementSystem.StopPlacementWrapper();
-    //        isBuild = false; // Disable build mode
-
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Starting Placement System");
-    //        isBuild = true; // Enable build mode
-
-    //    }
-    //}
-
 
 
     //NEXT DAY PHASE 
@@ -367,20 +393,36 @@ public class UIController : MonoBehaviour
         isNightPhase = false;
         elapsedTime = 0f;
         isTimerRunning = true;
+        nightUI.style.display = DisplayStyle.None;
+        // Calculate revenue made during the day
+        int currentCoin = coinCount;
+        int goalCoin = dailyGoal;
+
+        // Update Objectives labels
+        currentMoneyLabel.text = currentCoin + " Coins";
+        moneyGoalLabel.text = goalCoin + " Coins";
+        warningsLabel.text = "Need at least "+ goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
+        objectivesScreen.style.display = DisplayStyle.Flex;
+
+        // Remove previous event listeners to prevent stacking
+        objectiveButton.clicked -= OnObjectiveButtonClicked;
+        objectiveButton.clicked += OnObjectiveButtonClicked;
+    }
+
+    private void OnObjectiveButtonClicked()
+    {
+        objectivesScreen.style.display = DisplayStyle.None;  // Hide Objectives
+        dayUI.style.display = DisplayStyle.Flex; // Show the Day UI
 
         if (phaseTimer != null)
         {
             phaseTimer.value = 0f;
         }
 
-        // Change UI
+        // Hide night UI and end day screen
         if (endDayScreen != null)
         {
             endDayScreen.style.display = DisplayStyle.None;
-        }
-        if (dayUI != null)
-        {
-            dayUI.style.display = DisplayStyle.Flex;
         }
         if (nightUI != null)
         {
@@ -388,44 +430,65 @@ public class UIController : MonoBehaviour
         }
     }
 
-
-    //NIGHT PHASE
+    //NightPhase
     private IEnumerator SwitchToNightPhase()
     {
         // Switch to night phase
         isNightPhase = true;
 
-        // Makes end of day screen appear
-        if (dayUI != null)
+        // Calculate revenue made during the day
+        int revenueEarned = coinCount; 
+
+        // Goal for the day (can be dynamic)
+        bool goalMet = revenueEarned >= dailyGoal;
+
+        // Update End of Day UI labels
+        goalAmountLabel.text = dailyGoal + " Coins";
+        revenueEarnedLabel.text = revenueEarned + " Coins";
+
+        if (goalMet)
         {
-            dayUI.style.display = DisplayStyle.None;
+            resultTextLabel.text = "PASSED!";
+            resultTextLabel.style.color = new StyleColor(Color.green);
+            summaryMessageLabel.text = "Now transitioning to night time, buy more plots to make more earnings!";
+            continueButton.text = "Proceed to Night Phase"; 
+
+        }
+        else
+        {
+            resultTextLabel.text = "FAILED!";
+            resultTextLabel.style.color = new StyleColor(Color.red);
+            summaryMessageLabel.text = "Sorry, you did not meet your goal... farm went to foreclosure!";
+            continueButton.text = "Return to Main Menu";
         }
 
-        if (endDayScreen != null)
-        {
-            endDayScreen.style.display = DisplayStyle.Flex;
 
-            // User can click away screen pop up
-            endDayScreen.RegisterCallback<ClickEvent>(evt =>
+        // Hide the Day UI and Show End of Day UI
+        dayUI.style.display = DisplayStyle.None;
+        endDayScreen.style.display = DisplayStyle.Flex;
+
+        // Ensure Build and Shop buttons are available for the night phase
+        if (Shop != null) Shop.style.display = DisplayStyle.Flex;
+
+        // Wait for player to click "Continue"
+        continueButton.clicked += () =>
+        {
+            endDayScreen.style.display = DisplayStyle.None;
+
+            if (goalMet)
             {
-                endDayScreen.style.display = DisplayStyle.None;
-
-                //displays night ui
-                if (nightUI != null)
-                {
-                    nightUI.style.display = DisplayStyle.Flex;
-                }
-            });
-        }
-
-        if (Shop != null)
-        {
-            Shop.style.display = DisplayStyle.Flex;
-        }
-
-        // Stays night until new day button is clicked
+                //If the goal was met, transition to night UI
+                nightUI.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                // If the player failed, return to the main menu
+                GameBackground.style.display = DisplayStyle.Flex;
+            }
+        };
         yield return null;
     }
+
 
 
     //PAUSE AND PLAY GAME
@@ -454,6 +517,9 @@ public class UIController : MonoBehaviour
 
     private void SetButtonInteractivity(bool isEnabled)
     {
+        Harvest.SetEnabled(isEnabled);
+        Spray.SetEnabled(isEnabled);
+        Move.SetEnabled(isEnabled);
         Shop.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
         Settings.SetEnabled(isEnabled);
@@ -519,7 +585,6 @@ public class UIController : MonoBehaviour
     {
         return coinCount;
     }
-
     public bool IsNightPhase
     {
         get { return isNightPhase; }
