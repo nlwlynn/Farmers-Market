@@ -5,6 +5,12 @@ using UnityEngine;
 public class Carrot : MonoBehaviour
 {
     public GameObject carrot;
+    private NPCInteraction npcInteraction;
+
+    void Start()
+    {
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+    }
 
     void Update()
     {
@@ -23,6 +29,12 @@ public class Carrot : MonoBehaviour
                     // gives the vegtable to npc
                     carrot.SetActive(false);
                     FarmManager.IsHolding = false;
+
+                    // Updates NPC
+                    if (npcInteraction != null)
+                    {
+                        npcInteraction.Interact("Carrot");
+                    }
                 }
             }
         }

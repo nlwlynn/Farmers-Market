@@ -43,7 +43,7 @@ public class LettuceGrowth : MonoBehaviour
         }
         if (playerAnimator == null)
         {
-            playerAnimator = FindObjectOfType<Animator>(); // Ensure player animator is found
+            playerAnimator = player.transform.Find("character-male-b")?.GetComponent<Animator>();
         }
 
         if (shovel == null)
@@ -88,7 +88,7 @@ public class LettuceGrowth : MonoBehaviour
     private void Update()
     {
         Vector3 currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, -3.27f, currentPosition.z);
+        transform.position = new Vector3(currentPosition.x, -2.9f, currentPosition.z);
 
         // checks if they player is in farming mode
         if (Input.GetKeyDown(KeyCode.E))
@@ -107,6 +107,10 @@ public class LettuceGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             StopAllCoroutines();
             ResetPlot();        // Reset plot
+        }
+        else
+        {
+            isFarmingMode = true;
         }
 
         if (FarmManager.IsHolding)

@@ -5,6 +5,12 @@ using UnityEngine;
 public class Pumpkin : MonoBehaviour
 {
     public GameObject pumpkin;
+    private NPCInteraction npcInteraction;
+
+    void Start()
+    {
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+    }
 
     void Update()
     {
@@ -23,6 +29,12 @@ public class Pumpkin : MonoBehaviour
                     // gives the vegtable to npc
                     pumpkin.SetActive(false);
                     FarmManager.IsHolding = false;
+
+                    // Updates NPC
+                    if (npcInteraction != null)
+                    {
+                        npcInteraction.Interact("Corn");
+                    }
                 }
             }
         }

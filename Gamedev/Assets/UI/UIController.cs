@@ -67,12 +67,12 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 10f; //5min
+    private float timerDuration = 100f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
     //for night phase
-    private bool isNightPhase = false;
+    public bool isNightPhase = false;
 
     //brightness slider
     public UnityEngine.UIElements.Slider brightnessSlider;
@@ -131,6 +131,7 @@ public class UIController : MonoBehaviour
         {
             GameBackground.style.display = DisplayStyle.None;  // Hide Main Menu
             nightUI.style.display = DisplayStyle.Flex;// Start the night
+            isNightPhase = true;
         };
 
         // Hide the settings panel initially

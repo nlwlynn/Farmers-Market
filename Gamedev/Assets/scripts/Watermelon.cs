@@ -5,6 +5,12 @@ using UnityEngine;
 public class Watermelon : MonoBehaviour
 {
     public GameObject watermelon;
+    private NPCInteraction npcInteraction;
+
+    void Start()
+    {
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+    }
 
     void Update()
     {
@@ -23,6 +29,12 @@ public class Watermelon : MonoBehaviour
                     // gives the vegtable to npc
                     watermelon.SetActive(false);
                     FarmManager.IsHolding = false;
+
+                    // Updates NPC
+                    if (npcInteraction != null)
+                    {
+                        npcInteraction.Interact("Sunflower");
+                    }
                 }
             }
         }

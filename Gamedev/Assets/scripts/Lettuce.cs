@@ -5,6 +5,12 @@ using UnityEngine;
 public class Lettuce : MonoBehaviour
 {
     public GameObject lettuce;
+    private NPCInteraction npcInteraction;
+
+    void Start()
+    {
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+    }
 
     void Update()
     {
@@ -23,6 +29,12 @@ public class Lettuce : MonoBehaviour
                     // gives the vegtable to npc
                     lettuce.SetActive(false);
                     FarmManager.IsHolding = false;
+
+                    // Updates NPC
+                    if (npcInteraction != null)
+                    {
+                        npcInteraction.Interact("Mushroom");
+                    }
                 }
             }
         }

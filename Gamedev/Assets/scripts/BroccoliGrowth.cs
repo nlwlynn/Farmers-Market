@@ -43,7 +43,7 @@ public class BroccoliGrowth : MonoBehaviour
         }
         if (playerAnimator == null)
         {
-            playerAnimator = FindObjectOfType<Animator>();
+            playerAnimator = player.transform.Find("character-male-b")?.GetComponent<Animator>();
         }
 
         if (shovel == null)
@@ -88,7 +88,7 @@ public class BroccoliGrowth : MonoBehaviour
     private void Update()
     {
         Vector3 currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, -3.27f, currentPosition.z);
+        transform.position = new Vector3(currentPosition.x, -2.9f, currentPosition.z);
 
         // checks if the player is in farming mode
         if (Input.GetKeyDown(KeyCode.E))
@@ -108,6 +108,10 @@ public class BroccoliGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             StopAllCoroutines();
             ResetPlot();        // Reset plot
+        }
+        else
+        {
+            isFarmingMode = true;
         }
 
         // checks fly health
