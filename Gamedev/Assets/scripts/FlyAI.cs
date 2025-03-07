@@ -10,6 +10,8 @@ public class FlyAI : MonoBehaviour
     public float moveSpeed = 2f;
     public int health = 20;
     public UIController uiController;
+    public Transform spawnPoint;
+    private bool startedDay = false;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -36,16 +38,12 @@ public class FlyAI : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Current phase: " + (uiController.isNightPhase ? "Night" : "Day"));
-
         if (uiController.isNightPhase)
         {
-           Debug.Log("fly night");
             DeactivateFly();
         }
         else
         {
-            Debug.Log("fly day");
             ActivateFly();
             FindTargetCrop();
             MoveTowardsTarget();
@@ -105,6 +103,7 @@ public class FlyAI : MonoBehaviour
             fly.GetComponent<Renderer>().enabled = false;
             fly.GetComponent<Collider>().enabled = false;
         }
+        startedDay = false;
     }
 
     // Show fly
@@ -112,6 +111,12 @@ public class FlyAI : MonoBehaviour
     {
         if (fly != null)
         {
+            if (!startedDay)
+            {
+                fly.transform.position = spawnPoint.position;
+                startedDay = true;  
+            }
+
             fly.GetComponent<Renderer>().enabled = true;
             fly.GetComponent<Collider>().enabled = true;
         }
