@@ -131,6 +131,7 @@ public class UIController : MonoBehaviour
         {
             GameBackground.style.display = DisplayStyle.None;  // Hide Main Menu
             nightUI.style.display = DisplayStyle.Flex;// Start the night
+            isNightPhase = true;
         };
 
         // Hide the settings panel initially
