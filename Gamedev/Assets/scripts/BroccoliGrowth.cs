@@ -43,7 +43,7 @@ public class BroccoliGrowth : MonoBehaviour
         }
         if (playerAnimator == null)
         {
-            playerAnimator = FindObjectOfType<Animator>();
+            playerAnimator = player.transform.Find("character-male-b")?.GetComponent<Animator>();
         }
 
         if (shovel == null)
