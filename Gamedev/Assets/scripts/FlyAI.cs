@@ -9,6 +9,10 @@ public class FlyAI : MonoBehaviour
     public float attackRange = 3f;
     public float moveSpeed = 2f;
     public int health = 20;
+    public UIController uiController;
+    public Transform spawnPoint;
+    private bool startedDay = false;
+    private bool reactivateFly = false;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -17,8 +21,17 @@ public class FlyAI : MonoBehaviour
     };
     private GameObject targetCrop;
 
+    private void Awake()
+    {
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
+    }
+
     void Start()
     {
+        // start with active flies
         if (fly != null)
         {
             fly.SetActive(true); 
@@ -27,36 +40,104 @@ public class FlyAI : MonoBehaviour
 
     void Update()
     {
-        FindTargetCrop();
-        MoveTowardsTarget();
+        // checks if night phase to activate or deactivate flies
+        if (uiController.isNightPhase)
+        {
+            DeactivateFly();
+        }
+        else
+        {
+            ActivateFly();
+            FindTargetCrop();
+            MoveTowardsTarget();
+        }
     }
 
     void FindTargetCrop()
     {
-        int highestValue = 0;
+        int highestGrowthPhase = -1;  
+        int highestValue = -1;        
         GameObject bestCrop = null;
 
+        // loops through all the crops
         foreach (var cropValue in cropValues)
         {
-            // Uses the crop name as the tag
-            GameObject[] crops = GameObject.FindGameObjectsWithTag(cropValue.Key); 
+            GameObject[] crops = GameObject.FindGameObjectsWithTag(cropValue.Key);
+
+            // loops through all the crops in the scene
             foreach (GameObject crop in crops)
             {
-                // Targets crops that are more valuable
-                if (cropValues[crop.tag] > highestValue)
+                Component cropGrowthScript = null;
+                int currentGrowthPhase = 0;
+
+                // gets the growth phase of eat crop plot
+                switch (cropValue.Key)
                 {
-                    highestValue = cropValues[crop.tag];
-                    bestCrop = crop;
+                    case "Carrot":
+                        cropGrowthScript = crop.GetComponent<CarrotGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Broccoli":
+                        cropGrowthScript = crop.GetComponent<BroccoliGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((BroccoliGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Cauliflower":
+                        cropGrowthScript = crop.GetComponent<CauliflowerGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((CauliflowerGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Mushroom":
+                        cropGrowthScript = crop.GetComponent<LettuceGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Corn":
+                        cropGrowthScript = crop.GetComponent<PumpkinGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Sunflower":
+                        cropGrowthScript = crop.GetComponent<WatermelonGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    default:
+                        continue;
                 }
 
-                // TODO: Target crops that have more damage
-                // TODO: Target crops that are closer to being finished
-                // TODO: make a new fly once one is killed
+                if (cropGrowthScript == null) continue;
+
+                int currentValue = cropValues[crop.tag];
+
+                // proritizes crop growth over crop value
+                if (currentGrowthPhase > highestGrowthPhase ||
+                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue))
+                {
+                    highestGrowthPhase = currentGrowthPhase;
+                    highestValue = currentValue;
+                    bestCrop = crop;
+                }
             }
         }
 
-        targetCrop = bestCrop; 
+        targetCrop = bestCrop;  
     }
+
+
 
     void MoveTowardsTarget()
     {
@@ -76,23 +157,35 @@ public class FlyAI : MonoBehaviour
         fly.transform.position = new Vector3(fly.transform.position.x, Mathf.Max(fly.transform.position.y, 0f), fly.transform.position.z);
     }
 
-    // Show fly
-    void ActivateFly()
-    {
-        if (fly != null)
-        {
-            fly.SetActive(true); 
-        }
-    }
-
     // Hide fly
     void DeactivateFly()
     {
         if (fly != null)
         {
-            fly.SetActive(false); 
+            fly.GetComponent<Renderer>().enabled = false;
+            fly.GetComponent<Collider>().enabled = false;
+        }
+        startedDay = false;
+    }
+
+    // Show fly
+    void ActivateFly()
+    {
+        if (fly != null)
+        {
+            if (!startedDay || reactivateFly)
+            {
+                fly.transform.position = spawnPoint.position;
+                startedDay = true;
+                reactivateFly = false;
+                health = 20;
+            }
+
+            fly.GetComponent<Renderer>().enabled = true;
+            fly.GetComponent<Collider>().enabled = true;
         }
     }
+
 
     // Damage fly
     public void TakeDamage(int damage)
@@ -109,6 +202,7 @@ public class FlyAI : MonoBehaviour
     private void Die()
     {
         DeactivateFly();
+        reactivateFly = true;
     }
 
     // Fly moves away from destroyed plant
@@ -128,7 +222,7 @@ public class FlyAI : MonoBehaviour
         awayFromPlant.Normalize();
 
         // Move distance and time
-        float moveAwayDuration = 20f; 
+        float moveAwayDuration = 10f; 
         float timeElapsed = 0f;
 
         while (timeElapsed < moveAwayDuration)
