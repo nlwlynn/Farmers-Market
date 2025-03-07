@@ -5,6 +5,12 @@ using UnityEngine;
 public class Cauliflower : MonoBehaviour
 {
     public GameObject cauliflower;
+    private NPCInteraction npcInteraction;
+
+    void Start()
+    {
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+    }
 
     void Update()
     {
@@ -23,6 +29,12 @@ public class Cauliflower : MonoBehaviour
                     // gives the vegtable to npc
                     cauliflower.SetActive(false);
                     FarmManager.IsHolding = false;
+
+                    // Updates NPC
+                    if (npcInteraction != null)
+                    {
+                        npcInteraction.Interact("Cauliflower");
+                    }
                 }
             }
         }

@@ -72,7 +72,7 @@ public class UIController : MonoBehaviour
     private bool isTimerRunning = true;
 
     //for night phase
-    private bool isNightPhase = false;
+    public bool isNightPhase = false;
 
     //brightness slider
     public UnityEngine.UIElements.Slider brightnessSlider;
