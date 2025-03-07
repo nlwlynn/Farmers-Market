@@ -31,6 +31,7 @@ public class FlyAI : MonoBehaviour
 
     void Start()
     {
+        // start with active flies
         if (fly != null)
         {
             fly.SetActive(true); 
@@ -39,6 +40,7 @@ public class FlyAI : MonoBehaviour
 
     void Update()
     {
+        // checks if night phase to activate or deactivate flies
         if (uiController.isNightPhase)
         {
             DeactivateFly();
@@ -57,15 +59,18 @@ public class FlyAI : MonoBehaviour
         int highestValue = -1;        
         GameObject bestCrop = null;
 
+        // loops through all the crops
         foreach (var cropValue in cropValues)
         {
             GameObject[] crops = GameObject.FindGameObjectsWithTag(cropValue.Key);
 
+            // loops through all the crops in the scene
             foreach (GameObject crop in crops)
             {
                 Component cropGrowthScript = null;
                 int currentGrowthPhase = 0;
 
+                // gets the growth phase of eat crop plot
                 switch (cropValue.Key)
                 {
                     case "Carrot":
@@ -118,6 +123,7 @@ public class FlyAI : MonoBehaviour
 
                 int currentValue = cropValues[crop.tag];
 
+                // proritizes crop growth over crop value
                 if (currentGrowthPhase > highestGrowthPhase ||
                     (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue))
                 {
@@ -128,7 +134,7 @@ public class FlyAI : MonoBehaviour
             }
         }
 
-        targetCrop = bestCrop;  // Assign the best crop found
+        targetCrop = bestCrop;  
     }
 
 
