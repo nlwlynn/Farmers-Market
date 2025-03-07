@@ -25,8 +25,9 @@ public class WatermelonGrowth : MonoBehaviour
     public Watermelon watermelonScript;
 
     // Fly interactions
-    public int plantHealth = 10;
+    public int plantHealth = 0;
     private bool isBeingDamaged = false;
+    private bool plantActive = false;
 
     // Player's shovel and plant animation trigger
     [SerializeField] private GameObject shovel;
@@ -110,7 +111,7 @@ public class WatermelonGrowth : MonoBehaviour
         }
 
         // checks fly health
-        if (plantHealth <= 0 && growing)
+        if (plantHealth <= 0 && plantActive)
         {
             growing = false;
             growingPhase = 0;
@@ -164,6 +165,7 @@ public class WatermelonGrowth : MonoBehaviour
         {
             // Reset health
             plantHealth = 10;
+            plantActive = true;
 
             // Planting shovel animation
             if (playerAnimator != null)
@@ -303,6 +305,7 @@ public class WatermelonGrowth : MonoBehaviour
         progressCanvas.gameObject.SetActive(false);
         progressCircle.fillAmount = 0f;
         isBeingDamaged = false;
+        plantActive = false;
     }
 
     // Fly interactions
@@ -329,7 +332,7 @@ public class WatermelonGrowth : MonoBehaviour
             plantHealth -= 5;
 
             // Reset plot if health is 0
-            if (plantHealth <= 0)
+            if (plantHealth <= 0 && plantActive)
             {
                 growing = false;
                 growingPhase = 0;   // Reset phase

@@ -24,8 +24,9 @@ public class PumpkinGrowth : MonoBehaviour
     private bool growing = false;
 
     // Fly interactions
-    public int plantHealth = 10;
+    public int plantHealth = 0;
     private bool isBeingDamaged = false;
+    private bool plantActive = false;
 
     // interactions
     private GameObject player;
@@ -123,7 +124,7 @@ public class PumpkinGrowth : MonoBehaviour
             FarmManager.IsAnimationPlaying = false;
         }
         // checks fly health
-        if (plantHealth <= 0 && growing)
+        if (plantHealth <= 0 && plantActive)
         {
             growing = false;
             growingPhase = 0;
@@ -165,6 +166,7 @@ public class PumpkinGrowth : MonoBehaviour
         {
             // Reset health
             plantHealth = 10;
+            plantActive = true;
 
             // Planting shovel animation
             if (playerAnimator != null)
@@ -305,6 +307,7 @@ public class PumpkinGrowth : MonoBehaviour
         progressCanvas.gameObject.SetActive(false);
         progressCircle.fillAmount = 0f;
         isBeingDamaged = false;
+        plantActive = false;
     }
 
     // Fly interactions
@@ -331,7 +334,7 @@ public class PumpkinGrowth : MonoBehaviour
             plantHealth -= 5;
 
             // Reset plot if health is 0
-            if (plantHealth <= 0)
+            if (plantHealth <= 0 && plantActive)
             {
                 growing = false;
                 growingPhase = 0;   // Reset phase

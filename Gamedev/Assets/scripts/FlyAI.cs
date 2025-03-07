@@ -12,6 +12,7 @@ public class FlyAI : MonoBehaviour
     public UIController uiController;
     public Transform spawnPoint;
     private bool startedDay = false;
+    private bool reactivateFly = false;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -111,10 +112,12 @@ public class FlyAI : MonoBehaviour
     {
         if (fly != null)
         {
-            if (!startedDay)
+            if (!startedDay || reactivateFly)
             {
                 fly.transform.position = spawnPoint.position;
-                startedDay = true;  
+                startedDay = true;
+                reactivateFly = false;
+                health = 20;
             }
 
             fly.GetComponent<Renderer>().enabled = true;
@@ -138,6 +141,7 @@ public class FlyAI : MonoBehaviour
     private void Die()
     {
         DeactivateFly();
+        reactivateFly = true;
     }
 
     // Fly moves away from destroyed plant
@@ -157,7 +161,7 @@ public class FlyAI : MonoBehaviour
         awayFromPlant.Normalize();
 
         // Move distance and time
-        float moveAwayDuration = 20f; 
+        float moveAwayDuration = 10f; 
         float timeElapsed = 0f;
 
         while (timeElapsed < moveAwayDuration)
