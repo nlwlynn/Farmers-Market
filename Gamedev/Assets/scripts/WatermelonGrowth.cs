@@ -118,6 +118,10 @@ public class WatermelonGrowth : MonoBehaviour
             NotifyFly();
             ResetPlot();
         }
+        else
+        {
+            isFarmingMode = true;
+        }
 
         if (FarmManager.IsHolding)
         {

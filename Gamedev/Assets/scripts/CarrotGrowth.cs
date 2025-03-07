@@ -108,7 +108,8 @@ public class CarrotGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             StopAllCoroutines();
             ResetPlot();        // Reset plot
-        } else
+        } 
+        else
         {
             isFarmingMode = true;
         }

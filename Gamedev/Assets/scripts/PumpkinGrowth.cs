@@ -109,6 +109,11 @@ public class PumpkinGrowth : MonoBehaviour
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
+        else
+        {
+            isFarmingMode = true;
+        }
+
         if (FarmManager.IsHolding)
         {
             FarmManager.IsAnimationPlaying = true;

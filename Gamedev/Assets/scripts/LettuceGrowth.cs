@@ -108,6 +108,10 @@ public class LettuceGrowth : MonoBehaviour
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
+        else
+        {
+            isFarmingMode = true;
+        }
 
         if (FarmManager.IsHolding)
         {

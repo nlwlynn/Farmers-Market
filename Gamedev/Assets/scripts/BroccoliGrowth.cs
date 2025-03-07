@@ -109,6 +109,10 @@ public class BroccoliGrowth : MonoBehaviour
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
+        else
+        {
+            isFarmingMode = true;
+        }
 
         // checks fly health
         if (plantHealth <= 0 && growing)
