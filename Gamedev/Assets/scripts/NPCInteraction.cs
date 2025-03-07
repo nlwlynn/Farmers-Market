@@ -48,7 +48,6 @@ public class NPCInteraction : MonoBehaviour
         // Check for night phase
         if (uiController.isNightPhase)
         {
-            Debug.Log("is night NPC");
             // Reset NPC state during night phase
             if (customerRoutineCoroutine != null)
             {

@@ -184,7 +184,7 @@ public class WatermelonGrowth : MonoBehaviour
             if (shovel != null)
                 shovel.SetActive(false);
 
-            // Reset the attack animation and unlock movement
+            // Reset the attack animation
             if (playerAnimator != null)
             {
                 playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger

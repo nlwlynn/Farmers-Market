@@ -9,6 +9,7 @@ public class FlyAI : MonoBehaviour
     public float attackRange = 3f;
     public float moveSpeed = 2f;
     public int health = 20;
+    public UIController uiController;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -16,6 +17,14 @@ public class FlyAI : MonoBehaviour
         {"Mushroom", 4}, {"Corn", 5}, {"Sunflower", 6}
     };
     private GameObject targetCrop;
+
+    private void Awake()
+    {
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
+    }
 
     void Start()
     {
@@ -27,8 +36,20 @@ public class FlyAI : MonoBehaviour
 
     void Update()
     {
-        FindTargetCrop();
-        MoveTowardsTarget();
+        Debug.Log("Current phase: " + (uiController.isNightPhase ? "Night" : "Day"));
+
+        if (uiController.isNightPhase)
+        {
+           Debug.Log("fly night");
+            DeactivateFly();
+        }
+        else
+        {
+            Debug.Log("fly day");
+            ActivateFly();
+            FindTargetCrop();
+            MoveTowardsTarget();
+        }
     }
 
     void FindTargetCrop()
@@ -76,23 +97,26 @@ public class FlyAI : MonoBehaviour
         fly.transform.position = new Vector3(fly.transform.position.x, Mathf.Max(fly.transform.position.y, 0f), fly.transform.position.z);
     }
 
-    // Show fly
-    void ActivateFly()
-    {
-        if (fly != null)
-        {
-            fly.SetActive(true); 
-        }
-    }
-
     // Hide fly
     void DeactivateFly()
     {
         if (fly != null)
         {
-            fly.SetActive(false); 
+            fly.GetComponent<Renderer>().enabled = false;
+            fly.GetComponent<Collider>().enabled = false;
         }
     }
+
+    // Show fly
+    void ActivateFly()
+    {
+        if (fly != null)
+        {
+            fly.GetComponent<Renderer>().enabled = true;
+            fly.GetComponent<Collider>().enabled = true;
+        }
+    }
+
 
     // Damage fly
     public void TakeDamage(int damage)
