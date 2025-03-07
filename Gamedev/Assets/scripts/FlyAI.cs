@@ -53,30 +53,85 @@ public class FlyAI : MonoBehaviour
 
     void FindTargetCrop()
     {
-        int highestValue = 0;
+        int highestGrowthPhase = -1;  
+        int highestValue = -1;        
         GameObject bestCrop = null;
 
         foreach (var cropValue in cropValues)
         {
-            // Uses the crop name as the tag
-            GameObject[] crops = GameObject.FindGameObjectsWithTag(cropValue.Key); 
+            GameObject[] crops = GameObject.FindGameObjectsWithTag(cropValue.Key);
+
             foreach (GameObject crop in crops)
             {
-                // Targets crops that are more valuable
-                if (cropValues[crop.tag] > highestValue)
+                Component cropGrowthScript = null;
+                int currentGrowthPhase = 0;
+
+                switch (cropValue.Key)
                 {
-                    highestValue = cropValues[crop.tag];
-                    bestCrop = crop;
+                    case "Carrot":
+                        cropGrowthScript = crop.GetComponent<CarrotGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Broccoli":
+                        cropGrowthScript = crop.GetComponent<BroccoliGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((BroccoliGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Cauliflower":
+                        cropGrowthScript = crop.GetComponent<CauliflowerGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((CauliflowerGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Mushroom":
+                        cropGrowthScript = crop.GetComponent<LettuceGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Corn":
+                        cropGrowthScript = crop.GetComponent<PumpkinGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Sunflower":
+                        cropGrowthScript = crop.GetComponent<WatermelonGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    default:
+                        continue;
                 }
 
-                // TODO: Target crops that have more damage
-                // TODO: Target crops that are closer to being finished
-                // TODO: make a new fly once one is killed
+                if (cropGrowthScript == null) continue;
+
+                int currentValue = cropValues[crop.tag];
+
+                if (currentGrowthPhase > highestGrowthPhase ||
+                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue))
+                {
+                    highestGrowthPhase = currentGrowthPhase;
+                    highestValue = currentValue;
+                    bestCrop = crop;
+                }
             }
         }
 
-        targetCrop = bestCrop; 
+        targetCrop = bestCrop;  // Assign the best crop found
     }
+
+
 
     void MoveTowardsTarget()
     {

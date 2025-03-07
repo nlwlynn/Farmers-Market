@@ -20,7 +20,7 @@ public class BroccoliGrowth : MonoBehaviour
     [SerializeField] private GameObject broccoli;
     public Animator playerAnimator;
 
-    private int growingPhase = 0;
+    public int growingPhase = 0;
     private bool growing = false;
 
     public Broccoli broccoliScript;

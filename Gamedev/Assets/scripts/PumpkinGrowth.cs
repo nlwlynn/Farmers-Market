@@ -20,7 +20,7 @@ public class PumpkinGrowth : MonoBehaviour
     [SerializeField] private GameObject pumpkin;
     public Animator playerAnimator;
 
-    private int growingPhase = 0;
+    public int growingPhase = 0;
     private bool growing = false;
 
     // Fly interactions

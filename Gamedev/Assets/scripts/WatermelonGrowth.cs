@@ -13,7 +13,7 @@ public class WatermelonGrowth : MonoBehaviour
     public Canvas progressCanvas;
     public Image progressCircle;
 
-    private int growingPhase = 0;
+    public int growingPhase = 0;
     private bool growing = false;
 
     // interactions
