@@ -134,10 +134,6 @@ public class CarrotGrowth : MonoBehaviour
         {
             FarmManager.IsAnimationPlaying = true;
         }
-        else
-        {
-            FarmManager.IsAnimationPlaying = false;
-        }
     }
 
     // Player interacts with plot
@@ -184,7 +180,7 @@ public class CarrotGrowth : MonoBehaviour
                 shovel.SetActive(true);
 
             // Timer for 3 seconds for planting animation
-            yield return StartCoroutine(FillBar(0.25f, 3f));
+            yield return StartCoroutine(FillBar(0.25f, 1.5f));
 
             plantStem.SetActive(true);  // Stem asset appears
             growingPhase++;  // Move to next phase
@@ -196,7 +192,7 @@ public class CarrotGrowth : MonoBehaviour
             // Reset the attack animation and unlock movement
             if (playerAnimator != null)
             {
-                playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
+                playerAnimator.SetBool("isPlanting", false);  
             }
             FarmManager.IsAnimationPlaying = false;
             rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -215,7 +211,7 @@ public class CarrotGrowth : MonoBehaviour
                 watering_can.SetActive(true);
 
             // Timer for 5 seconds
-            yield return StartCoroutine(FillBar(0.5f, 5f));
+            yield return StartCoroutine(FillBar(0.5f, 2f));
             plantStem.SetActive(false);
             halfPlant.SetActive(true);    // Half plant asset appears
 
@@ -249,7 +245,7 @@ public class CarrotGrowth : MonoBehaviour
                 sickle.SetActive(true);
 
             // Timer for 3 seconds
-            yield return StartCoroutine(FillBar(0f, 3f));
+            yield return StartCoroutine(FillBar(0f, 1.5f));
 
             if (sickle != null)
                 sickle.SetActive(false);
@@ -285,7 +281,7 @@ public class CarrotGrowth : MonoBehaviour
     {
         growing = true;
         // Timer for 4 seconds
-        yield return StartCoroutine(FillBar(1f, 4f));
+        yield return StartCoroutine(FillBar(1f, 3f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

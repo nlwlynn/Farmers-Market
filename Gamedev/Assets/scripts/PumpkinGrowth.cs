@@ -126,10 +126,7 @@ public class PumpkinGrowth : MonoBehaviour
         {
             FarmManager.IsAnimationPlaying = true;
         }
-        else
-        {
-            FarmManager.IsAnimationPlaying = false;
-        }
+ 
         // checks fly health
         if (plantHealth <= 0 && plantActive)
         {
@@ -186,7 +183,7 @@ public class PumpkinGrowth : MonoBehaviour
                 shovel.SetActive(true);
 
             // Timer for 3 seconds for planting animation
-            yield return StartCoroutine(FillBar(0.25f, 3f));
+            yield return StartCoroutine(FillBar(0.25f, 1.5f));
 
             plantStem.SetActive(true);  // Stem asset appears
             growingPhase++;  // Move to next phase
@@ -217,7 +214,7 @@ public class PumpkinGrowth : MonoBehaviour
                 watering_can.SetActive(true);
 
             // Timer for 5 seconds
-            yield return StartCoroutine(FillBar(0.5f, 5f));
+            yield return StartCoroutine(FillBar(0.5f, 2f));
             plantStem.SetActive(false);
             halfPlant.SetActive(true);    // Half plant asset appears
 
@@ -251,7 +248,7 @@ public class PumpkinGrowth : MonoBehaviour
                 sickle.SetActive(true);
 
             // Timer for 3 seconds
-            yield return StartCoroutine(FillBar(0f, 3f));
+            yield return StartCoroutine(FillBar(0f, 1.5f));
 
             if (sickle != null)
                 sickle.SetActive(false);
@@ -287,7 +284,7 @@ public class PumpkinGrowth : MonoBehaviour
     {
         growing = true;
         // Timer for 6 seconds
-        yield return StartCoroutine(FillBar(1f, 6f)); 
+        yield return StartCoroutine(FillBar(1f, 8f)); 
         halfPlant.SetActive(false); 
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

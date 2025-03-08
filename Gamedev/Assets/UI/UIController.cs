@@ -504,27 +504,27 @@ public class UIController : MonoBehaviour
             Time.timeScale = 0;
             Debug.Log("Game Paused");
             PlayPause.text = "Play";
-            SetButtonInteractivity(false);
+            //SetButtonInteractivity(false);
         }
         else
         {
             Time.timeScale = 1;
             Debug.Log("Game Resumed");
             PlayPause.text = "Pause";
-            SetButtonInteractivity(true);
+            //SetButtonInteractivity(true);
         }
 
     }
 
-    private void SetButtonInteractivity(bool isEnabled)
-    {
-        Harvest.SetEnabled(isEnabled);
-        Spray.SetEnabled(isEnabled);
-        Move.SetEnabled(isEnabled);
-        Shop.SetEnabled(isEnabled);
-        Settings.SetEnabled(isEnabled);
-        Settings.SetEnabled(isEnabled);
-    }
+    //private void SetButtonInteractivity(bool isEnabled)
+    //{
+       // Harvest.SetEnabled(isEnabled);
+        //Spray.SetEnabled(isEnabled);
+        //Move.SetEnabled(isEnabled);
+        //Shop.SetEnabled(isEnabled);
+        //Settings.SetEnabled(isEnabled);
+        //Settings.SetEnabled(isEnabled);
+    //}
 
     private void OnSettingsButtonClicked()
     {
