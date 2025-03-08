@@ -101,7 +101,7 @@ public class WatermelonGrowth : MonoBehaviour
         {
             isFarmingMode = false;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !uiController.IsNightPhase)
         {
             isFarmingMode = true;
         }
@@ -123,10 +123,6 @@ public class WatermelonGrowth : MonoBehaviour
             StopAllCoroutines();
             NotifyFly();
             ResetPlot();
-        }
-        else
-        {
-            isFarmingMode = true;
         }
 
         if (FarmManager.IsHolding)

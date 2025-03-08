@@ -101,7 +101,7 @@ public class CarrotGrowth : MonoBehaviour
         {
             isFarmingMode = false;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !uiController.IsNightPhase)
         {
             isFarmingMode = true;
         }
@@ -115,10 +115,6 @@ public class CarrotGrowth : MonoBehaviour
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         } 
-        else
-        {
-            isFarmingMode = true;
-        }
 
         // checks fly health
         if (plantHealth <= 0 && plantActive)

@@ -101,7 +101,7 @@ public class LettuceGrowth : MonoBehaviour
         {
             isFarmingMode = false;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !uiController.IsNightPhase)
         {
             isFarmingMode = true;
         }
@@ -113,10 +113,6 @@ public class LettuceGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             StopAllCoroutines();
             ResetPlot();        // Reset plot
-        }
-        else
-        {
-            isFarmingMode = true;
         }
 
         if (FarmManager.IsHolding)
