@@ -38,6 +38,7 @@ public class Pumpkin : MonoBehaviour
                             // hide the veggie
                             pumpkin.SetActive(false);
                             FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }

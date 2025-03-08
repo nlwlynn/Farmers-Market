@@ -134,10 +134,6 @@ public class CarrotGrowth : MonoBehaviour
         {
             FarmManager.IsAnimationPlaying = true;
         }
-        else
-        {
-            FarmManager.IsAnimationPlaying = false;
-        }
     }
 
     // Player interacts with plot

@@ -132,10 +132,6 @@ public class CauliflowerGrowth : MonoBehaviour
         {
             FarmManager.IsAnimationPlaying = true;
         }
-        else
-        {
-            FarmManager.IsAnimationPlaying = false;
-        }
 
     }
 

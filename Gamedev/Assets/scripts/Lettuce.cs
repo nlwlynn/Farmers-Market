@@ -38,6 +38,7 @@ public class Lettuce : MonoBehaviour
                             // hide the veggie
                             lettuce.SetActive(false);
                             FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }

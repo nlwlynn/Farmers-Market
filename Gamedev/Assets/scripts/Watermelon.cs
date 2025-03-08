@@ -38,6 +38,7 @@ public class Watermelon : MonoBehaviour
                             // hide the veggie
                             watermelon.SetActive(false);
                             FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }

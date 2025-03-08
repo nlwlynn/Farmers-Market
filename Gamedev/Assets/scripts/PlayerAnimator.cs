@@ -33,7 +33,7 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool(IS_WALKING, isWalking);
 
         // switches spray bottle mode when E is pressed
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !(FarmManager.IsHolding || FarmManager.IsAnimationPlaying))
         {
             isHoldingSpray = true;
 

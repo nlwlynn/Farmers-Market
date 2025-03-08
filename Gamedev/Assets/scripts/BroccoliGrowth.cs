@@ -128,10 +128,7 @@ public class BroccoliGrowth : MonoBehaviour
         {
             FarmManager.IsAnimationPlaying = true;
         }
-        else
-        {
-            FarmManager.IsAnimationPlaying = false;
-        }
+
         // checks fly health
         if (plantHealth <= 0 && plantActive)
         {

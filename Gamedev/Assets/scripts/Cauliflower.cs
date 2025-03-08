@@ -38,6 +38,7 @@ public class Cauliflower : MonoBehaviour
                             // hide the veggie
                             cauliflower.SetActive(false);
                             FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }

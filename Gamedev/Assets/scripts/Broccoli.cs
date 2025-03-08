@@ -35,7 +35,8 @@ public class Broccoli : MonoBehaviour
 
                             // hide the veggie
                             broccoli.SetActive(false);
-                            FarmManager.IsHolding = false;  
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }

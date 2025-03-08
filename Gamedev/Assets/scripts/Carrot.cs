@@ -38,6 +38,7 @@ public class Carrot : MonoBehaviour
                             // hide the veggie
                             carrot.SetActive(false);
                             FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }
