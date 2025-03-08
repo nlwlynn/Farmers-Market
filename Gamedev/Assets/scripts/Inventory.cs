@@ -30,9 +30,6 @@ public class Inventory : MonoBehaviour
         UpdateStockUI(); // Ensure UI is updated correctly
     }
 
-
-
-
     // This function is called when an item is purchased
     public void AddItemToStock(int itemIndex)
     {
@@ -72,13 +69,11 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
-
     public void Exit()
     {
         inventoryPanel.SetActive(false);
-        Debug.Log("Inventory closed!");
     }
+
 }
 
 

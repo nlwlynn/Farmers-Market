@@ -1718,6 +1718,98 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a665068c2ff6e104eaff00ddba35d9b1, type: 3}
   m_PrefabInstance: {fileID: 302212558}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &339589620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339589623}
+  - component: {fileID: 339589622}
+  - component: {fileID: 339589621}
+  m_Layer: 0
+  m_Name: Build Camera 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!81 &339589621
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339589620}
+  m_Enabled: 1
+--- !u!20 &339589622
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339589620}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &339589623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339589620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 143.26, y: 33.28, z: 43.29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &343966121
 GameObject:
   m_ObjectHideFlags: 0
@@ -6843,6 +6935,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 440962553931611138, guid: 38629499230ef8048a85f0492fc62fd1, type: 3}
   m_PrefabInstance: {fileID: 104468492}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1696857877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6417754222387094151, guid: 38629499230ef8048a85f0492fc62fd1, type: 3}
+  m_PrefabInstance: {fileID: 104468492}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696857876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32edb553557292149af6b16b468d42a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1716148886 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3127884064112825281, guid: 7212a757ff946c2468d2ead865a2885b, type: 3}
@@ -8100,9 +8203,25 @@ PrefabInstance:
       value: BuildingSystem
       objectReference: {fileID: 0}
     - target: {fileID: 1690382875883513844, guid: dfb89b65d9e9e5642a614eb9a059a75b, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1583109692}
+    - target: {fileID: 1690382875883513844, guid: dfb89b65d9e9e5642a614eb9a059a75b, type: 3}
+      propertyPath: buildCamera
+      value: 
+      objectReference: {fileID: 339589622}
+    - target: {fileID: 1690382875883513844, guid: dfb89b65d9e9e5642a614eb9a059a75b, type: 3}
       propertyPath: sceneCamera
       value: 
       objectReference: {fileID: 1319162384}
+    - target: {fileID: 1690382875883513844, guid: dfb89b65d9e9e5642a614eb9a059a75b, type: 3}
+      propertyPath: shopManager
+      value: 
+      objectReference: {fileID: 1696857877}
+    - target: {fileID: 1690382875883513844, guid: dfb89b65d9e9e5642a614eb9a059a75b, type: 3}
+      propertyPath: placementSystem
+      value: 
+      objectReference: {fileID: 1868922323030848408}
     - target: {fileID: 6539488917295747806, guid: dfb89b65d9e9e5642a614eb9a059a75b, type: 3}
       propertyPath: inventory
       value: 
@@ -8258,3 +8377,4 @@ SceneRoots:
   - {fileID: 557903853}
   - {fileID: 1528291673}
   - {fileID: 670751163}
+  - {fileID: 339589623}

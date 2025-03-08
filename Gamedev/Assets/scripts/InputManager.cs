@@ -8,6 +8,8 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField]
     private Camera sceneCamera;
+    [SerializeField]
+    private Camera buildCamera;
 
     private Vector3 lastPosition;
 
@@ -17,14 +19,33 @@ public class InputManager : MonoBehaviour
     public event Action OnClicked, OnExit;
 
     private EventSystem eventSystem;
+    public PlacementSystem placementSystem;
+    public ShopManager shopManager;
+
 
     void Awake()
     {
         eventSystem = EventSystem.current;
+        if (buildCamera != null)
+            buildCamera.gameObject.SetActive(false);
+
+        if (shopManager == null)
+        {
+            Debug.LogError("shopManager reference is missing in InputManager!");
+        }
     }
 
     private void Update()
     {
+        if (placementSystem.isBuilding)
+        {
+            SwitchCameraOn();
+        }
+        if (!placementSystem.isBuilding && shopManager.closeBuild)
+        {
+            Debug.Log("Switch bacl to cxam");
+            SwitchCameraOff();
+        }
         if (Input.GetMouseButtonDown(0))
             OnClicked?.Invoke();
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -62,8 +83,8 @@ public class InputManager : MonoBehaviour
     public Vector3 GetSelectedMapPosition()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = sceneCamera.nearClipPlane;
-        Ray ray = sceneCamera.ScreenPointToRay(mousePos);
+        mousePos.z = buildCamera.nearClipPlane;
+        Ray ray = buildCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100, placementLayermask))
         {
@@ -71,4 +92,23 @@ public class InputManager : MonoBehaviour
         }
         return lastPosition;
     }
+
+    private void SwitchCameraOn()
+    {
+        if (sceneCamera != null && buildCamera != null)
+        {
+            sceneCamera.gameObject.SetActive(false);
+            buildCamera.gameObject.SetActive(true);
+        }
+    }
+
+    private void SwitchCameraOff()
+    {
+        if (sceneCamera != null && buildCamera != null)
+        {
+            sceneCamera.gameObject.SetActive(true);
+            buildCamera.gameObject.SetActive(false);
+        }
+    }
+
 }
