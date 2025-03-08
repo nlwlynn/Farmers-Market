@@ -20,6 +20,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private GameObject inventoryPanel;
     public Inventory inventory; // Reference to the Inventory Manager
+    public bool isBuilding = false;
 
     private void Start()
     {
@@ -29,6 +30,8 @@ public class PlacementSystem : MonoBehaviour
     public void StartPlacement(int ID)
     {
         Debug.Log($"StartPlacement called with ID: {ID}");
+
+        isBuilding = true;
 
         // Ensure we find the correct stock index in inventory
         int itemIndex = database.objectsData.FindIndex(obj => obj.ID == ID);
@@ -150,6 +153,7 @@ public class PlacementSystem : MonoBehaviour
             // Re-enable UI raycasts after placement
             SetUIRaycasts(true);
             StopPlacement();
+            isBuilding = false;
         }
         else
         {

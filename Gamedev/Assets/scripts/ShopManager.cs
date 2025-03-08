@@ -16,6 +16,7 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     public UIController uiController; // Reference to UIController
     public Inventory inventory; // Reference to the Inventory Manager
+    public bool closeBuild = false;
 
     void Start()
     {
@@ -31,7 +32,10 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (shopPanel.activeSelf && closeBuild)
+        {
+            closeBuild = false;
+        }
     }
 
     // Update is called once per frame
@@ -96,6 +100,7 @@ public class ShopManager : MonoBehaviour
     public void Exit()
     {
         shopPanel.SetActive(false);
+        closeBuild = true;
         Debug.Log("Shop closed!");
     }
 }
