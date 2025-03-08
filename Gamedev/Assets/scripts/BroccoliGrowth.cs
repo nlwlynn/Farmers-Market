@@ -36,7 +36,6 @@ public class BroccoliGrowth : MonoBehaviour
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
     public UIController uiController;
-    private bool isSpray = false;
 
     private void Awake()
     {
@@ -102,12 +101,10 @@ public class BroccoliGrowth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             isFarmingMode = false;
-            isSpray = true;
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !uiController.IsNightPhase)
         {
             isFarmingMode = true;
-            isSpray = false;
         }
 
         // checks the phase
@@ -118,10 +115,6 @@ public class BroccoliGrowth : MonoBehaviour
             growingPhase = 0;   // Reset phase
             StopAllCoroutines();
             ResetPlot();        // Reset plot
-        }
-        else if (!uiController.IsNightPhase && !isSpray)
-        {
-            isFarmingMode = true;
         }
 
         if (FarmManager.IsHolding)
