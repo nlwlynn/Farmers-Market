@@ -44,6 +44,7 @@ public class FlyAI : MonoBehaviour
         if (uiController.isNightPhase)
         {
             DeactivateFly();
+            startedDay = false;
         }
         else
         {
@@ -165,7 +166,6 @@ public class FlyAI : MonoBehaviour
             fly.GetComponent<Renderer>().enabled = false;
             fly.GetComponent<Collider>().enabled = false;
         }
-        startedDay = false;
     }
 
     // Show fly
@@ -173,12 +173,16 @@ public class FlyAI : MonoBehaviour
     {
         if (fly != null)
         {
-            if (!startedDay || reactivateFly)
+            if (!startedDay)
             {
                 fly.transform.position = spawnPoint.position;
                 startedDay = true;
-                reactivateFly = false;
                 health = 20;
+            } else if (startedDay && reactivateFly)
+            {
+                fly.transform.position = spawnPoint.position;
+                health = 20;
+                reactivateFly = false;
             }
 
             fly.GetComponent<Renderer>().enabled = true;

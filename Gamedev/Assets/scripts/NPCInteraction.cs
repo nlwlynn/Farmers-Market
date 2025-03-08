@@ -156,7 +156,6 @@ public class NPCInteraction : MonoBehaviour
 
     public void Interact(string item)
     {
-        Debug.Log("Player gave: " + item);
         if (requestedItems.Contains(item))
         {
             requestedItems.Remove(item);

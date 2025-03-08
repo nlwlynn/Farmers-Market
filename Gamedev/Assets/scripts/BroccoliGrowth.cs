@@ -188,7 +188,7 @@ public class BroccoliGrowth : MonoBehaviour
                 shovel.SetActive(true);
 
             // Timer for 3 seconds for planting animation
-            yield return StartCoroutine(FillBar(0.25f, 3f));
+            yield return StartCoroutine(FillBar(0.25f, 1.5f));
 
             plantStem.SetActive(true);  // Stem asset appears
             growingPhase++;  // Move to next phase
@@ -216,7 +216,7 @@ public class BroccoliGrowth : MonoBehaviour
                 watering_can.SetActive(true);
 
             // Timer for 5 seconds
-            yield return StartCoroutine(FillBar(0.5f, 5f));
+            yield return StartCoroutine(FillBar(0.5f, 2f));
             plantStem.SetActive(false);
             halfPlant.SetActive(true);    // Half plant asset appears
 
@@ -248,7 +248,7 @@ public class BroccoliGrowth : MonoBehaviour
                 sickle.SetActive(true);
 
             // Timer for 3 seconds
-            yield return StartCoroutine(FillBar(0f, 3f));
+            yield return StartCoroutine(FillBar(0f, 1.5f));
 
             if (sickle != null)
                 sickle.SetActive(false);
@@ -284,7 +284,7 @@ public class BroccoliGrowth : MonoBehaviour
     {
         growing = true;
         // Timer for 8 seconds
-        yield return StartCoroutine(FillBar(1f, 8f));
+        yield return StartCoroutine(FillBar(1f, 4f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

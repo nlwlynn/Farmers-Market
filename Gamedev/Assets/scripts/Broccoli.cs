@@ -21,17 +21,22 @@ public class Broccoli : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                // checks if the NPC is tagged
-                if (hit.collider != null && hit.collider.CompareTag("NPC"))
+                if (hit.collider != null)
                 {
-                    // gives the vegtable to npc
-                    broccoli.SetActive(false);
-                    FarmManager.IsHolding = false;
-
-                    // Updates NPC
-                    if (npcInteraction != null)
+                    // checks if the NPC is tagged
+                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2")) 
                     {
-                        npcInteraction.Interact("Broccoli");
+                        NPCInteraction npcInteraction = hit.collider.GetComponent<NPCInteraction>();
+
+                        if (npcInteraction != null)
+                        {
+                            // give the veggie to the NPC
+                            npcInteraction.Interact("Broccoli");
+
+                            // hide the veggie
+                            broccoli.SetActive(false);
+                            FarmManager.IsHolding = false;  
+                        }
                     }
                 }
             }
