@@ -33,6 +33,7 @@ public class CauliflowerGrowth : MonoBehaviour
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
     public UIController uiController;
+    public Rigidbody rb;
 
     public Cauliflower cauliflowerScript;
 
@@ -46,7 +47,10 @@ public class CauliflowerGrowth : MonoBehaviour
         {
             playerAnimator = player.transform.Find("character-male-b")?.GetComponent<Animator>();
         }
-
+        if (rb == null)
+        {
+            rb = player.GetComponent<Rigidbody>();
+        }
         if (shovel == null)
         {
             shovel = GameObject.Find("player/character-male-b/root/torso/arm-left/shovel");
@@ -173,6 +177,7 @@ public class CauliflowerGrowth : MonoBehaviour
                 playerAnimator.SetBool("isPlanting", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (shovel != null)
                 shovel.SetActive(true);
@@ -194,6 +199,7 @@ public class CauliflowerGrowth : MonoBehaviour
             }
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         }
         else if (growingPhase == 1)  // Watering Phase
@@ -203,6 +209,7 @@ public class CauliflowerGrowth : MonoBehaviour
                 playerAnimator.SetBool("isWatering", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (watering_can != null)
                 watering_can.SetActive(true);
@@ -222,6 +229,7 @@ public class CauliflowerGrowth : MonoBehaviour
             }
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             StartCoroutine(GrowthPhase());  // Growing starts without user interaction
             // Wait for growth phase
@@ -235,6 +243,7 @@ public class CauliflowerGrowth : MonoBehaviour
                 playerAnimator.SetBool("isHarvesting", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (sickle != null)
                 sickle.SetActive(true);
@@ -250,6 +259,7 @@ public class CauliflowerGrowth : MonoBehaviour
                 playerAnimator.SetBool("isHarvesting", false);
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             fullPlant.SetActive(false);
             progressCanvas.gameObject.SetActive(false); // Hide progress circle

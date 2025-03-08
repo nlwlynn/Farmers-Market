@@ -19,6 +19,7 @@ public class BroccoliGrowth : MonoBehaviour
     [SerializeField] private GameObject sickle;
     [SerializeField] private GameObject broccoli;
     public Animator playerAnimator;
+    public Rigidbody rb;
 
     public int growingPhase = 0;
     private bool growing = false;
@@ -35,6 +36,7 @@ public class BroccoliGrowth : MonoBehaviour
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
     public UIController uiController;
+    private bool isSpray = false;
 
     private void Awake()
     {
@@ -45,6 +47,11 @@ public class BroccoliGrowth : MonoBehaviour
         if (playerAnimator == null)
         {
             playerAnimator = player.transform.Find("character-male-b")?.GetComponent<Animator>();
+        }
+
+        if(rb == null)
+        {
+            rb = player.GetComponent<Rigidbody>();
         }
 
         if (shovel == null)
@@ -91,14 +98,16 @@ public class BroccoliGrowth : MonoBehaviour
         Vector3 currentPosition = transform.position;
         transform.position = new Vector3(currentPosition.x, -2.9f, currentPosition.z);
 
-        // checks if the player is in farming mode
+        // checks if they player is in farming mode
         if (Input.GetKeyDown(KeyCode.E))
         {
             isFarmingMode = false;
+            isSpray = true;
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isFarmingMode = true;
+            isSpray = false;
         }
 
         // checks the phase
@@ -110,19 +119,9 @@ public class BroccoliGrowth : MonoBehaviour
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
-        else
+        else if (!uiController.IsNightPhase && !isSpray)
         {
             isFarmingMode = true;
-        }
-
-        // checks fly health
-        if (plantHealth <= 0 && plantActive)
-        {
-            growing = false;
-            growingPhase = 0;
-            StopAllCoroutines();
-            NotifyFly();
-            ResetPlot();
         }
 
         if (FarmManager.IsHolding)
@@ -133,6 +132,16 @@ public class BroccoliGrowth : MonoBehaviour
         {
             FarmManager.IsAnimationPlaying = false;
         }
+        // checks fly health
+        if (plantHealth <= 0 && plantActive)
+        {
+            growing = false;
+            growingPhase = 0;
+            StopAllCoroutines();
+            NotifyFly();
+            ResetPlot();
+        }
+
     }
 
     // Player interacts with plot
@@ -173,6 +182,7 @@ public class BroccoliGrowth : MonoBehaviour
                 playerAnimator.SetBool("isPlanting", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (shovel != null)
                 shovel.SetActive(true);
@@ -191,6 +201,7 @@ public class BroccoliGrowth : MonoBehaviour
                 playerAnimator.SetBool("isPlanting", false);
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         }
         else if (growingPhase == 1)  // Watering Phase
         {
@@ -199,6 +210,7 @@ public class BroccoliGrowth : MonoBehaviour
                 playerAnimator.SetBool("isWatering", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (watering_can != null)
                 watering_can.SetActive(true);
@@ -216,6 +228,7 @@ public class BroccoliGrowth : MonoBehaviour
                 playerAnimator.SetBool("isWatering", false);
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             StartCoroutine(GrowthPhase());  // Growing starts without user interaction
             // Wait for growth phase
@@ -229,6 +242,7 @@ public class BroccoliGrowth : MonoBehaviour
                 playerAnimator.SetBool("isHarvesting", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (sickle != null)
                 sickle.SetActive(true);
@@ -244,6 +258,7 @@ public class BroccoliGrowth : MonoBehaviour
                 playerAnimator.SetBool("isHarvesting", false);
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             fullPlant.SetActive(false);
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
