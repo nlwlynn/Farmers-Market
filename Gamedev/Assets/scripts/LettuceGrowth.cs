@@ -33,6 +33,7 @@ public class LettuceGrowth : MonoBehaviour
     public float interactionRange = 5f;
     private bool isFarmingMode = true;
     public UIController uiController;
+    public Rigidbody rb;
 
     public Lettuce lettuceScript;
 
@@ -45,6 +46,10 @@ public class LettuceGrowth : MonoBehaviour
         if (playerAnimator == null)
         {
             playerAnimator = player.transform.Find("character-male-b")?.GetComponent<Animator>();
+        }
+        if (rb == null)
+        {
+            rb = player.GetComponent<Rigidbody>();
         }
 
         if (shovel == null)
@@ -172,6 +177,7 @@ public class LettuceGrowth : MonoBehaviour
                 playerAnimator.SetBool("isPlanting", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (shovel != null)
                 shovel.SetActive(true);
@@ -193,6 +199,7 @@ public class LettuceGrowth : MonoBehaviour
             }
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         }
         else if (growingPhase == 1)  // Watering Phase
@@ -202,6 +209,7 @@ public class LettuceGrowth : MonoBehaviour
                 playerAnimator.SetBool("isWatering", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (watering_can != null)
                 watering_can.SetActive(true);
@@ -221,6 +229,7 @@ public class LettuceGrowth : MonoBehaviour
             }
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             StartCoroutine(GrowthPhase());  // Growing starts without user interaction
             // Wait for growth phase
@@ -234,6 +243,7 @@ public class LettuceGrowth : MonoBehaviour
                 playerAnimator.SetBool("isHarvesting", true);
 
             FarmManager.IsAnimationPlaying = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
 
             if (sickle != null)
                 sickle.SetActive(true);
@@ -249,6 +259,7 @@ public class LettuceGrowth : MonoBehaviour
                 playerAnimator.SetBool("isHarvesting", false);
 
             FarmManager.IsAnimationPlaying = false;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
             fullPlant.SetActive(false);
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
