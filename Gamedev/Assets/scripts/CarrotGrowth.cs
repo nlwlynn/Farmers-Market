@@ -192,7 +192,7 @@ public class CarrotGrowth : MonoBehaviour
             // Reset the attack animation and unlock movement
             if (playerAnimator != null)
             {
-                playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
+                playerAnimator.SetBool("isPlanting", false);  
             }
             FarmManager.IsAnimationPlaying = false;
             rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
