@@ -28,8 +28,9 @@ public class BroccoliGrowth : MonoBehaviour
 
     // Fly interactions
     public int plantHealth = 0;
-    private bool isBeingDamaged = false;
     private bool plantActive = false;
+    private float damageInterval = 5f;
+    private float lastDamageTime = 0f;
 
     // interactions
     private GameObject player;
@@ -305,45 +306,30 @@ public class BroccoliGrowth : MonoBehaviour
         fullPlant.SetActive(false);
         progressCanvas.gameObject.SetActive(false);
         progressCircle.fillAmount = 0f;
-        isBeingDamaged = false;
         plantActive = false;
     }
 
     // Fly interactions
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("FlySwarm") && !isBeingDamaged)
-        {
-            isBeingDamaged = true;
-            StartCoroutine(ApplyFlyDamage());
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("FlySwarm"))
         {
-            isBeingDamaged = false;
-        }
-    }
-    private IEnumerator ApplyFlyDamage()
-    {
-        while (isBeingDamaged)
-        {
-            plantHealth -= 5;
-
-            // Reset plot if health is 0
-            if (plantHealth <= 0 && plantActive)
+            // Check if 5 seconds have passed
+            if (Time.time - lastDamageTime >= damageInterval)
             {
-                growing = false;
-                growingPhase = 0;   // Reset phase
-                StopAllCoroutines();
-                ResetPlot();        // Reset plot
-                NotifyFly();
-                yield break;
-            }
+                plantHealth -= 5;
+                lastDamageTime = Time.time;
 
-            yield return new WaitForSeconds(5f);
+                // Reset plot if health reaches 0
+                if (plantHealth <= 0 && plantActive)
+                {
+                    growing = false;
+                    growingPhase = 0;   // Reset phase
+                    StopAllCoroutines();
+                    ResetPlot();        // Reset plot
+                    NotifyFly();
+                }
+            }
         }
     }
 
