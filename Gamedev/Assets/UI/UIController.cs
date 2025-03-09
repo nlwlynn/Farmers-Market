@@ -19,7 +19,7 @@ public class UIController : MonoBehaviour
     private Label coinsLabel;     // Reference to the UXML coins label
     private Label coinsLabelNight;
     private int coinCount = 20;    // Default coin amount
-    private int dailyGoal = 25;// Goal for the day (can be dynamic)
+    private int dailyGoal = 15;// Goal for the day (can be dynamic)
 
 
     public UnityEngine.UIElements.Button Harvest;
