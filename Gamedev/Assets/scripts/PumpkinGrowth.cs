@@ -163,7 +163,7 @@ public class PumpkinGrowth : MonoBehaviour
         if (growingPhase == 0)   // Planting Phase
         {
             // Reset health
-            plantHealth = 10;
+            plantHealth = 20;
             plantActive = true;
 
             // Planting shovel animation
