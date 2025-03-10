@@ -19,12 +19,12 @@ public class NPCInteraction : MonoBehaviour
 
     private Dictionary<string, int> cropRewards = new Dictionary<string, int>
     {
-        { "Carrot", 2 },
-        { "Broccoli", 5 },
-        { "Cauliflower", 10 },
-        { "Sunflower", 17 },
-        { "Corn", 12 },
-        { "Mushrooms", 15 }
+        { "Carrot", 5 },
+        { "Broccoli", 10 },
+        { "Cauliflower", 15 },
+        { "Sunflower", 20 },
+        { "Corn", 25 },
+        { "Mushrooms", 30 }
     };
 
     private List<string> requestedItems = new List<string>(); // What the NPC wants
