@@ -111,6 +111,12 @@ public class CauliflowerGrowth : MonoBehaviour
             isFarmingMode = false;
             progressCanvas.gameObject.SetActive(false); // Hide progress circle
             growingPhase = 0;   // Reset phase
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isPlanting", false);
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isWatering", false);
+            if (playerAnimator != null)
+                playerAnimator.SetBool("isHarvesting", false);
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
