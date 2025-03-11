@@ -26,19 +26,20 @@ public class Pumpkin : MonoBehaviour
                 if (hit.collider != null)
                 {
                     // checks if the NPC is tagged
-                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2"))
+                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4"))
                     {
                         NPCInteraction npcInteraction = hit.collider.GetComponent<NPCInteraction>();
 
                         if (npcInteraction != null)
                         {
                             // give the veggie to the NPC
-                            npcInteraction.Interact("Corn");
-
-                            // hide the veggie
-                            pumpkin.SetActive(false);
-                            FarmManager.IsHolding = false;
-                            FarmManager.IsAnimationPlaying = false;
+                            if(npcInteraction.Interact("Corn"))
+                            {
+                                // hide the veggie
+                                pumpkin.SetActive(false);
+                                FarmManager.IsHolding = false;
+                                FarmManager.IsAnimationPlaying = false;
+                            }
                         }
                     }
                 }

@@ -26,7 +26,7 @@ public class Lettuce : MonoBehaviour
                 if (hit.collider != null)
                 {
                     // checks if the NPC is tagged
-                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2"))
+                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4"))
                     {
                         NPCInteraction npcInteraction = hit.collider.GetComponent<NPCInteraction>();
 

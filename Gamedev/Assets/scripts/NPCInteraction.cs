@@ -16,6 +16,8 @@ public class NPCInteraction : MonoBehaviour
     public UIController uiController; // Reference to UIController
     public int orderAmount = 0;
     public Transform leavePoint;
+    public Transform counter1; 
+    public Transform counter2;
 
     private Dictionary<string, int> cropRewards = new Dictionary<string, int>
     {
@@ -26,6 +28,13 @@ public class NPCInteraction : MonoBehaviour
         { "Corn", 25 },
         { "Mushrooms", 30 }
     };
+
+    private static Dictionary<int, bool> counterOccupied = new Dictionary<int, bool>
+    {
+        { 1, false }, 
+        { 2, false }  
+    };
+    private int assignedCounter = 0;
 
     private List<string> requestedItems = new List<string>(); // What the NPC wants
     private List<string> deliveredItems = new List<string>(); // What we've given them so far
@@ -38,6 +47,8 @@ public class NPCInteraction : MonoBehaviour
         {
             animator = npcPrefab.GetComponent<Animator>();
         }
+
+        AssignCounter();
 
         // Start the customer order
         customerRoutineCoroutine = StartCoroutine(CustomerRoutine());
@@ -74,8 +85,16 @@ public class NPCInteraction : MonoBehaviour
             float randomDelay = Random.Range(1f, 5f);
             yield return new WaitForSeconds(randomDelay);
 
-            // Walk to ordering position
-            yield return TurnAndMove(0, 70f);
+            // Wait until the counter is free
+            while (counterOccupied[assignedCounter])
+            {
+                yield return null;
+            }
+
+            counterOccupied[assignedCounter] = true;
+
+            // Walk to the assigned counter
+            yield return MoveToPosition(assignedCounter == 1 ? counter1.position : counter2.position);
 
             // Generate Order & Display Text
             GenerateRequest();
@@ -93,7 +112,10 @@ public class NPCInteraction : MonoBehaviour
             if (!orderComplete)
             {
                 npcTextBox.text = "Oh well!";
+                requestedItems.Clear();
             }
+
+            counterOccupied[assignedCounter] = false;
 
             // NPC walks away after order completion
             yield return MoveToPosition(leavePoint.position);
@@ -154,7 +176,7 @@ public class NPCInteraction : MonoBehaviour
         animator.SetBool("isWalking", false);
     }
 
-    public void Interact(string item)
+    public bool Interact(string item)
     {
         if (requestedItems.Contains(item))
         {
@@ -167,6 +189,11 @@ public class NPCInteraction : MonoBehaviour
             {
                 CompleteOrder();
             }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -214,6 +241,19 @@ public class NPCInteraction : MonoBehaviour
                 string selectedCrop = cropsInScene[Random.Range(0, cropsInScene.Count)];
                 requestedItems.Add(selectedCrop);
             }
+        }
+    }
+
+    void AssignCounter()
+    {
+        // Assign NPC1 & NPC3 to Counter 1, NPC2 & NPC4 to Counter 2
+        if (gameObject.CompareTag("NPC1") || gameObject.CompareTag("NPC3"))
+        {
+            assignedCounter = 1;
+        }
+        else if (gameObject.CompareTag("NPC2") || gameObject.CompareTag("NPC4"))
+        {
+            assignedCounter = 2;
         }
     }
 
