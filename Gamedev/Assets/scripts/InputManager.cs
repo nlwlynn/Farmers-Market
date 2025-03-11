@@ -43,7 +43,6 @@ public class InputManager : MonoBehaviour
         }
         if (!placementSystem.isBuilding && shopManager.closeBuild)
         {
-            Debug.Log("Switch bacl to cxam");
             SwitchCameraOff();
         }
         if (Input.GetMouseButtonDown(0))
