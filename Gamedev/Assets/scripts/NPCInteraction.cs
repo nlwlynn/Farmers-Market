@@ -55,7 +55,7 @@ public class NPCInteraction : MonoBehaviour
         {
             animator = npcPrefab.GetComponent<Animator>();
         }
-
+        ResetCounters();
         ResetQueue();
         AssignCounter();
 
