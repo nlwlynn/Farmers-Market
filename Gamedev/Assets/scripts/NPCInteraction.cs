@@ -34,6 +34,14 @@ public class NPCInteraction : MonoBehaviour
         { 1, false }, 
         { 2, false }  
     };
+
+    private Dictionary<int, Queue<NPCInteraction>> waitingCustomers = new Dictionary<int, Queue<NPCInteraction>>()
+    {
+        { 1, new Queue<NPCInteraction>() },
+        { 2, new Queue<NPCInteraction>() }
+    };
+
+
     private int assignedCounter = 0;
 
     private List<string> requestedItems = new List<string>(); // What the NPC wants
@@ -85,13 +93,25 @@ public class NPCInteraction : MonoBehaviour
             float randomDelay = Random.Range(1f, 5f);
             yield return new WaitForSeconds(randomDelay);
 
+            Debug.Log($"{gameObject.name} added to queue for counter {assignedCounter}");
+
             // Wait until the counter is free
-            while (counterOccupied[assignedCounter])
+            waitingCustomers[assignedCounter].Enqueue(this);
+
+            while (counterOccupied[assignedCounter] || waitingCustomers[assignedCounter].Peek() != this)
             {
+                Debug.Log($"{gameObject.name} waiting at counter {assignedCounter}");
+
                 yield return null;
             }
 
+            Debug.Log($"{gameObject.name} dequeued from counter {assignedCounter}");
+
+            waitingCustomers[assignedCounter].Dequeue();
+
             counterOccupied[assignedCounter] = true;
+            Debug.Log($"NPC {gameObject.name} occupied counter {assignedCounter}");
+
 
             // Walk to the assigned counter
             yield return MoveToPosition(assignedCounter == 1 ? counter1.position : counter2.position);
@@ -114,6 +134,8 @@ public class NPCInteraction : MonoBehaviour
                 npcTextBox.text = "Oh well!";
                 requestedItems.Clear();
             }
+
+            Debug.Log($"NPC {gameObject.name} freed counter {assignedCounter}");
 
             counterOccupied[assignedCounter] = false;
 
