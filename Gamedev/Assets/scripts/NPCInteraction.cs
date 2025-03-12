@@ -34,6 +34,14 @@ public class NPCInteraction : MonoBehaviour
         { 1, false }, 
         { 2, false }  
     };
+
+    private Dictionary<int, Queue<NPCInteraction>> waitingCustomers = new Dictionary<int, Queue<NPCInteraction>>()
+    {
+        { 1, new Queue<NPCInteraction>() },
+        { 2, new Queue<NPCInteraction>() }
+    };
+
+
     private int assignedCounter = 0;
 
     private List<string> requestedItems = new List<string>(); // What the NPC wants
@@ -47,7 +55,8 @@ public class NPCInteraction : MonoBehaviour
         {
             animator = npcPrefab.GetComponent<Animator>();
         }
-
+        ResetCounters();
+        ResetQueue();
         AssignCounter();
 
         // Start the customer order
@@ -65,11 +74,13 @@ public class NPCInteraction : MonoBehaviour
                 StopCoroutine(customerRoutineCoroutine);
                 customerRoutineCoroutine = null;
             }
+            ResetQueue();
             ResetNPC(); 
         }
         else if (!uiController.isNightPhase && customerRoutineCoroutine == null)
         {
             // Start the routine again on new day
+            ResetCounters();
             customerRoutineCoroutine = StartCoroutine(CustomerRoutine());
         }
     }
@@ -85,11 +96,19 @@ public class NPCInteraction : MonoBehaviour
             float randomDelay = Random.Range(1f, 5f);
             yield return new WaitForSeconds(randomDelay);
 
+
             // Wait until the counter is free
-            while (counterOccupied[assignedCounter])
+            waitingCustomers[assignedCounter].Enqueue(this);
+
+            while (counterOccupied[assignedCounter] || waitingCustomers[assignedCounter].Peek() != this)
             {
+                Debug.Log($"{gameObject.name} waiting at counter {assignedCounter}");
+
                 yield return null;
             }
+
+
+            waitingCustomers[assignedCounter].Dequeue();
 
             counterOccupied[assignedCounter] = true;
 
@@ -114,6 +133,8 @@ public class NPCInteraction : MonoBehaviour
                 npcTextBox.text = "Oh well!";
                 requestedItems.Clear();
             }
+
+            Debug.Log($"NPC {gameObject.name} freed counter {assignedCounter}");
 
             counterOccupied[assignedCounter] = false;
 
@@ -263,4 +284,22 @@ public class NPCInteraction : MonoBehaviour
             ? "I need: " + string.Join(", ", requestedItems) + "!"
             : "Thank you!";
     }
+
+    void ResetQueue()
+    {
+        // Reset the queue for the assigned counter
+        if (waitingCustomers.ContainsKey(assignedCounter))
+        {
+            waitingCustomers[assignedCounter].Clear();
+            Debug.Log($"Queue for counter {assignedCounter} has been reset.");
+        }
+    }
+    void ResetCounters()
+    {
+        // Reset counter states to free
+        counterOccupied[1] = false;
+        counterOccupied[2] = false;
+        Debug.Log("Counters have been reset for the new day.");
+    }
+
 }
