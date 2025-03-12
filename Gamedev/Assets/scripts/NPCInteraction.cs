@@ -56,6 +56,7 @@ public class NPCInteraction : MonoBehaviour
             animator = npcPrefab.GetComponent<Animator>();
         }
 
+        ResetQueue();
         AssignCounter();
 
         // Start the customer order
@@ -73,11 +74,13 @@ public class NPCInteraction : MonoBehaviour
                 StopCoroutine(customerRoutineCoroutine);
                 customerRoutineCoroutine = null;
             }
+            ResetQueue();
             ResetNPC(); 
         }
         else if (!uiController.isNightPhase && customerRoutineCoroutine == null)
         {
             // Start the routine again on new day
+            ResetCounters();
             customerRoutineCoroutine = StartCoroutine(CustomerRoutine());
         }
     }
@@ -93,7 +96,6 @@ public class NPCInteraction : MonoBehaviour
             float randomDelay = Random.Range(1f, 5f);
             yield return new WaitForSeconds(randomDelay);
 
-            Debug.Log($"{gameObject.name} added to queue for counter {assignedCounter}");
 
             // Wait until the counter is free
             waitingCustomers[assignedCounter].Enqueue(this);
@@ -105,13 +107,10 @@ public class NPCInteraction : MonoBehaviour
                 yield return null;
             }
 
-            Debug.Log($"{gameObject.name} dequeued from counter {assignedCounter}");
 
             waitingCustomers[assignedCounter].Dequeue();
 
             counterOccupied[assignedCounter] = true;
-            Debug.Log($"NPC {gameObject.name} occupied counter {assignedCounter}");
-
 
             // Walk to the assigned counter
             yield return MoveToPosition(assignedCounter == 1 ? counter1.position : counter2.position);
@@ -285,4 +284,22 @@ public class NPCInteraction : MonoBehaviour
             ? "I need: " + string.Join(", ", requestedItems) + "!"
             : "Thank you!";
     }
+
+    void ResetQueue()
+    {
+        // Reset the queue for the assigned counter
+        if (waitingCustomers.ContainsKey(assignedCounter))
+        {
+            waitingCustomers[assignedCounter].Clear();
+            Debug.Log($"Queue for counter {assignedCounter} has been reset.");
+        }
+    }
+    void ResetCounters()
+    {
+        // Reset counter states to free
+        counterOccupied[1] = false;
+        counterOccupied[2] = false;
+        Debug.Log("Counters have been reset for the new day.");
+    }
+
 }
