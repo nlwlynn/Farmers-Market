@@ -4,6 +4,15 @@ public class Broccoli : MonoBehaviour
 {
     public GameObject broccoli;
     private NPCInteraction npcInteraction;
+    public UIController uiController;
+
+    private void Awake()
+    {
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
+    }
 
     void Start()
     {
@@ -12,6 +21,13 @@ public class Broccoli : MonoBehaviour
 
     void Update()
     {
+        if (uiController.IsNightPhase)
+        {
+            // hide the veggie
+            broccoli.SetActive(false);
+            FarmManager.IsHolding = false;
+            FarmManager.IsAnimationPlaying = false;
+        }
         // checks if the player clicks on the npc and is holding the vegtable
         if (FarmManager.IsHolding && Input.GetMouseButtonDown(0))
         {
