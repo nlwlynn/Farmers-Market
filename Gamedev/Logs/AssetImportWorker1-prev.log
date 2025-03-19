@@ -15,7 +15,7 @@ C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-55864
+59132
 Successfully changed project path to: C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
 C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,16 +49,16 @@ C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [20044]  Target information:
+Player connection [15380]  Target information:
 
-Player connection [20044]  * "[IP] 10.127.30.112 [Port] 0 [Flags] 2 [Guid] 4254021708 [EditorId] 4254021708 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [15380]  * "[IP] 10.127.30.112 [Port] 0 [Flags] 2 [Guid] 743937345 [EditorId] 743937345 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [20044]  * "[IP] 172.23.176.1 [Port] 0 [Flags] 2 [Guid] 4254021708 [EditorId] 4254021708 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [15380]  * "[IP] 172.23.176.1 [Port] 0 [Flags] 2 [Guid] 743937345 [EditorId] 743937345 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [20044] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [20044] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [15380] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [15380] Host joined alternative multi-casting on [225.0.0.222:34997]...
 [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-Refreshing native plugins compatible for Editor in 13.13 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 962.51 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.55f1 (9f374180d209)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/Resources/UnitySubsystems
@@ -74,44 +74,44 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56492
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56972
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.013324 seconds.
-- Loaded All Assemblies, in  0.476 seconds
+Registered in 0.178537 seconds.
+- Loaded All Assemblies, in  6.865 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.298 seconds
-Domain Reload Profiling: 771ms
-	BeginReloadAssembly (133ms)
+- Finished resetting the current domain, in  0.286 seconds
+Domain Reload Profiling: 7149ms
+	BeginReloadAssembly (5086ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (46ms)
-	RebuildNativeTypeToScriptingClass (15ms)
-	initialDomainReloadingComplete (74ms)
-	LoadAllAssembliesAndSetupDomain (204ms)
-		LoadAssemblies (130ms)
+	RebuildCommonClasses (433ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (236ms)
+	LoadAllAssembliesAndSetupDomain (1096ms)
+		LoadAssemblies (5082ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (202ms)
-			TypeCache.Refresh (200ms)
-				TypeCache.ScanAssembly (186ms)
+		AnalyzeDomain (1095ms)
+			TypeCache.Refresh (1093ms)
+				TypeCache.ScanAssembly (797ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (299ms)
+	FinalizeReload (287ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (243ms)
+		SetupLoadedEditorAssemblies (239ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (13ms)
+			InitializePlatformSupportModulesInManaged (10ms)
 			SetLoadedEditorAssemblies (8ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (2ms)
-			ProcessInitializeOnLoadAttributes (173ms)
-			ProcessInitializeOnLoadMethodAttributes (46ms)
+			ProcessInitializeOnLoadAttributes (171ms)
+			ProcessInitializeOnLoadMethodAttributes (47ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -121,50 +121,50 @@ Worker process is ready to serve import requests
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.961 seconds
+- Loaded All Assemblies, in  8.156 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.871 seconds
-Domain Reload Profiling: 1827ms
-	BeginReloadAssembly (176ms)
+- Finished resetting the current domain, in  0.812 seconds
+Domain Reload Profiling: 8962ms
+	BeginReloadAssembly (164ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (8ms)
+		DisableScriptedObjects (6ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (25ms)
-	RebuildCommonClasses (40ms)
-	RebuildNativeTypeToScriptingClass (14ms)
-	initialDomainReloadingComplete (57ms)
-	LoadAllAssembliesAndSetupDomain (668ms)
-		LoadAssemblies (476ms)
+		CreateAndSetChildDomain (20ms)
+	RebuildCommonClasses (36ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (54ms)
+	LoadAllAssembliesAndSetupDomain (7884ms)
+		LoadAssemblies (7714ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (284ms)
-			TypeCache.Refresh (229ms)
-				TypeCache.ScanAssembly (207ms)
-			ScanForSourceGeneratedMonoScriptInfo (36ms)
-			ResolveRequiredComponents (18ms)
-	FinalizeReload (871ms)
+		AnalyzeDomain (264ms)
+			TypeCache.Refresh (215ms)
+				TypeCache.ScanAssembly (198ms)
+			ScanForSourceGeneratedMonoScriptInfo (31ms)
+			ResolveRequiredComponents (17ms)
+	FinalizeReload (813ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (655ms)
+		SetupLoadedEditorAssemblies (652ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (11ms)
+			InitializePlatformSupportModulesInManaged (7ms)
 			SetLoadedEditorAssemblies (5ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (124ms)
-			ProcessInitializeOnLoadAttributes (410ms)
-			ProcessInitializeOnLoadMethodAttributes (94ms)
+			BeforeProcessingInitializeOnLoad (105ms)
+			ProcessInitializeOnLoadAttributes (308ms)
+			ProcessInitializeOnLoadMethodAttributes (216ms)
 			AfterProcessingInitializeOnLoad (10ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (6ms)
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
-Refreshing native plugins compatible for Editor in 7.19 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 8.95 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5387 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 51 unused Assets / (2.1 MB). Loaded Objects now: 5865.
-Memory consumption went from 222.8 MB to 220.7 MB.
-Total: 6.390700 ms (FindLiveObjects: 0.722500 ms CreateObjectMapping: 0.201200 ms MarkObjects: 4.733000 ms  DeleteObjects: 0.732700 ms)
+Unloading 5456 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 51 unused Assets / (2.1 MB). Loaded Objects now: 5935.
+Memory consumption went from 225.3 MB to 223.1 MB.
+Total: 4.387600 ms (FindLiveObjects: 0.525100 ms CreateObjectMapping: 0.232800 ms MarkObjects: 3.078900 ms  DeleteObjects: 0.549500 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -180,998 +180,138 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
+Received Import Request.
+  Time since last request: 507738.118465 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Collectables/Collectable_Heart_01.prefab
+  artifactKey: Guid(2e5f0dd626fadf14a9ad75aa89a00421) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Collectables/Collectable_Heart_01.prefab using Guid(2e5f0dd626fadf14a9ad75aa89a00421) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: 'c2a2ccb0190504af5ef29f6fcfb9e35c') in 0.142601 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
+Received Import Request.
+  Time since last request: 0.000033 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Mashroom_02.prefab
+  artifactKey: Guid(1d9bd8633a571a64c974d2ba5667c838) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Mashroom_02.prefab using Guid(1d9bd8633a571a64c974d2ba5667c838) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: 'e5d1c335bee7c23db6bf2c4bf51c880e') in 0.026242 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Collectables/Collectable_Diamond_01.prefab
+  artifactKey: Guid(c30d29d6f45c94e4ab419af5b48ced21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Collectables/Collectable_Diamond_01.prefab using Guid(c30d29d6f45c94e4ab419af5b48ced21) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: '86c56005b19ff0ef03f212a5bcbcdc8e') in 0.025377 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Selection Pointers/Selection_Pointer_01.prefab
+  artifactKey: Guid(4ecad00d7b2f8774db8fc98f93b324a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Selection Pointers/Selection_Pointer_01.prefab using Guid(4ecad00d7b2f8774db8fc98f93b324a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: 'd7bbc8c4de836245f9c1491ad5f0f54e') in 0.024531 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Corn_01.prefab
+  artifactKey: Guid(5290804b01f7c4a48953ed9fbac16f9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Corn_01.prefab using Guid(5290804b01f7c4a48953ed9fbac16f9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: 'fc1f4d8454f13514eaeced1ed8d73d7f') in 0.024778 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Broccoli_01.prefab
+  artifactKey: Guid(ef709bf6234bed647b24fc8342cb4c86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Broccoli_01.prefab using Guid(ef709bf6234bed647b24fc8342cb4c86) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: '1080799805198f76a3ff0fd8f5f517de') in 0.023781 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Cauliflower_01.prefab
+  artifactKey: Guid(403e8d4f592a2c644aaa00551c759875) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/AssetHunts!/GameDev Starter Kit - Farming [Free Edition v1.0.0]/3D Models/Farm Crop Signs/Farm_Crop_Sign_Cauliflower_01.prefab using Guid(403e8d4f592a2c644aaa00551c759875) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
+ -> (artifact id: 'ceb8a362e8d6855a7f3ad1d42c053841') in 0.022101 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 17
+========================================================================
 Received Prepare
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.479 seconds
+- Loaded All Assemblies, in  0.471 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.288 seconds
-Domain Reload Profiling: 1762ms
-	BeginReloadAssembly (151ms)
+- Finished resetting the current domain, in  1.423 seconds
+Domain Reload Profiling: 1888ms
+	BeginReloadAssembly (152ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (30ms)
-	RebuildCommonClasses (33ms)
-	RebuildNativeTypeToScriptingClass (12ms)
+		CreateAndSetChildDomain (32ms)
+	RebuildCommonClasses (32ms)
+	RebuildNativeTypeToScriptingClass (11ms)
 	initialDomainReloadingComplete (31ms)
-	LoadAllAssembliesAndSetupDomain (246ms)
-		LoadAssemblies (311ms)
+	LoadAllAssembliesAndSetupDomain (239ms)
+		LoadAssemblies (301ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
 		AnalyzeDomain (18ms)
 			TypeCache.Refresh (5ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (13ms)
-	FinalizeReload (1288ms)
+	FinalizeReload (1423ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (513ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
-			SetLoadedEditorAssemblies (5ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (106ms)
-			ProcessInitializeOnLoadAttributes (288ms)
-			ProcessInitializeOnLoadMethodAttributes (92ms)
-			AfterProcessingInitializeOnLoad (13ms)
-			EditorAssembliesLoaded (1ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (9ms)
-Refreshing native plugins compatible for Editor in 7.04 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5260 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5880.
-Memory consumption went from 193.3 MB to 191.2 MB.
-Total: 5.703400 ms (FindLiveObjects: 0.717300 ms CreateObjectMapping: 0.193100 ms MarkObjects: 3.936600 ms  DeleteObjects: 0.854900 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.510 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.175 seconds
-Domain Reload Profiling: 1681ms
-	BeginReloadAssembly (150ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (33ms)
-	RebuildCommonClasses (34ms)
-	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (31ms)
-	LoadAllAssembliesAndSetupDomain (279ms)
-		LoadAssemblies (309ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (49ms)
-			TypeCache.Refresh (9ms)
-				TypeCache.ScanAssembly (2ms)
-			ScanForSourceGeneratedMonoScriptInfo (20ms)
-			ResolveRequiredComponents (18ms)
-	FinalizeReload (1175ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (442ms)
+		SetupLoadedEditorAssemblies (550ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (8ms)
-			SetLoadedEditorAssemblies (4ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (89ms)
-			ProcessInitializeOnLoadAttributes (248ms)
-			ProcessInitializeOnLoadMethodAttributes (82ms)
-			AfterProcessingInitializeOnLoad (12ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 8.35 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5260 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5895.
-Memory consumption went from 193.3 MB to 191.2 MB.
-Total: 5.370000 ms (FindLiveObjects: 0.666000 ms CreateObjectMapping: 0.250600 ms MarkObjects: 3.839000 ms  DeleteObjects: 0.612900 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.485 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.255 seconds
-Domain Reload Profiling: 1735ms
-	BeginReloadAssembly (151ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (31ms)
-	RebuildCommonClasses (34ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (31ms)
-	LoadAllAssembliesAndSetupDomain (252ms)
-		LoadAssemblies (311ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (24ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (17ms)
-	FinalizeReload (1255ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (521ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (7ms)
-			SetLoadedEditorAssemblies (5ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (105ms)
-			ProcessInitializeOnLoadAttributes (304ms)
-			ProcessInitializeOnLoadMethodAttributes (90ms)
-			AfterProcessingInitializeOnLoad (11ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 8.68 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5260 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5910.
-Memory consumption went from 193.3 MB to 191.2 MB.
-Total: 5.877100 ms (FindLiveObjects: 0.789300 ms CreateObjectMapping: 0.206600 ms MarkObjects: 4.107300 ms  DeleteObjects: 0.772600 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 420280.123890 seconds.
-  path: Assets/UI/UIController.cs
-  artifactKey: Guid(2806f85e9f3f1a24db90e4dc72097b59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/UI/UIController.cs using Guid(2806f85e9f3f1a24db90e4dc72097b59) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '334227f9a3db4aa9581564ee0ec3c0d3') in 0.002619 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.505 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.106 seconds
-Domain Reload Profiling: 1607ms
-	BeginReloadAssembly (155ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (28ms)
-	RebuildCommonClasses (35ms)
-	RebuildNativeTypeToScriptingClass (14ms)
-	initialDomainReloadingComplete (32ms)
-	LoadAllAssembliesAndSetupDomain (265ms)
-		LoadAssemblies (312ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (42ms)
-			TypeCache.Refresh (9ms)
-				TypeCache.ScanAssembly (1ms)
-			ScanForSourceGeneratedMonoScriptInfo (20ms)
-			ResolveRequiredComponents (12ms)
-	FinalizeReload (1107ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (402ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (7ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (85ms)
-			ProcessInitializeOnLoadAttributes (223ms)
-			ProcessInitializeOnLoadMethodAttributes (75ms)
-			AfterProcessingInitializeOnLoad (10ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 8.10 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5259 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5925.
-Memory consumption went from 193.1 MB to 191.0 MB.
-Total: 5.655900 ms (FindLiveObjects: 0.770100 ms CreateObjectMapping: 0.248600 ms MarkObjects: 3.951500 ms  DeleteObjects: 0.684400 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.481 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.126 seconds
-Domain Reload Profiling: 1603ms
-	BeginReloadAssembly (142ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (28ms)
-	RebuildCommonClasses (34ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (30ms)
-	LoadAllAssembliesAndSetupDomain (259ms)
-		LoadAssemblies (290ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (46ms)
-			TypeCache.Refresh (10ms)
-				TypeCache.ScanAssembly (2ms)
-			ScanForSourceGeneratedMonoScriptInfo (23ms)
-			ResolveRequiredComponents (12ms)
-	FinalizeReload (1127ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (403ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (7ms)
-			SetLoadedEditorAssemblies (3ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (82ms)
-			ProcessInitializeOnLoadAttributes (229ms)
-			ProcessInitializeOnLoadMethodAttributes (73ms)
-			AfterProcessingInitializeOnLoad (9ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
-Refreshing native plugins compatible for Editor in 7.20 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5260 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5940.
-Memory consumption went from 193.3 MB to 191.2 MB.
-Total: 6.025100 ms (FindLiveObjects: 0.850100 ms CreateObjectMapping: 0.219400 ms MarkObjects: 4.264800 ms  DeleteObjects: 0.689400 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 610.289882 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Candyland_Asphalt.mat
-  artifactKey: Guid(1c802a906d69bf74aa77329fd96d59af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Candyland_Asphalt.mat using Guid(1c802a906d69bf74aa77329fd96d59af) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'fefe95222eb52f4a66546739ff736871') in 0.142137 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Desert.mat
-  artifactKey: Guid(7e2dc823cb4e1cb4ab7175bd44b18a05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Desert.mat using Guid(7e2dc823cb4e1cb4ab7175bd44b18a05) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '93f94b2e3c005e421d8b1f0b8231a1a2') in 0.015958 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Spring.mat
-  artifactKey: Guid(a44d3cec97d015340944a26efb1f7971) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Spring.mat using Guid(a44d3cec97d015340944a26efb1f7971) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '0ba2554eae09755332f282cc3ee21fdd') in 0.015971 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Winter.mat
-  artifactKey: Guid(371caa249f4c6d4418ab241f4b60688b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Winter.mat using Guid(371caa249f4c6d4418ab241f4b60688b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '53b73dde06e1969aa8fb133b56e7c1e1') in 0.014701 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Summer_Asphalt.mat
-  artifactKey: Guid(ce3fefe1a44f6b64ba30c092b520a17f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Materials/Summer_Asphalt.mat using Guid(ce3fefe1a44f6b64ba30c092b520a17f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '6c290f709031b1a0a405d0ec755cf2c6') in 0.014518 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 4.309840 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Cloud_Long.fbx
-  artifactKey: Guid(d69e5816f93055e49a22465ac0e99b4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Cloud_Long.fbx using Guid(d69e5816f93055e49a22465ac0e99b4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '641569053dc3df47cd6e0bbce2a955c5') in 0.056989 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000034 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Shrub.fbx
-  artifactKey: Guid(130b6028a08254146ac66813828ea5af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Shrub.fbx using Guid(130b6028a08254146ac66813828ea5af) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '687ca8cef7ff3c7315e651ffe8af3f11') in 0.131228 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Grass.fbx
-  artifactKey: Guid(7292cbbcd062e3440b9895a64d229825) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Grass.fbx using Guid(7292cbbcd062e3440b9895a64d229825) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'dfc0e5770ce335c5029a3533f4417fb5') in 0.017803 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Flower.fbx
-  artifactKey: Guid(d0a2dbd0fe7556b4b822ec7a20748cc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Props/Flower.fbx using Guid(d0a2dbd0fe7556b4b822ec7a20748cc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '263a6b75d3e7c39fa83b8d6c2742625c') in 0.016878 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 4.299757 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Corner.fbx
-  artifactKey: Guid(d5c408595be50514dabb69674e810394) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Corner.fbx using Guid(d5c408595be50514dabb69674e810394) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '75768de097b11b8b3b305f4b42dbb060') in 0.041105 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Road_Edge_End_Solo.fbx
-  artifactKey: Guid(d2a73dec0eb1d81498135676972d3278) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Road_Edge_End_Solo.fbx using Guid(d2a73dec0eb1d81498135676972d3278) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '23ef9180911c679838cb0de6aadb35cc') in 0.037436 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Edge.fbx
-  artifactKey: Guid(06922b963b921e44cbadd739dab73ab0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Edge.fbx using Guid(06922b963b921e44cbadd739dab73ab0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'b3d2644651d1e4ab60ec3a0494176dfc') in 0.019575 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Water.fbx
-  artifactKey: Guid(ef7372b852139454b8268e6dab6fad01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Water.fbx using Guid(ef7372b852139454b8268e6dab6fad01) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '1d5f3e4805553086cb916715c48470b3') in 0.047754 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Road_End.fbx
-  artifactKey: Guid(e438b90a2fa14304cb1056a4bf05b52d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Road_End.fbx using Guid(e438b90a2fa14304cb1056a4bf05b52d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '5b228182f3b508064f4b626c34dba9bb') in 0.053603 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Road_Solo.fbx
-  artifactKey: Guid(fb5b599722b688841bd8273ae8e0c667) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Models/Tiles/Tile_Road_Solo.fbx using Guid(fb5b599722b688841bd8273ae8e0c667) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '9e7560bcdc4d34f71962f1dd86c28469') in 0.021148 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 7
-========================================================================
-Received Import Request.
-  Time since last request: 4.968310 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Cloud_Long.prefab
-  artifactKey: Guid(863c6849085215d4cbb94fcbeefa96c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Cloud_Long.prefab using Guid(863c6849085215d4cbb94fcbeefa96c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '4cfc60207e7dfb8e624fb2a4be3fd5c2') in 0.014884 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Flower.prefab
-  artifactKey: Guid(9cc45cbe54813474c945d1f50984df82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Flower.prefab using Guid(9cc45cbe54813474c945d1f50984df82) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '68d81b4f906c6a7cd3ca1be51e1102ff') in 0.015104 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Ladder.prefab
-  artifactKey: Guid(a4c73f91703f6b34f9bd38ff6eeda3df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Ladder.prefab using Guid(a4c73f91703f6b34f9bd38ff6eeda3df) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'e8e6ae5bd26c775eb32041afd6148701') in 0.015430 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Nature_Detail_Edge.prefab
-  artifactKey: Guid(e519c410b01abf0478e3344b27e06822) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Props/Nature_Detail_Edge.prefab using Guid(e519c410b01abf0478e3344b27e06822) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '973beac9283244a1c7188d337ef02d2d') in 0.014686 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 4.446170 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Corner.prefab
-  artifactKey: Guid(989cb3a038b5e8a418f4c15ab40e8e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Corner.prefab using Guid(989cb3a038b5e8a418f4c15ab40e8e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'cb1b9df62ab351ed06626f2799f87a8a') in 0.014703 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Road_End.prefab
-  artifactKey: Guid(2f063d1731a14f24eb3d35f5ad829dc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Road_End.prefab using Guid(2f063d1731a14f24eb3d35f5ad829dc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'a0be1a85b86f564f7065b7723f898536') in 0.027156 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Water.prefab
-  artifactKey: Guid(a1b4d59e2c59e8048925614a19a521a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Water.prefab using Guid(a1b4d59e2c59e8048925614a19a521a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '5d0be75a5bc9c522ee4c3bbce5648451') in 0.018050 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Road_Solo.prefab
-  artifactKey: Guid(341e51ffcacc4a3419e517763508953d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Prefabs/Tiles/Tile_Road_Solo.prefab using Guid(341e51ffcacc4a3419e517763508953d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '2632147982dd5368052d2f8ae412f0aa') in 0.058770 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 12.931615 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Desert.png
-  artifactKey: Guid(9965754965856d44b846a40e850e71bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Desert.png using Guid(9965754965856d44b846a40e850e71bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'f0b4bf572e4516be2eab34e6801c098f') in 0.035192 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Fall.png
-  artifactKey: Guid(9d27063479317504f93bc29675729d8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Fall.png using Guid(9d27063479317504f93bc29675729d8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'ced907259c5f968c376c9aad37cb023c') in 0.012319 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Desert_Asphalt.png
-  artifactKey: Guid(9d10c6d8f8242b144ba5b5f10ca2740e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Desert_Asphalt.png using Guid(9d10c6d8f8242b144ba5b5f10ca2740e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '094f4460e8764726b573416fd3982833') in 0.012567 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Summer_Asphalt.png
-  artifactKey: Guid(1aa28eb347e51dd43b0a751d0f1fe0f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Selcuk Gerceker/Toon Environments - World Creator Pack Lite/Textures/Summer_Asphalt.png using Guid(1aa28eb347e51dd43b0a751d0f1fe0f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '263afe70a75d8c3f35e92c0ebed53964') in 0.012358 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.548 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.343 seconds
-Domain Reload Profiling: 1885ms
-	BeginReloadAssembly (169ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (6ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (37ms)
-	RebuildCommonClasses (42ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (33ms)
-	LoadAllAssembliesAndSetupDomain (286ms)
-		LoadAssemblies (328ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (46ms)
-			TypeCache.Refresh (10ms)
-				TypeCache.ScanAssembly (2ms)
-			ScanForSourceGeneratedMonoScriptInfo (23ms)
-			ResolveRequiredComponents (13ms)
-	FinalizeReload (1343ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (535ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
 			SetLoadedEditorAssemblies (6ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (111ms)
-			ProcessInitializeOnLoadAttributes (299ms)
-			ProcessInitializeOnLoadMethodAttributes (100ms)
-			AfterProcessingInitializeOnLoad (10ms)
-			EditorAssembliesLoaded (1ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 8.10 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5329 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 32 unused Assets / (2.2 MB). Loaded Objects now: 6068.
-Memory consumption went from 200.2 MB to 198.0 MB.
-Total: 6.134300 ms (FindLiveObjects: 0.743200 ms CreateObjectMapping: 0.226800 ms MarkObjects: 4.221000 ms  DeleteObjects: 0.942100 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 74.654933 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Core/Editor/Version.asset
-  artifactKey: Guid(cb530898cc05d744da0941d6160f7b92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Core/Editor/Version.asset using Guid(cb530898cc05d744da0941d6160f7b92) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '51c6ea8eab609601071e1faa8d077217') in 0.021946 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 14.417662 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - Fence B.prefab
-  artifactKey: Guid(b4974e3ae06d3d245a8353b888faed9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - Fence B.prefab using Guid(b4974e3ae06d3d245a8353b888faed9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '6a035f126183da12d3c86fd2a8ea4437') in 0.071058 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 8
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - Grass A.prefab
-  artifactKey: Guid(9b6eba5dea9e77a4abd8f45df1ffffb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - Grass A.prefab using Guid(9b6eba5dea9e77a4abd8f45df1ffffb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '28a36132cf9ebe349e0b1447a0e2d39a') in 0.040101 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 8
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - FirTree A.prefab
-  artifactKey: Guid(6b444276162548b4e9107350b71e775a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - FirTree A.prefab using Guid(6b444276162548b4e9107350b71e775a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '25491fc1e4ff06de5ec394dc82062815') in 0.014629 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - Rock B.prefab
-  artifactKey: Guid(b0622c7c0ff092b46a37f31c718c5eba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Prefabs/LowPoly - Rock B.prefab using Guid(b0622c7c0ff092b46a37f31c718c5eba) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'e3c7ac35b765ee69394a0e4c884d27b6') in 0.016549 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 8
-========================================================================
-Received Import Request.
-  Time since last request: 4.841258 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Fence B.FBX
-  artifactKey: Guid(6c41d268699e27248a4354335b2a76ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Fence B.FBX using Guid(6c41d268699e27248a4354335b2a76ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'dea0fe801ad05877d373267ed72e97ba') in 0.029550 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Rock B.FBX
-  artifactKey: Guid(3ecc1e70424b33546b2dc73bb30a5163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Rock B.FBX using Guid(3ecc1e70424b33546b2dc73bb30a5163) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '6b500ee855604b745e3a0a0bacba5d92') in 0.029825 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Rock A.FBX
-  artifactKey: Guid(26fb55e8ae34728499f6f45cd0527c73) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - Rock A.FBX using Guid(26fb55e8ae34728499f6f45cd0527c73) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '2281b26106dd3257fed16dfbd79cbc69') in 0.022009 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - FirTree B.FBX
-  artifactKey: Guid(769d335a9d1fc3948bfb71adea34202c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Meshes/LowPoly - FirTree B.FBX using Guid(769d335a9d1fc3948bfb71adea34202c) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '909ff712abf389b9c80ce59c219eaf45') in 0.021056 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 9
-========================================================================
-Received Import Request.
-  Time since last request: 1.865033 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - FirTreeVariation.mat
-  artifactKey: Guid(0f74119e82d3b3a4d9b2842dbaa2a6ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - FirTreeVariation.mat using Guid(0f74119e82d3b3a4d9b2842dbaa2a6ee) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'bdc45819dd62a1dfcc562b031e05afc8') in 0.022914 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000031 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - Terrain.mat
-  artifactKey: Guid(2557d3f1d341fdb4e9d53179c053ffd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - Terrain.mat using Guid(2557d3f1d341fdb4e9d53179c053ffd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '770e1fac39e98c1436f3557f6c1166ec') in 0.014201 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000054 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - TreeTrunk.mat
-  artifactKey: Guid(2a8f9a878cb7cff45b00339938d945ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/LowPoly - TreeTrunk.mat using Guid(2a8f9a878cb7cff45b00339938d945ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'fd41e308a05a0a92dff98b36aadf7bfb') in 0.023061 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/Skybox Cubemap Extended Blend.mat
-  artifactKey: Guid(1cf6f4c6e6e0518419839d3f5448dd99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Materials/Skybox Cubemap Extended Blend.mat using Guid(1cf6f4c6e6e0518419839d3f5448dd99) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '2ac3805fcdcdf2a4b259ff86d7b4cefc') in 0.852341 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 5
-========================================================================
-Received Import Request.
-  Time since last request: 1.990863 seconds.
-  path: Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Textures/Polyverse Skies - Night Sky.exr
-  artifactKey: Guid(fa41734a337674542975482c8fe96ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/BOXOPHOBIC/Skybox Cubemap Extended/Demo/Textures/Polyverse Skies - Night Sky.exr using Guid(fa41734a337674542975482c8fe96ea1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '9b2b5cf8ca35d1fcac9f697a7f6d6fbc') in 0.157933 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.473 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.275 seconds
-Domain Reload Profiling: 1743ms
-	BeginReloadAssembly (148ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (30ms)
-	RebuildCommonClasses (33ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (32ms)
-	LoadAllAssembliesAndSetupDomain (243ms)
-		LoadAssemblies (305ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (19ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (13ms)
-	FinalizeReload (1275ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (542ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (7ms)
-			SetLoadedEditorAssemblies (5ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (106ms)
-			ProcessInitializeOnLoadAttributes (309ms)
-			ProcessInitializeOnLoadMethodAttributes (98ms)
-			AfterProcessingInitializeOnLoad (18ms)
+			BeforeProcessingInitializeOnLoad (119ms)
+			ProcessInitializeOnLoadAttributes (298ms)
+			ProcessInitializeOnLoadMethodAttributes (105ms)
+			AfterProcessingInitializeOnLoad (14ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 7.31 ms, found 1 plugins.
+		AwakeInstancesAfterBackupRestoration (9ms)
+Refreshing native plugins compatible for Editor in 6.60 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5328 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 30 unused Assets / (2.2 MB). Loaded Objects now: 6087.
-Memory consumption went from 200.1 MB to 197.9 MB.
-Total: 6.039800 ms (FindLiveObjects: 1.005000 ms CreateObjectMapping: 0.233600 ms MarkObjects: 3.952100 ms  DeleteObjects: 0.847700 ms)
+Unloading 5325 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5958.
+Memory consumption went from 198.9 MB to 196.8 MB.
+Total: 10.064300 ms (FindLiveObjects: 1.741000 ms CreateObjectMapping: 1.380200 ms MarkObjects: 5.528700 ms  DeleteObjects: 1.413400 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
   custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
   custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
 ========================================================================
 Received Prepare
 Caller must complete domain reload
@@ -1180,600 +320,184 @@ Symbol file LoadedFromMemory is not a mono symbol file
 - Loaded All Assemblies, in  0.468 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.336 seconds
-Domain Reload Profiling: 1800ms
-	BeginReloadAssembly (147ms)
+- Finished resetting the current domain, in  1.252 seconds
+Domain Reload Profiling: 1714ms
+	BeginReloadAssembly (146ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (28ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (33ms)
+	LoadAllAssembliesAndSetupDomain (237ms)
+		LoadAssemblies (299ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (18ms)
+			TypeCache.Refresh (5ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (12ms)
+	FinalizeReload (1253ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (525ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (7ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (99ms)
+			ProcessInitializeOnLoadAttributes (312ms)
+			ProcessInitializeOnLoadMethodAttributes (92ms)
+			AfterProcessingInitializeOnLoad (11ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (8ms)
+Refreshing native plugins compatible for Editor in 6.79 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5326 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5973.
+Memory consumption went from 199.1 MB to 197.0 MB.
+Total: 9.066000 ms (FindLiveObjects: 0.728700 ms CreateObjectMapping: 0.209000 ms MarkObjects: 6.538700 ms  DeleteObjects: 1.588400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Caller must complete domain reload
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.471 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.317 seconds
+Domain Reload Profiling: 1783ms
+	BeginReloadAssembly (149ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (29ms)
-	RebuildCommonClasses (39ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (30ms)
-	LoadAllAssembliesAndSetupDomain (236ms)
-		LoadAssemblies (295ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (32ms)
+	LoadAllAssembliesAndSetupDomain (240ms)
+		LoadAssemblies (303ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
 		AnalyzeDomain (19ms)
 			TypeCache.Refresh (5ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (13ms)
-	FinalizeReload (1337ms)
+	FinalizeReload (1318ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (555ms)
+		SetupLoadedEditorAssemblies (563ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (8ms)
 			SetLoadedEditorAssemblies (5ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (124ms)
-			ProcessInitializeOnLoadAttributes (309ms)
-			ProcessInitializeOnLoadMethodAttributes (96ms)
-			AfterProcessingInitializeOnLoad (12ms)
-			EditorAssembliesLoaded (1ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 7.75 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5327 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 30 unused Assets / (2.2 MB). Loaded Objects now: 6102.
-Memory consumption went from 199.9 MB to 197.7 MB.
-Total: 6.340700 ms (FindLiveObjects: 0.871000 ms CreateObjectMapping: 0.258300 ms MarkObjects: 4.293400 ms  DeleteObjects: 0.916500 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.496 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.329 seconds
-Domain Reload Profiling: 1819ms
-	BeginReloadAssembly (155ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (28ms)
-	RebuildCommonClasses (34ms)
-	RebuildNativeTypeToScriptingClass (17ms)
-	initialDomainReloadingComplete (40ms)
-	LoadAllAssembliesAndSetupDomain (244ms)
-		LoadAssemblies (314ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (19ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (13ms)
-	FinalizeReload (1329ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (560ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
-			SetLoadedEditorAssemblies (6ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (118ms)
-			ProcessInitializeOnLoadAttributes (317ms)
-			ProcessInitializeOnLoadMethodAttributes (97ms)
-			AfterProcessingInitializeOnLoad (13ms)
+			BeforeProcessingInitializeOnLoad (121ms)
+			ProcessInitializeOnLoadAttributes (330ms)
+			ProcessInitializeOnLoadMethodAttributes (89ms)
+			AfterProcessingInitializeOnLoad (10ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (8ms)
-Refreshing native plugins compatible for Editor in 8.08 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 7.40 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5327 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 30 unused Assets / (2.2 MB). Loaded Objects now: 6117.
-Memory consumption went from 199.9 MB to 197.7 MB.
-Total: 6.323100 ms (FindLiveObjects: 0.865200 ms CreateObjectMapping: 0.219900 ms MarkObjects: 4.186300 ms  DeleteObjects: 1.050700 ms)
+Unloading 5326 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 5988.
+Memory consumption went from 199.2 MB to 197.0 MB.
+Total: 9.818300 ms (FindLiveObjects: 1.200400 ms CreateObjectMapping: 0.446300 ms MarkObjects: 7.292400 ms  DeleteObjects: 0.878100 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
   custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
   custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
 ========================================================================
 Received Prepare
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.475 seconds
+- Loaded All Assemblies, in  0.466 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.313 seconds
-Domain Reload Profiling: 1782ms
-	BeginReloadAssembly (147ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (30ms)
-	RebuildCommonClasses (33ms)
-	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (30ms)
-	LoadAllAssembliesAndSetupDomain (247ms)
-		LoadAssemblies (306ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (19ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (12ms)
-	FinalizeReload (1314ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (547ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (8ms)
-			SetLoadedEditorAssemblies (6ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (119ms)
-			ProcessInitializeOnLoadAttributes (305ms)
-			ProcessInitializeOnLoadMethodAttributes (97ms)
-			AfterProcessingInitializeOnLoad (12ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 7.47 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5327 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 30 unused Assets / (2.2 MB). Loaded Objects now: 6132.
-Memory consumption went from 199.8 MB to 197.7 MB.
-Total: 5.952000 ms (FindLiveObjects: 1.030200 ms CreateObjectMapping: 0.279600 ms MarkObjects: 3.863100 ms  DeleteObjects: 0.777600 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.464 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.293 seconds
-Domain Reload Profiling: 1753ms
-	BeginReloadAssembly (144ms)
+- Finished resetting the current domain, in  1.334 seconds
+Domain Reload Profiling: 1795ms
+	BeginReloadAssembly (146ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (28ms)
-	RebuildCommonClasses (35ms)
+	RebuildCommonClasses (32ms)
 	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (30ms)
-	LoadAllAssembliesAndSetupDomain (239ms)
-		LoadAssemblies (300ms)
+	initialDomainReloadingComplete (32ms)
+	LoadAllAssembliesAndSetupDomain (238ms)
+		LoadAssemblies (301ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (19ms)
+		AnalyzeDomain (18ms)
 			TypeCache.Refresh (5ms)
 				TypeCache.ScanAssembly (0ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (13ms)
-	FinalizeReload (1294ms)
+	FinalizeReload (1335ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (559ms)
+		SetupLoadedEditorAssemblies (557ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
-			SetLoadedEditorAssemblies (6ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			SetLoadedEditorAssemblies (5ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (127ms)
-			ProcessInitializeOnLoadAttributes (315ms)
-			ProcessInitializeOnLoadMethodAttributes (91ms)
-			AfterProcessingInitializeOnLoad (12ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 7.67 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5327 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 30 unused Assets / (2.2 MB). Loaded Objects now: 6147.
-Memory consumption went from 199.9 MB to 197.7 MB.
-Total: 5.768600 ms (FindLiveObjects: 0.853000 ms CreateObjectMapping: 0.238300 ms MarkObjects: 3.724900 ms  DeleteObjects: 0.951300 ms)
-
-Prepare: number of updated asset objects reloaded= 0
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
-  custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
-  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
-  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-========================================================================
-Received Prepare
-Caller must complete domain reload
-Begin MonoManager ReloadAssembly
-Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.493 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.326 seconds
-Domain Reload Profiling: 1814ms
-	BeginReloadAssembly (154ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (5ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (34ms)
-	RebuildCommonClasses (34ms)
-	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (38ms)
-	LoadAllAssembliesAndSetupDomain (250ms)
-		LoadAssemblies (311ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (23ms)
-			TypeCache.Refresh (5ms)
-				TypeCache.ScanAssembly (0ms)
-			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (16ms)
-	FinalizeReload (1326ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (574ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (10ms)
-			SetLoadedEditorAssemblies (6ms)
-			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (124ms)
-			ProcessInitializeOnLoadAttributes (323ms)
-			ProcessInitializeOnLoadMethodAttributes (97ms)
-			AfterProcessingInitializeOnLoad (14ms)
+			BeforeProcessingInitializeOnLoad (121ms)
+			ProcessInitializeOnLoadAttributes (310ms)
+			ProcessInitializeOnLoadMethodAttributes (99ms)
+			AfterProcessingInitializeOnLoad (13ms)
 			EditorAssembliesLoaded (1ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (7ms)
-Refreshing native plugins compatible for Editor in 7.78 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 11.76 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5327 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 30 unused Assets / (2.2 MB). Loaded Objects now: 6162.
-Memory consumption went from 199.9 MB to 197.7 MB.
-Total: 5.935300 ms (FindLiveObjects: 0.809400 ms CreateObjectMapping: 0.200400 ms MarkObjects: 4.098500 ms  DeleteObjects: 0.825900 ms)
+Unloading 5326 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 29 unused Assets / (2.1 MB). Loaded Objects now: 6003.
+Memory consumption went from 199.2 MB to 197.1 MB.
+Total: 10.417900 ms (FindLiveObjects: 0.912900 ms CreateObjectMapping: 0.208500 ms MarkObjects: 7.470200 ms  DeleteObjects: 1.825000 ms)
 
 Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
-  custom:scripting/monoscript/fileName/StyledEnum.cs: cf4e9053177bc0faddc80d2c05aeaa94 -> 
-  custom:scripting/monoscript/fileName/StyledMessageDrawer.cs: 20992691c2fe23b50383424cf7a26b82 -> 
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:scripting/monoscript/fileName/LoadSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledTextDrawer.cs: d8f6222dc08ae6d490686afd58ca144e -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:scripting/monoscript/fileName/DrawWindowCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:scripting/monoscript/fileName/StyledEnumDrawer.cs: 2cf617b1db144ddbca03d98feca25c96 -> 
-  custom:scripting/monoscript/fileName/DrawTexturePreview.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledMaskDrawer.cs: 15cfdca36a0e036f7c50405d6fd2f1fc -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Editor: 0c2583c650c9417eeecb654d4c556ae1 -> 
-  custom:scripting/monoscript/fileName/StyledBanner.cs: 1fa36bded75bcc83389a35a38a24700d -> 
-  custom:scripting/monoscript/fileName/StyledVectorDrawer.cs: 62a17712eb06f5707d9322c3ab33eb93 -> 
   custom:CustomObjectIndexerAttribute: 3ead1caaecf1c488f20bcfeb224b6af5 -> 
-  custom:scripting/monoscript/fileName/StyledInteractive.cs: 0697e560670ed4999657403ac08ef097 -> 
-  custom:scripting/monoscript/fileName/SceneSwitch.cs: e07e50fb982fb9a9177514ed7338d883 -> 
-  custom:scripting/monoscript/fileName/StyledCategoryDrawer.cs: db8756881335f421d811372005190bb8 -> 
   custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:scripting/monoscript/fileName/StyledOptionsSliderDrawer.cs: c046d1c06395c9490169074f7ce40942 -> 
-  custom:scripting/monoscript/fileName/StyledButtonDrawer.cs: eb4cf86b17171b3614656cf46526596b -> 
-  custom:scripting/monoscript/fileName/StyledTextureSingleLineDrawer.cs: eb30538f530c1c3eada93d9dbf5fdb98 -> 
-  custom:scripting/monoscript/fileName/StyledIndent.cs: dbeaf677ec914da5702f1914cce99c49 -> 
-  custom:scripting/monoscript/fileName/StyledMessage.cs: e9fafad453f7d1b335f7469da20954f2 -> 
-  custom:scripting/monoscript/fileName/StyledCategory.cs: 8e7cf59655eb4a73d19619670d6e860a -> 
-  custom:scripting/monoscript/fileName/StyledInteractiveDrawer.cs: ce19a4193f95944d4aa65f1552a65020 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedShaderGUI.cs: 84988a868e45b7e4d73ac26862426c86 -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviourEditor.cs: 55385ad0841100782ff0c99fe0a67fab -> 
   custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptions.cs: 847e8c63e564d7b3b0bcb2f213f5777f -> 
-  custom:scripting/monoscript/fileName/StyledSpaceDrawer.cs: ae04b719ad6aff3b2aeb344e30967f08 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.Utils.Scripts: 6fbc7450cfe28e5d04cd881176715ecc -> 
-  custom:scripting/monoscript/fileName/StyledBannerDrawer.cs: 9111b4ae69b4059a71d5d27afb1f49c8 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:scripting/monoscript/fileName/StyledLabelGizmo.cs: 272464a11ea720827ce6fbc9495dcd01 -> 
-  custom:scripting/monoscript/fileName/CamController.cs: 1fe3360b4d3bfc867ec091292a53b4f4 -> 
   custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
-  custom:scripting/monoscript/fileName/StyledColoringDrawer.cs: cbe520fa5325e313888160261335ceaf -> 
   custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
-  custom:scripting/monoscript/fileName/NPCController.cs: 191ced54d0aa30156ed83818d05d6883 -> 
-  custom:scripting/monoscript/fileName/StyledSpace.cs: 5f16ec5dfe2e6caceb850dec2c2ca3fc -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObjectEditor.cs: 9509d87d39724722d6132e74bf674184 -> 
-  custom:scripting/monoscript/fileName/StyledText.cs: ccc1b39c79ddaed665fd78f020bc6a03 -> 
-  custom:scripting/monoscript/fileName/StyledMask.cs: 4678f577def2678967fb4ffa6b2ba653 -> 
-  custom:scripting/monoscript/fileName/StyledDiffusionMaterialDrawer.cs: eee2b6b0e2e39a0dff06a2e0bf1fb510 -> 
-  custom:scripting/precompiled-assembly-types:Boxophobic.SkyboxCubemapExtended.Editor: a0ffb1e5d2081fc313b3b909af51167a -> 
-  custom:scripting/monoscript/fileName/StyledRemapSliderDrawer.cs: 47767373de4aebbee7d359c1ef1cc6a6 -> 
-  custom:scripting/monoscript/fileName/StyledTextureDrawer.cs: 5869ea90bdbd2de83912dbc298b41b1a -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreview.cs: 793de234aad21816ed93b8494e1dec14 -> 
-  custom:scripting/monoscript/fileName/StyledIndentDrawer.cs: 62715c0c2eef8b1304139febfa740d3c -> 
-  custom:scripting/monoscript/fileName/StyledEmissiveIntensityDrawer.cs: 27f4a08f607831211f7e91b685c4ae40 -> 
-  custom:scripting/monoscript/fileName/SettingsData.cs: 7d0e769b0ae683ebcb407da3b57e03b6 -> 
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/DrawWindowBanner.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledButton.cs: 9a1c2a45c1a37e41ae8464019a64708d -> 
-  custom:scripting/monoscript/fileName/StyledLayersDrawer.cs: 8d23c9248cb647451e6f07d4c948eadb -> 
-  custom:scripting/monoscript/fileName/StyledLayers.cs: 20b6ea0c065e716761a79565692c083a -> 
-  custom:scripting/monoscript/fileName/StyledToggleDrawer.cs: fa32f0d948779827300f154d8afe8a43 -> 
-  custom:scripting/monoscript/fileName/DrawInspectorCategory.cs: 9587624fa9133f897063690bbf7e7226 -> 
-  custom:scripting/monoscript/fileName/StyledScriptableObject.cs: b76588d98ad28347e1e62156e8defcbe -> 
-  custom:scripting/monoscript/fileName/StyledTexturePreviewDrawer.cs: 7417ab5584a7da8fe60faa208fb88af7 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:scripting/monoscript/fileName/FPSController.cs: 399e3a3ec403ed247d92c0ee2e40c49d -> 
-  custom:scripting/monoscript/fileName/Constants.cs: 358892efbee673e10531810c28e9f3e0 -> 
-  custom:scripting/monoscript/fileName/SkyboxExtendedWindows.cs: 91db52253ea00cf20844992b86537e4d -> 
-  custom:scripting/monoscript/fileName/StyledMonoBehaviour.cs: 3be224fd1c8d0edeedfe9cf261c631c4 -> 
-  custom:scripting/monoscript/fileName/StyledRangeOptionsDrawer.cs: bfa83081b223cb3aca05e471b3387471 -> 
-  custom:scripting/monoscript/fileName/SaveSettingsData.cs: 601588721e15dccfe36bbb9b8f6edd21 -> 
