@@ -21,6 +21,7 @@ public class HelperNPC : MonoBehaviour
 
     public enum WalkType { ToOrigin }
     private WalkType walkType;
+    public bool atCrop = false;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -45,7 +46,7 @@ public class HelperNPC : MonoBehaviour
     void Update()
     {
         // Look for target crop if none is assigned
-        if (targetCrop == null)
+        if (targetCrop == null || atCrop == false)
         {
             FindTargetCrop();
         }
@@ -197,8 +198,11 @@ public class HelperNPC : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Smooth rotation
+                atCrop = true;
             }
         }
+
+        atCrop = false;
     }
 
     private void StopAgent()
