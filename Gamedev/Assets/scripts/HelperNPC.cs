@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
+
 public enum SlimeAnimationSt { Idle, Walk, Jump, Attack, Damage }
 
 public class HelperNPC : MonoBehaviour
@@ -12,23 +13,27 @@ public class HelperNPC : MonoBehaviour
 
     public Animator animator;
     public NavMeshAgent agent;
-    public Transform[] waypoints;
     public int damType;
-
-    private int m_CurrentWaypointIndex;
 
     private bool move;
     private Material faceMaterial;
     private Vector3 originPos;
 
-    public enum WalkType { Patroll, ToOrigin }
+    public enum WalkType { ToOrigin }
     private WalkType walkType;
+
+    private Dictionary<string, int> cropValues = new Dictionary<string, int>
+    {
+        {"Carrot", 1}, {"Broccoli", 2}, {"Cauliflower", 3},
+        {"Mushroom", 4}, {"Corn", 5}, {"Sunflower", 6}
+    };
+    private GameObject targetCrop;
 
     void Start()
     {
         originPos = transform.position;
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
-        walkType = WalkType.Patroll;
+        walkType = WalkType.ToOrigin;
 
         // Ensure NavMeshAgent is correctly set up
         if (agent == null)
@@ -37,119 +42,164 @@ public class HelperNPC : MonoBehaviour
         }
     }
 
-    public void WalkToNextDestination()
-    {
-        currentState = SlimeAnimationState.Walk;
-        m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
-        agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-        SetFace(faces.WalkFace);
-    }
-    public void CancelGoNextDestination() => CancelInvoke(nameof(WalkToNextDestination));
-
-    void SetFace(Texture tex)
-    {
-        faceMaterial.SetTexture("_MainTex", tex);
-    }
     void Update()
     {
+        // Look for target crop if none is assigned
+        if (targetCrop == null)
+        {
+            FindTargetCrop();
+        }
 
+        // Move towards the target crop
+        if (currentState == SlimeAnimationState.Walk)
+        {
+            MoveToTargetCrop();
+        }
 
+        // Handle animation transitions
         switch (currentState)
         {
             case SlimeAnimationState.Idle:
-
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
                 StopAgent();
                 SetFace(faces.Idleface);
                 break;
 
             case SlimeAnimationState.Walk:
-
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
-
                 agent.isStopped = false;
                 agent.updateRotation = true;
-
-                if (walkType == WalkType.ToOrigin)
-                {
-                    agent.SetDestination(originPos);
-                    // Debug.Log("WalkToOrg");
-                    SetFace(faces.WalkFace);
-                    // agent reaches the destination
-                    if (agent.remainingDistance < agent.stoppingDistance)
-                    {
-                        walkType = WalkType.Patroll;
-
-                        //facing to camera
-                        transform.rotation = Quaternion.identity;
-
-                        currentState = SlimeAnimationState.Idle;
-                    }
-
-                }
-                //Patroll
-                else
-                {
-                    if (waypoints[0] == null) return;
-
-                    agent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
-
-                    // agent reaches the destination
-                    if (agent.remainingDistance < agent.stoppingDistance)
-                    {
-                        currentState = SlimeAnimationState.Idle;
-
-                        //wait 2s before go to next destionation
-                        Invoke(nameof(WalkToNextDestination), 2f);
-                    }
-
-                }
-                // set Speed parameter synchronized with agent root motion moverment
-                animator.SetFloat("Speed", agent.velocity.magnitude);
-
-
+                SetFace(faces.WalkFace);
                 break;
 
             case SlimeAnimationState.Jump:
-
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
-
                 StopAgent();
                 SetFace(faces.jumpFace);
                 animator.SetTrigger("Jump");
-
-                //Debug.Log("Jumping");
                 break;
 
             case SlimeAnimationState.Attack:
-
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
                 StopAgent();
                 SetFace(faces.attackFace);
                 animator.SetTrigger("Attack");
-
-                // Debug.Log("Attacking");
-
                 break;
+
             case SlimeAnimationState.Damage:
-
-                // Do nothing when animtion is playing
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0")
-                     || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1")
-                     || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
-
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
                 StopAgent();
                 animator.SetTrigger("Damage");
                 animator.SetInteger("DamageType", damType);
                 SetFace(faces.damageFace);
-
-                //Debug.Log("Take Damage");
                 break;
-
         }
-
     }
 
+    void FindTargetCrop()
+    {
+        int highestGrowthPhase = -1;
+        int highestValue = -1;
+        GameObject bestCrop = null;
+
+        // loops through all the crops
+        foreach (var cropValue in cropValues)
+        {
+            GameObject[] crops = GameObject.FindGameObjectsWithTag(cropValue.Key);
+
+            // loops through all the crops in the scene
+            foreach (GameObject crop in crops)
+            {
+                Component cropGrowthScript = null;
+                int currentGrowthPhase = 0;
+
+                // gets the growth phase of each crop
+                switch (cropValue.Key)
+                {
+                    case "Carrot":
+                        cropGrowthScript = crop.GetComponent<CarrotGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Broccoli":
+                        cropGrowthScript = crop.GetComponent<BroccoliGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((BroccoliGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Cauliflower":
+                        cropGrowthScript = crop.GetComponent<CauliflowerGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((CauliflowerGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Mushroom":
+                        cropGrowthScript = crop.GetComponent<LettuceGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Corn":
+                        cropGrowthScript = crop.GetComponent<PumpkinGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    case "Sunflower":
+                        cropGrowthScript = crop.GetComponent<WatermelonGrowth>();
+                        if (cropGrowthScript != null)
+                        {
+                            currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
+                        }
+                        break;
+                    default:
+                        continue;
+                }
+
+                if (cropGrowthScript == null) continue;
+
+                int currentValue = cropValues[crop.tag];
+
+                // prioritizes crop growth over crop value
+                if (currentGrowthPhase > highestGrowthPhase ||
+                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue))
+                {
+                    highestGrowthPhase = currentGrowthPhase;
+                    highestValue = currentValue;
+                    bestCrop = crop;
+                }
+            }
+        }
+
+        targetCrop = bestCrop;
+    }
+
+    void MoveToTargetCrop()
+    {
+        // Check if a target crop is found
+        if (targetCrop != null)
+        {
+            // Get the position of the target crop
+            Vector3 targetPosition = targetCrop.transform.position;
+
+            // Move the NPC towards the target crop's position
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
+
+            // Optionally, make the NPC rotate towards the target crop
+            Vector3 direction = targetPosition - transform.position;
+            if (direction.sqrMagnitude > 0.1f) // Check if the NPC isn't already at the target
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Smooth rotation
+            }
+        }
+    }
 
     private void StopAgent()
     {
@@ -157,15 +207,18 @@ public class HelperNPC : MonoBehaviour
         animator.SetFloat("Speed", 0);
         agent.updateRotation = false;
     }
+
+    void SetFace(Texture tex)
+    {
+        faceMaterial.SetTexture("_MainTex", tex);
+    }
+
     // Animation Event
     public void AlertObservers(string message)
     {
-
         if (message.Equals("AnimationDamageEnded"))
         {
-            // When Animation ended check distance between current position and first position 
-            //if it > 1 AI will back to first position 
-
+            // Handle damage animation ending
             float distanceOrg = Vector3.Distance(transform.position, originPos);
             if (distanceOrg > 1f)
             {
@@ -173,8 +226,6 @@ public class HelperNPC : MonoBehaviour
                 currentState = SlimeAnimationState.Walk;
             }
             else currentState = SlimeAnimationState.Idle;
-
-            //Debug.Log("DamageAnimationEnded");
         }
 
         if (message.Equals("AnimationAttackEnded"))
@@ -190,7 +241,7 @@ public class HelperNPC : MonoBehaviour
 
     void OnAnimatorMove()
     {
-        // apply root motion to AI
+        // Apply root motion to NPC
         Vector3 position = animator.rootPosition;
         position.y = agent.nextPosition.y;
         transform.position = position;
