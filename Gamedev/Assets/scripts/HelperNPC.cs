@@ -183,26 +183,75 @@ public class HelperNPC : MonoBehaviour
 
     void MoveToTargetCrop()
     {
-        // Check if a target crop is found
         if (targetCrop != null)
         {
-            // Get the position of the target crop
+            // Ignore Y by keeping NPC's current Y level
             Vector3 targetPosition = targetCrop.transform.position;
+            targetPosition.y = transform.position.y; // Keep NPC's current Y position
 
-            // Move the NPC towards the target crop's position
+            // Move towards target while ignoring Y
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
 
-            // Optionally, make the NPC rotate towards the target crop
+            // Get direction (ignoring Y)
             Vector3 direction = targetPosition - transform.position;
-            if (direction.sqrMagnitude > 0.1f) // Check if the NPC isn't already at the target
+            direction.y = 0; // Ignore vertical rotation
+
+            // Rotate towards target only if there is movement
+            if (direction.sqrMagnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f); // Smooth rotation
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+            }
+
+            Debug.Log($"NPC Position: {transform.position}, Target: {targetPosition}");
+
+            // Check if NPC has reached the crop (ignoring Y)
+            if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),
+                                 new Vector3(targetCrop.transform.position.x, 0, targetCrop.transform.position.z)) < 1f)
+            {
                 atCrop = true;
+                InteractWithCrop();
             }
         }
+    }
 
-        atCrop = false;
+
+    void InteractWithCrop()
+    {
+        if (targetCrop == null) return;
+
+        // Determine the crop type and access its growth script
+        Component cropGrowthScript = targetCrop.GetComponent<CarrotGrowth>(); // Adjust this for different crops
+        if (cropGrowthScript != null)
+        {
+            int currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
+
+            if (currentGrowthPhase == 0)
+            {
+                PlantCrop((CarrotGrowth)cropGrowthScript);
+            }
+            else if (currentGrowthPhase > 0 && currentGrowthPhase < 3)
+            {
+                WaterCrop((CarrotGrowth)cropGrowthScript);
+            }
+            else
+            {
+                Debug.Log("Crop is fully grown. Helper NPC will not interact.");
+            }
+        }
+    }
+
+    void PlantCrop(CarrotGrowth crop)
+    {
+        Debug.Log("Helper NPC is planting a crop.");
+        crop.growingPhase = 1;  // Move crop to the next phase
+        crop.plantStem.SetActive(true);
+    }
+
+    void WaterCrop(CarrotGrowth crop)
+    {
+        Debug.Log("Helper NPC is watering the crop.");
+        crop.growingPhase++;  // Increase the growth phase
     }
 
     private void StopAgent()
