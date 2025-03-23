@@ -203,8 +203,6 @@ public class HelperNPC : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
 
-            Debug.Log($"NPC Position: {transform.position}, Target: {targetPosition}");
-
             // Check if NPC has reached the crop (ignoring Y)
             if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),
                                  new Vector3(targetCrop.transform.position.x, 0, targetCrop.transform.position.z)) < 1f)
@@ -243,14 +241,12 @@ public class HelperNPC : MonoBehaviour
 
     void PlantCrop(CarrotGrowth crop)
     {
-        Debug.Log("Helper NPC is planting a crop.");
         crop.growingPhase = 1;  // Move crop to the next phase
         crop.plantStem.SetActive(true);
     }
 
     void WaterCrop(CarrotGrowth crop)
     {
-        Debug.Log("Helper NPC is watering the crop.");
         crop.growingPhase++;  // Increase the growth phase
     }
 
