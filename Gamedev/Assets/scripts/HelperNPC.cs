@@ -234,7 +234,6 @@ public class HelperNPC : MonoBehaviour
         {
             // Start the growth process for the crop
             cropGrowthScript.StartGrowthByHelper();
-            UnityEngine.Debug.Log("Interacting with Carrot");
 
             // Set NPC to Idle state while waiting
             currentState = SlimeAnimationState.Idle;

@@ -170,8 +170,8 @@ public class CarrotGrowth : MonoBehaviour
         if (!growing)
         {
             progressCanvas.gameObject.SetActive(true);
-            StartCoroutine(HandleGrowth());
             NPCFarming = true;
+            StartCoroutine(HandleGrowth());
         }
     }
 
@@ -192,7 +192,6 @@ public class CarrotGrowth : MonoBehaviour
 
                 plantStem.SetActive(true);  // Stem asset appears
                 growingPhase++;  // Move to next phase
-
                 NPCFarming = false;
             }
             else
@@ -306,7 +305,6 @@ public class CarrotGrowth : MonoBehaviour
                 }
             }
         }
-
         growing = false;
     }
 
