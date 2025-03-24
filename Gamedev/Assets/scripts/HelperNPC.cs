@@ -56,6 +56,7 @@ public class HelperNPC : MonoBehaviour
 
     void Update()
     {
+
         // Look for target crop if none is assigned
         if (targetCrop == null || atCrop == false)
         {
@@ -262,6 +263,8 @@ public class HelperNPC : MonoBehaviour
     // Coroutine to handle waiting and then moving away from the crop
     IEnumerator WaitAndMoveAway(float waitTime)
     {
+        currentState = SlimeAnimationState.Jump;
+
         // Wait for the specified amount of time while the NPC is idle
         yield return new WaitForSeconds(waitTime);
 
