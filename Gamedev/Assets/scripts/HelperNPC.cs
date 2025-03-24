@@ -226,41 +226,69 @@ public class HelperNPC : MonoBehaviour
 
     void InteractWithCrop()
     {
-        if (targetCrop == null) return;
+        if (targetCrop == null || isMovingAway) return;
 
         // Determine the crop type and access its growth script
         CarrotGrowth cropGrowthScript = targetCrop.GetComponent<CarrotGrowth>();
         if (cropGrowthScript != null)
         {
+            // Start the growth process for the crop
             cropGrowthScript.StartGrowthByHelper();
             UnityEngine.Debug.Log("Interacting with Carrot");
-        }
 
-        // Move the NPC away from the crop after interacting
+            // Set NPC to Idle state while waiting
+            currentState = SlimeAnimationState.Idle;
+            animator.SetFloat("Speed", 0); // Make sure the NPC is not moving
+
+            // Check the current growth phase and start the appropriate coroutine
+            int currentGrowthPhase = cropGrowthScript.growingPhase;
+
+            switch (currentGrowthPhase)
+            {
+                case 0:
+                    StartCoroutine(WaitAndMoveAway(1.5f)); // Coroutine for waiting and moving away
+                    break;
+                case 1:
+                    StartCoroutine(WaitAndMoveAway(2.0f)); // Coroutine for waiting and moving away
+                    break;
+                default:
+                    StartCoroutine(WaitAndMoveAway(1.0f)); // Default wait time
+                    break;
+            }
+        }
+    }
+
+    // Coroutine to handle waiting and then moving away from the crop
+    IEnumerator WaitAndMoveAway(float waitTime)
+    {
+        // Wait for the specified amount of time while the NPC is idle
+        yield return new WaitForSeconds(waitTime);
+
+        // After the wait, move the NPC away from the crop
         MoveAwayFromCrop();
     }
 
+    // Move the NPC away from the crop (already in your previous code)
     void MoveAwayFromCrop()
     {
         if (targetCrop == null) return;
 
-        // Set the flag to prevent movement towards the crop
         isMovingAway = true;
 
         // Get the direction away from the crop (opposite direction of target crop)
         Vector3 moveDirection = (transform.position - targetCrop.transform.position).normalized;
 
         // Define a distance to move away
-        float moveDistance = 300f; // Adjust this value as needed
+        float moveDistance = 50f;
 
         // Calculate the target position
         Vector3 targetPosition = transform.position + moveDirection * moveDistance;
 
         // Move the NPC to the new position
-        StartCoroutine(MoveNPCToPosition(targetPosition, moveDirection));
+        StartCoroutine(MoveNPCToPosition(targetPosition));
     }
 
-    IEnumerator MoveNPCToPosition(Vector3 targetPosition, Vector3 moveDirection)
+    IEnumerator MoveNPCToPosition(Vector3 targetPosition)
     {
         float duration = 1f; // Duration for the movement
         Vector3 startPosition = transform.position;
@@ -270,14 +298,6 @@ public class HelperNPC : MonoBehaviour
         while (timeElapsed < duration)
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
-
-            // Rotate the NPC to face the movement direction
-            if (moveDirection.sqrMagnitude > 0.1f) // Make sure the direction is not zero
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, timeElapsed / duration);
-            }
-
             timeElapsed += Time.deltaTime;
             yield return null;
         }
@@ -288,6 +308,7 @@ public class HelperNPC : MonoBehaviour
         // After moving away, allow the NPC to resume normal movement
         isMovingAway = false;
     }
+
 
     private void StopAgent()
     {
