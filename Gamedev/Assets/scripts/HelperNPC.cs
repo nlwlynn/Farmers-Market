@@ -54,16 +54,20 @@ public class HelperNPC : MonoBehaviour
         }
     }
 
+
+    private Vector3 hiddenPosition = new Vector3(-1000, -1000, -1000);
+
     void Update()
     {
-        if(uiController.IsNightPhase)
+        if (uiController.IsNightPhase)
         {
-            gameObject.SetActive(false);
+            transform.position = hiddenPosition; // Move away
         }
-        else
+        else 
         {
-            gameObject.SetActive(true);
+            transform.position = originPos; // Move back
         }
+  
         // Look for target crop if none is assigned
         if (targetCrop == null || atCrop == false)
         {
