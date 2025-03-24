@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public enum SlimeAnimationSt { Idle, Walk, Jump, Attack, Damage }
 
@@ -22,6 +23,8 @@ public class HelperNPC : MonoBehaviour
     public enum WalkType { ToOrigin }
     private WalkType walkType;
     public bool atCrop = false;
+    public UIController uiController;
+    private bool isMovingAway = false;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -29,6 +32,14 @@ public class HelperNPC : MonoBehaviour
         {"Mushroom", 4}, {"Corn", 5}, {"Sunflower", 6}
     };
     private GameObject targetCrop;
+
+    private void Awake()
+    {
+        if (uiController == null)
+        {
+            uiController = FindObjectOfType<UIController>();
+        }
+    }
 
     void Start()
     {
@@ -52,7 +63,7 @@ public class HelperNPC : MonoBehaviour
         }
 
         // Move towards the target crop
-        if (currentState == SlimeAnimationState.Walk)
+        if (currentState == SlimeAnimationState.Walk && !isMovingAway)
         {
             MoveToTargetCrop();
         }
@@ -213,41 +224,69 @@ public class HelperNPC : MonoBehaviour
         }
     }
 
-
     void InteractWithCrop()
     {
         if (targetCrop == null) return;
 
         // Determine the crop type and access its growth script
-        Component cropGrowthScript = targetCrop.GetComponent<CarrotGrowth>(); // Adjust this for different crops
+        CarrotGrowth cropGrowthScript = targetCrop.GetComponent<CarrotGrowth>();
         if (cropGrowthScript != null)
         {
-            int currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
-
-            if (currentGrowthPhase == 0)
-            {
-                PlantCrop((CarrotGrowth)cropGrowthScript);
-            }
-            else if (currentGrowthPhase > 0 && currentGrowthPhase < 3)
-            {
-                WaterCrop((CarrotGrowth)cropGrowthScript);
-            }
-            else
-            {
-                Debug.Log("Crop is fully grown. Helper NPC will not interact.");
-            }
+            cropGrowthScript.StartGrowthByHelper();
+            UnityEngine.Debug.Log("Interacting with Carrot");
         }
+
+        // Move the NPC away from the crop after interacting
+        MoveAwayFromCrop();
     }
 
-    void PlantCrop(CarrotGrowth crop)
+    void MoveAwayFromCrop()
     {
-        crop.growingPhase = 1;  // Move crop to the next phase
-        crop.plantStem.SetActive(true);
+        if (targetCrop == null) return;
+
+        // Set the flag to prevent movement towards the crop
+        isMovingAway = true;
+
+        // Get the direction away from the crop (opposite direction of target crop)
+        Vector3 moveDirection = (transform.position - targetCrop.transform.position).normalized;
+
+        // Define a distance to move away
+        float moveDistance = 300f; // Adjust this value as needed
+
+        // Calculate the target position
+        Vector3 targetPosition = transform.position + moveDirection * moveDistance;
+
+        // Move the NPC to the new position
+        StartCoroutine(MoveNPCToPosition(targetPosition, moveDirection));
     }
 
-    void WaterCrop(CarrotGrowth crop)
+    IEnumerator MoveNPCToPosition(Vector3 targetPosition, Vector3 moveDirection)
     {
-        crop.growingPhase++;  // Increase the growth phase
+        float duration = 1f; // Duration for the movement
+        Vector3 startPosition = transform.position;
+        float timeElapsed = 0f;
+
+        // Smoothly move the NPC towards the target position
+        while (timeElapsed < duration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
+
+            // Rotate the NPC to face the movement direction
+            if (moveDirection.sqrMagnitude > 0.1f) // Make sure the direction is not zero
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, timeElapsed / duration);
+            }
+
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure NPC ends at the target position
+        transform.position = targetPosition;
+
+        // After moving away, allow the NPC to resume normal movement
+        isMovingAway = false;
     }
 
     private void StopAgent()

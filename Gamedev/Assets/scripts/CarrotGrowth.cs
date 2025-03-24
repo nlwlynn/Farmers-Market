@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,8 @@ public class CarrotGrowth : MonoBehaviour
     public Rigidbody rb;
 
     public Carrot carrotScript;
+
+    public bool NPCFarming = false;
 
     private void Awake()
     {
@@ -162,44 +165,71 @@ public class CarrotGrowth : MonoBehaviour
         }
     }
 
+    public void StartGrowthByHelper()
+    {
+        if (!growing)
+        {
+            progressCanvas.gameObject.SetActive(true);
+            StartCoroutine(HandleGrowth());
+            NPCFarming = true;
+        }
+    }
+
     private IEnumerator HandleGrowth()
     {
         growing = true;
 
         if (growingPhase == 0)   // Planting Phase
         {
-            // Reset health
-            plantHealth = 20;
-            plantActive = true;
-
-            // Planting shovel animation
-            if (playerAnimator != null)
-                playerAnimator.SetBool("isPlanting", true);
-
-            FarmManager.IsAnimationPlaying = true;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-
-            if (shovel != null)
-                shovel.SetActive(true);
-
-            // Timer for 3 seconds for planting animation
-            yield return StartCoroutine(FillBar(0.25f, 1.5f));
-
-            plantStem.SetActive(true);  // Stem asset appears
-            growingPhase++;  // Move to next phase
-
-            // Hide the shovel after planting is done
-            if (shovel != null)
-                shovel.SetActive(false);
-
-            // Reset the attack animation and unlock movement
-            if (playerAnimator != null)
+            if(NPCFarming)
             {
-                playerAnimator.SetBool("isPlanting", false);  
-            }
-            FarmManager.IsAnimationPlaying = false;
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+                // Reset health
+                plantHealth = 20;
+                plantActive = true;
 
+                // Timer for 3 seconds for planting animation
+                yield return StartCoroutine(FillBar(0.25f, 1.5f));
+
+                plantStem.SetActive(true);  // Stem asset appears
+                growingPhase++;  // Move to next phase
+
+                NPCFarming = false;
+            }
+            else
+            {
+                // Reset health
+                plantHealth = 20;
+                plantActive = true;
+
+                // Planting shovel animation
+                if (playerAnimator != null)
+                    playerAnimator.SetBool("isPlanting", true);
+
+                FarmManager.IsAnimationPlaying = true;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+
+                if (shovel != null)
+                    shovel.SetActive(true);
+
+                // Timer for 3 seconds for planting animation
+                yield return StartCoroutine(FillBar(0.25f, 1.5f));
+
+                plantStem.SetActive(true);  // Stem asset appears
+                growingPhase++;  // Move to next phase
+
+                // Hide the shovel after planting is done
+                if (shovel != null)
+                    shovel.SetActive(false);
+
+                // Reset the attack animation and unlock movement
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("isPlanting", false);
+                }
+                FarmManager.IsAnimationPlaying = false;
+                rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            }
         }
         else if (growingPhase == 1)  // Watering Phase
         {
