@@ -232,15 +232,17 @@ public class HelperNPC : MonoBehaviour
         CarrotGrowth cropGrowthScript = targetCrop.GetComponent<CarrotGrowth>();
         if (cropGrowthScript != null)
         {
+            // Check the current growth phase and start the appropriate coroutine
+            int currentGrowthPhase = cropGrowthScript.growingPhase;
+
+            if (currentGrowthPhase == 2) return;
+
             // Start the growth process for the crop
             cropGrowthScript.StartGrowthByHelper();
 
             // Set NPC to Idle state while waiting
             currentState = SlimeAnimationState.Idle;
             animator.SetFloat("Speed", 0); // Make sure the NPC is not moving
-
-            // Check the current growth phase and start the appropriate coroutine
-            int currentGrowthPhase = cropGrowthScript.growingPhase;
 
             switch (currentGrowthPhase)
             {
@@ -272,7 +274,9 @@ public class HelperNPC : MonoBehaviour
     {
         if (targetCrop == null) return;
 
+        currentState = SlimeAnimationState.Walk;
         isMovingAway = true;
+        atCrop = false;
 
         // Get the direction away from the crop (opposite direction of target crop)
         Vector3 moveDirection = (transform.position - targetCrop.transform.position).normalized;
@@ -306,6 +310,7 @@ public class HelperNPC : MonoBehaviour
 
         // After moving away, allow the NPC to resume normal movement
         isMovingAway = false;
+        targetCrop = null;
     }
 
 

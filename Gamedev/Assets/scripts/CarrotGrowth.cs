@@ -232,37 +232,53 @@ public class CarrotGrowth : MonoBehaviour
         }
         else if (growingPhase == 1)  // Watering Phase
         {
-            // Watering animation
-            if (playerAnimator != null)
-                playerAnimator.SetBool("isWatering", true);
-
-            FarmManager.IsAnimationPlaying = true;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-
-            if (watering_can != null)
-                watering_can.SetActive(true);
-
-            // Timer for 5 seconds
-            yield return StartCoroutine(FillBar(0.5f, 2f));
-            plantStem.SetActive(false);
-            halfPlant.SetActive(true);    // Half plant asset appears
-
-            if (watering_can != null)
-                watering_can.SetActive(false);
-
-            // Reset animation
-            if (playerAnimator != null)
+            if(NPCFarming)
             {
-                playerAnimator.SetBool("isWatering", false);
+                // Timer for 5 seconds
+                yield return StartCoroutine(FillBar(0.5f, 2f));
+                plantStem.SetActive(false);
+                halfPlant.SetActive(true);    // Half plant asset appears
+
+                StartCoroutine(GrowthPhase());  // Growing starts without user interaction
+                                                // Wait for growth phase
+                yield return new WaitUntil(() => !growing);
+                growingPhase++;    // Move to next phase
+                NPCFarming = false;
             }
+            else
+            {
+                // Watering animation
+                if (playerAnimator != null)
+                    playerAnimator.SetBool("isWatering", true);
 
-            FarmManager.IsAnimationPlaying = false;
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+                FarmManager.IsAnimationPlaying = true;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
 
-            StartCoroutine(GrowthPhase());  // Growing starts without user interaction
-            // Wait for growth phase
-            yield return new WaitUntil(() => !growing);
-            growingPhase++;    // Move to next phase
+                if (watering_can != null)
+                    watering_can.SetActive(true);
+
+                // Timer for 5 seconds
+                yield return StartCoroutine(FillBar(0.5f, 2f));
+                plantStem.SetActive(false);
+                halfPlant.SetActive(true);    // Half plant asset appears
+
+                if (watering_can != null)
+                    watering_can.SetActive(false);
+
+                // Reset animation
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("isWatering", false);
+                }
+
+                FarmManager.IsAnimationPlaying = false;
+                rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+                StartCoroutine(GrowthPhase());  // Growing starts without user interaction
+                                                // Wait for growth phase
+                yield return new WaitUntil(() => !growing);
+                growingPhase++;    // Move to next phase
+            }
         }
         else if (growingPhase == 2)  // Harvesting Phase
         {
