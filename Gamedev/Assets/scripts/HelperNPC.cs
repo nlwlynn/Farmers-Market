@@ -56,7 +56,14 @@ public class HelperNPC : MonoBehaviour
 
     void Update()
     {
-
+        if(uiController.IsNightPhase)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
         // Look for target crop if none is assigned
         if (targetCrop == null || atCrop == false)
         {
