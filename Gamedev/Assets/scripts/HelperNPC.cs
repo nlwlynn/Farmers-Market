@@ -24,7 +24,11 @@ public class HelperNPC : MonoBehaviour
     private WalkType walkType;
     public bool atCrop = false;
     public UIController uiController;
+
+    private Vector3 hiddenPosition = new Vector3(-1000, -1000, -1000);
     private bool isMovingAway = false;
+    private bool toOrigin = false;
+    public Transform spawnPoint;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -43,7 +47,7 @@ public class HelperNPC : MonoBehaviour
 
     void Start()
     {
-        originPos = transform.position;
+        originPos = spawnPoint.position;
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         walkType = WalkType.ToOrigin;
 
@@ -54,30 +58,32 @@ public class HelperNPC : MonoBehaviour
         }
     }
 
-
-    private Vector3 hiddenPosition = new Vector3(-1000, -1000, -1000);
-
     void Update()
     {
         if (uiController.IsNightPhase)
         {
             transform.position = hiddenPosition; // Move away
+            toOrigin = false;
         }
-        else 
+        else if(!toOrigin)
         {
-            transform.position = originPos; // Move back
-        }
-  
-        // Look for target crop if none is assigned
-        if (targetCrop == null || atCrop == false)
-        {
-            FindTargetCrop();
+            agent.Warp(originPos); // Move back
+            toOrigin = true;
         }
 
-        // Move towards the target crop
-        if (currentState == SlimeAnimationState.Walk && !isMovingAway)
+        if (!uiController.IsNightPhase)
         {
-            MoveToTargetCrop();
+            // Look for target crop if none is assigned
+            if (targetCrop == null || atCrop == false)
+            {
+                FindTargetCrop();
+            }
+
+            // Move towards the target crop
+            if (currentState == SlimeAnimationState.Walk && !isMovingAway)
+            {
+                MoveToTargetCrop();
+            }
         }
 
         // Handle animation transitions
