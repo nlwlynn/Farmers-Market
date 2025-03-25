@@ -29,6 +29,8 @@ public class HelperNPC : MonoBehaviour
     private bool isMovingAway = false;
     private bool toOrigin = false;
     public Transform spawnPoint;
+    public string scriptNames = "";
+    public string targetScript = "";
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -151,6 +153,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
+                            scriptNames = "CarrotGrowth";
                         }
                         break;
                     case "Broccoli":
@@ -158,6 +161,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((BroccoliGrowth)cropGrowthScript).growingPhase;
+                            scriptNames = "BroccoliGrowth";
                         }
                         break;
                     case "Cauliflower":
@@ -165,6 +169,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((CauliflowerGrowth)cropGrowthScript).growingPhase;
+                            scriptNames = "CauliflowerGrowth";
                         }
                         break;
                     case "Mushroom":
@@ -172,6 +177,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
+                            scriptNames = "LettuceGrowth";
                         }
                         break;
                     case "Corn":
@@ -179,6 +185,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
+                            scriptNames = "PumpkinGrowth";
                         }
                         break;
                     case "Sunflower":
@@ -186,6 +193,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
+                            scriptNames = "WatermelonGrowth";
                         }
                         break;
                     default:
@@ -203,6 +211,7 @@ public class HelperNPC : MonoBehaviour
                     highestGrowthPhase = currentGrowthPhase;
                     highestValue = currentValue;
                     bestCrop = crop;
+                    targetScript = scriptNames;
                 }
             }
         }
@@ -246,33 +255,49 @@ public class HelperNPC : MonoBehaviour
     {
         if (targetCrop == null || isMovingAway) return;
 
-        // Determine the crop type and access its growth script
-        CarrotGrowth cropGrowthScript = targetCrop.GetComponent<CarrotGrowth>();
-        if (cropGrowthScript != null)
+        // Get the script type dynamically
+        System.Type scriptType = System.Type.GetType(targetScript);
+
+        if (scriptType != null)
         {
-            // Check the current growth phase and start the appropriate coroutine
-            int currentGrowthPhase = cropGrowthScript.growingPhase;
-
-            if (currentGrowthPhase == 2) return;
-
-            // Start the growth process for the crop
-            cropGrowthScript.StartGrowthByHelper();
-
-            // Set NPC to Idle state while waiting
-            currentState = SlimeAnimationState.Idle;
-            animator.SetFloat("Speed", 0); // Make sure the NPC is not moving
-
-            switch (currentGrowthPhase)
+            Component cropGrowthScript = targetCrop.GetComponent(scriptType);
+            if (cropGrowthScript != null)
             {
-                case 0:
-                    StartCoroutine(WaitAndMoveAway(1.5f)); // Coroutine for waiting and moving away
-                    break;
-                case 1:
-                    StartCoroutine(WaitAndMoveAway(2.0f)); // Coroutine for waiting and moving away
-                    break;
-                default:
-                    StartCoroutine(WaitAndMoveAway(1.0f)); // Default wait time
-                    break;
+                // Use reflection to call StartGrowthByHelper dynamically
+                var method = scriptType.GetMethod("StartGrowthByHelper");
+                if (method != null)
+                {
+                    method.Invoke(cropGrowthScript, null); // Call the method dynamically
+                }
+                else
+                {
+                    UnityEngine.Debug.LogError("StartGrowthByHelper method not found in " + scriptType);
+                }
+
+                // Handle NPC state changes
+                currentState = SlimeAnimationState.Idle;
+                animator.SetFloat("Speed", 0); // Ensure NPC is not moving
+
+                // Get the growth phase dynamically
+                var phaseProperty = scriptType.GetProperty("growingPhase");
+                int currentGrowthPhase = 0;
+                if (phaseProperty != null)
+                {
+                    currentGrowthPhase = (int)phaseProperty.GetValue(cropGrowthScript);
+                }
+
+                switch (currentGrowthPhase)
+                {
+                    case 0:
+                        StartCoroutine(WaitAndMoveAway(1.5f));
+                        break;
+                    case 1:
+                        StartCoroutine(WaitAndMoveAway(2.0f));
+                        break;
+                    default:
+                        StartCoroutine(WaitAndMoveAway(1.0f));
+                        break;
+                }
             }
         }
     }
