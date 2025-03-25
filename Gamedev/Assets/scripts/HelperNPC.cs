@@ -29,15 +29,15 @@ public class HelperNPC : MonoBehaviour
     private bool isMovingAway = false;
     private bool toOrigin = false;
     public Transform spawnPoint;
-    public string scriptNames = "";
-    public string targetScript = "";
+    private string scriptNames = "";
+    private string targetScript = "";
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
         {"Carrot", 1}, {"Broccoli", 2}, {"Cauliflower", 3},
         {"Mushroom", 4}, {"Corn", 5}, {"Sunflower", 6}
     };
-    private GameObject targetCrop;
+    public GameObject targetCrop;
 
     private void Awake()
     {
@@ -82,7 +82,7 @@ public class HelperNPC : MonoBehaviour
             }
 
             // Move towards the target crop
-            if (currentState == SlimeAnimationState.Walk && !isMovingAway)
+            if (currentState == SlimeAnimationState.Walk && !isMovingAway && targetCrop != null)
             {
                 MoveToTargetCrop();
             }
@@ -132,6 +132,7 @@ public class HelperNPC : MonoBehaviour
     {
         int highestGrowthPhase = -1;
         int highestValue = -1;
+        bool isGrowing = false;
         GameObject bestCrop = null;
 
         // loops through all the crops
@@ -144,6 +145,7 @@ public class HelperNPC : MonoBehaviour
             {
                 Component cropGrowthScript = null;
                 int currentGrowthPhase = 0;
+                bool growingStatus = false;
 
                 // gets the growth phase of each crop
                 switch (cropValue.Key)
@@ -153,6 +155,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
+                            growingStatus = ((CarrotGrowth)cropGrowthScript).harvetGrowth;
                             scriptNames = "CarrotGrowth";
                         }
                         break;
@@ -161,6 +164,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((BroccoliGrowth)cropGrowthScript).growingPhase;
+                            //growingStatus = ((BroccoliGrowth)cropGrowthScript).harvetGrowth;
                             scriptNames = "BroccoliGrowth";
                         }
                         break;
@@ -169,6 +173,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((CauliflowerGrowth)cropGrowthScript).growingPhase;
+                            //growingStatus = ((CauliflowerGrowth)cropGrowthScript).harvetGrowth;
                             scriptNames = "CauliflowerGrowth";
                         }
                         break;
@@ -177,6 +182,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
+                            //growingStatus = ((LettuceGrowth)cropGrowthScript).harvetGrowth;
                             scriptNames = "LettuceGrowth";
                         }
                         break;
@@ -185,6 +191,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
+                            //growingStatus = ((PumpkinGrowth)cropGrowthScript).harvetGrowth;
                             scriptNames = "PumpkinGrowth";
                         }
                         break;
@@ -193,6 +200,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
+                            //growingStatus = ((WatermelonGrowth)cropGrowthScript).harvetGrowth;
                             scriptNames = "WatermelonGrowth";
                         }
                         break;
@@ -211,12 +219,20 @@ public class HelperNPC : MonoBehaviour
                     highestGrowthPhase = currentGrowthPhase;
                     highestValue = currentValue;
                     bestCrop = crop;
+                    isGrowing = growingStatus;
                     targetScript = scriptNames;
                 }
             }
         }
 
-        targetCrop = bestCrop;
+        if (highestGrowthPhase == 2 || isGrowing == true)
+        {
+            targetCrop = null;
+        }
+        else
+        {
+            targetCrop = bestCrop;
+        }
     }
 
     void MoveToTargetCrop()
@@ -263,20 +279,15 @@ public class HelperNPC : MonoBehaviour
             Component cropGrowthScript = targetCrop.GetComponent(scriptType);
             if (cropGrowthScript != null)
             {
-                // Use reflection to call StartGrowthByHelper dynamically
                 var method = scriptType.GetMethod("StartGrowthByHelper");
                 if (method != null)
                 {
-                    method.Invoke(cropGrowthScript, null); // Call the method dynamically
-                }
-                else
-                {
-                    UnityEngine.Debug.LogError("StartGrowthByHelper method not found in " + scriptType);
+                    method.Invoke(cropGrowthScript, null); 
                 }
 
                 // Handle NPC state changes
                 currentState = SlimeAnimationState.Idle;
-                animator.SetFloat("Speed", 0); // Ensure NPC is not moving
+                animator.SetFloat("Speed", 0); 
 
                 // Get the growth phase dynamically
                 var phaseProperty = scriptType.GetProperty("growingPhase");
@@ -285,6 +296,8 @@ public class HelperNPC : MonoBehaviour
                 {
                     currentGrowthPhase = (int)phaseProperty.GetValue(cropGrowthScript);
                 }
+
+                if (currentGrowthPhase == 2) return;
 
                 switch (currentGrowthPhase)
                 {

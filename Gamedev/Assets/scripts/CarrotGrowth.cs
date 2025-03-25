@@ -23,6 +23,7 @@ public class CarrotGrowth : MonoBehaviour
 
     public int growingPhase = 0;
     private bool growing = false;
+    public bool harvetGrowth = false;
 
     // Fly interactions
     public int plantHealth = 0;
@@ -242,6 +243,7 @@ public class CarrotGrowth : MonoBehaviour
                 StartCoroutine(GrowthPhase());  // Growing starts without user interaction
                                                 // Wait for growth phase
                 yield return new WaitUntil(() => !growing);
+                harvetGrowth = false;
                 growingPhase++;    // Move to next phase
                 NPCFarming = false;
             }
@@ -326,6 +328,7 @@ public class CarrotGrowth : MonoBehaviour
 
     private IEnumerator GrowthPhase()
     {
+        harvetGrowth = true;
         growing = true;
         // Timer for 4 seconds
         yield return StartCoroutine(FillBar(1f, 3f));
