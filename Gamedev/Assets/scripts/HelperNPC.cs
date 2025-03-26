@@ -157,7 +157,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((CarrotGrowth)cropGrowthScript).growingPhase;
-                            growingStatus = ((CarrotGrowth)cropGrowthScript).harvetGrowth;
+                            growingStatus = ((CarrotGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "CarrotGrowth";
                         }
                         break;
@@ -166,7 +166,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((BroccoliGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((BroccoliGrowth)cropGrowthScript).harvetGrowth;
+                            growingStatus = ((BroccoliGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "BroccoliGrowth";
                         }
                         break;
@@ -175,7 +175,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((CauliflowerGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((CauliflowerGrowth)cropGrowthScript).harvetGrowth;
+                            growingStatus = ((CauliflowerGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "CauliflowerGrowth";
                         }
                         break;
@@ -184,7 +184,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((LettuceGrowth)cropGrowthScript).harvetGrowth;
+                            //growingStatus = ((LettuceGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "LettuceGrowth";
                         }
                         break;
@@ -193,7 +193,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((PumpkinGrowth)cropGrowthScript).harvetGrowth;
+                            //growingStatus = ((PumpkinGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "PumpkinGrowth";
                         }
                         break;
@@ -202,7 +202,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((WatermelonGrowth)cropGrowthScript).harvetGrowth;
+                            //growingStatus = ((WatermelonGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "WatermelonGrowth";
                         }
                         break;
