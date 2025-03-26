@@ -212,11 +212,13 @@ public class HelperNPC : MonoBehaviour
 
                 if (cropGrowthScript == null) continue;
 
+                if (isGrowing || currentGrowthPhase == 2) continue;
+
                 int currentValue = cropValues[crop.tag];
 
                 // prioritizes crop growth over crop value
                 if (currentGrowthPhase > highestGrowthPhase ||
-                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue) && !isGrowing && highestGrowthPhase != 2)
+                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue))
                 {
                     highestGrowthPhase = currentGrowthPhase;
                     highestValue = currentValue;
