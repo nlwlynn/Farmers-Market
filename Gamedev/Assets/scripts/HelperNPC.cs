@@ -31,6 +31,7 @@ public class HelperNPC : MonoBehaviour
     public Transform spawnPoint;
     private string scriptNames = "";
     private string targetScript = "";
+    private int interactionCount = 0;
     public bool playerPurchased = false; // variable for the store
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
@@ -303,20 +304,58 @@ public class HelperNPC : MonoBehaviour
 
                 if (currentGrowthPhase == 2) return;
 
-                switch (currentGrowthPhase)
+                interactionCount++; 
+
+                if (interactionCount >= 3)
                 {
-                    case 0:
-                        StartCoroutine(WaitAndMoveAway(1.5f));
-                        break;
-                    case 1:
-                        StartCoroutine(WaitAndMoveAway(2.0f));
-                        break;
-                    default:
-                        StartCoroutine(WaitAndMoveAway(1.0f));
-                        break;
+                    interactionCount = 0; 
+                    StartCoroutine(ReturnToSpawn());
+                } 
+                else
+                { 
+                    switch (currentGrowthPhase)
+                    {
+                        case 0:
+                            StartCoroutine(WaitAndMoveAway(1.5f));
+                            break;
+                        case 1:
+                            StartCoroutine(WaitAndMoveAway(2.0f));
+                            break;
+                        default:
+                            StartCoroutine(WaitAndMoveAway(1.0f));
+                            break;
+                    }
                 }
             }
         }
+    }
+
+    IEnumerator ReturnToSpawn()
+    {
+        isMovingAway = true;
+        atCrop = false;
+
+        yield return new WaitForSeconds(1.0f);  // Small delay before moving
+
+        if (spawnPoint == null)
+        {
+            UnityEngine.Debug.LogError("Spawn point not assigned!");
+            yield break;
+        }
+
+        UnityEngine.Debug.Log("Returning to spawn...");
+
+        agent.isStopped = false;  // Ensure the agent is not stopped
+        agent.SetDestination(spawnPoint.position);  // Move back to spawn
+
+        while (agent.pathPending || agent.remainingDistance > 0.5f)
+        {
+            yield return null;  // Wait until the entity reaches the destination
+        }
+
+        UnityEngine.Debug.Log("Reached spawn.");
+        isMovingAway = false;
+        targetCrop = null;
     }
 
     // Coroutine to handle waiting and then moving away from the crop
