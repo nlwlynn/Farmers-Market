@@ -15,6 +15,7 @@ public class WatermelonGrowth : MonoBehaviour
 
     public int growingPhase = 0;
     private bool growing = false;
+    public bool harvestGrowth = false;
 
     // interactions
     private GameObject player;
@@ -37,6 +38,7 @@ public class WatermelonGrowth : MonoBehaviour
     [SerializeField] private GameObject sickle;
     [SerializeField] private GameObject watermelon;
     public Animator playerAnimator;
+    public bool NPCFarming = false;
 
     private void Awake()
     {
@@ -123,14 +125,14 @@ public class WatermelonGrowth : MonoBehaviour
         }
 
         // checks fly health
-        if (plantHealth <= 0 && plantActive)
-        {
-            growing = false;
-            growingPhase = 0;
-            StopAllCoroutines();
-            NotifyFly();
-            ResetPlot();
-        }
+        //if (plantHealth <= 0 && plantActive)
+        //{
+        //    growing = false;
+        //    growingPhase = 0;
+        //    StopAllCoroutines();
+        //    NotifyFly();
+        //    ResetPlot();
+        //}
 
         if (FarmManager.IsHolding)
         {
@@ -161,78 +163,121 @@ public class WatermelonGrowth : MonoBehaviour
         }
     }
 
+    public void StartGrowthByHelper()
+    {
+        if (!growing)
+        {
+            progressCanvas.gameObject.SetActive(true);
+            NPCFarming = true;
+            StartCoroutine(HandleGrowth());
+        }
+    }
+
     private IEnumerator HandleGrowth()
     {
         growing = true;
 
         if (growingPhase == 0)   // Planting Phase
         {
-            // Reset health
-            plantHealth = 20;
-            plantActive = true;
-
-            // Planting shovel animation
-            if (playerAnimator != null)
-                playerAnimator.SetBool("isPlanting", true);
-
-            FarmManager.IsAnimationPlaying = true;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-
-            if (shovel != null)
-                shovel.SetActive(true);
-
-            // Timer for 3 seconds for planting animation
-            yield return StartCoroutine(FillBar(0.25f, 1.5f));
-
-            plantStem.SetActive(true);  // Stem asset appears
-            growingPhase++;  // Move to next phase
-
-            // Hide the shovel after planting is done
-            if (shovel != null)
-                shovel.SetActive(false);
-
-            // Reset the attack animation
-            if (playerAnimator != null)
+            if (NPCFarming)
             {
-                playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
-            }
-            FarmManager.IsAnimationPlaying = false;
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+                // Reset health
+                plantHealth = 20;
+                plantActive = true;
 
+                // Timer for 3 seconds for planting animation
+                yield return StartCoroutine(FillBar(0.25f, 1.5f));
+
+                plantStem.SetActive(true);  // Stem asset appears
+                growingPhase++;  // Move to next phase
+                NPCFarming = false;
+            }
+            else
+            {
+                // Reset health
+                plantHealth = 20;
+                plantActive = true;
+
+                // Planting shovel animation
+                if (playerAnimator != null)
+                    playerAnimator.SetBool("isPlanting", true);
+
+                FarmManager.IsAnimationPlaying = true;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+
+                if (shovel != null)
+                    shovel.SetActive(true);
+
+                // Timer for 3 seconds for planting animation
+                yield return StartCoroutine(FillBar(0.25f, 1.5f));
+
+                plantStem.SetActive(true);  // Stem asset appears
+                growingPhase++;  // Move to next phase
+
+                // Hide the shovel after planting is done
+                if (shovel != null)
+                    shovel.SetActive(false);
+
+                // Reset the attack animation
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("isPlanting", false);  // Reset attack animation trigger
+                }
+                FarmManager.IsAnimationPlaying = false;
+                rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            }
         }
         else if (growingPhase == 1)  // Watering Phase
         {
-            // Watering animation
-            if (playerAnimator != null)
-                playerAnimator.SetBool("isWatering", true);
-
-            FarmManager.IsAnimationPlaying = true;
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-
-            if (watering_can != null)
-                watering_can.SetActive(true);
-
-            // Timer for 5 seconds
-            yield return StartCoroutine(FillBar(0.5f, 2f));
-            plantStem.SetActive(false);
-            halfPlant.SetActive(true);    // Half plant asset appears
-
-            if (watering_can != null)
-                watering_can.SetActive(false);
-
-            // Reset animation
-            if (playerAnimator != null)
+            if (NPCFarming)
             {
-                playerAnimator.SetBool("isWatering", false);
+                // Timer for 5 seconds
+                yield return StartCoroutine(FillBar(0.5f, 2f));
+                plantStem.SetActive(false);
+                halfPlant.SetActive(true);    // Half plant asset appears
+
+                StartCoroutine(GrowthPhase());  // Growing starts without user interaction
+                                                // Wait for growth phase
+                yield return new WaitUntil(() => !growing);
+                harvestGrowth = false;
+                growingPhase++;    // Move to next phase
+                NPCFarming = false;
             }
+            else
+            {
+                // Watering animation
+                if (playerAnimator != null)
+                    playerAnimator.SetBool("isWatering", true);
 
-            FarmManager.IsAnimationPlaying = false;
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+                FarmManager.IsAnimationPlaying = true;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
 
-            StartCoroutine(GrowthPhase());  // Growing starts without user interaction
-            // Wait for growth phase
-            yield return new WaitUntil(() => !growing);
-            growingPhase++;    // Move to next phase
+                if (watering_can != null)
+                    watering_can.SetActive(true);
+
+                // Timer for 5 seconds
+                yield return StartCoroutine(FillBar(0.5f, 2f));
+                plantStem.SetActive(false);
+                halfPlant.SetActive(true);    // Half plant asset appears
+
+                if (watering_can != null)
+                    watering_can.SetActive(false);
+
+                // Reset animation
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("isWatering", false);
+                }
+
+                FarmManager.IsAnimationPlaying = false;
+                rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+                StartCoroutine(GrowthPhase());  // Growing starts without user interaction
+                                                // Wait for growth phase
+                yield return new WaitUntil(() => !growing);
+                growingPhase++;    // Move to next phase
+            }
         }
         else if (growingPhase == 2)  // Harvesting Phase
         {
@@ -281,6 +326,7 @@ public class WatermelonGrowth : MonoBehaviour
 
     private IEnumerator GrowthPhase()
     {
+        harvestGrowth = true;
         growing = true;
         // Timer for 12 seconds
         yield return StartCoroutine(FillBar(1f, 10f));

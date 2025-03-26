@@ -184,7 +184,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((LettuceGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((LettuceGrowth)cropGrowthScript).harvestGrowth;
+                            growingStatus = ((LettuceGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "LettuceGrowth";
                         }
                         break;
@@ -193,7 +193,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((PumpkinGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((PumpkinGrowth)cropGrowthScript).harvestGrowth;
+                            growingStatus = ((PumpkinGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "PumpkinGrowth";
                         }
                         break;
@@ -202,7 +202,7 @@ public class HelperNPC : MonoBehaviour
                         if (cropGrowthScript != null)
                         {
                             currentGrowthPhase = ((WatermelonGrowth)cropGrowthScript).growingPhase;
-                            //growingStatus = ((WatermelonGrowth)cropGrowthScript).harvestGrowth;
+                            growingStatus = ((WatermelonGrowth)cropGrowthScript).harvestGrowth;
                             scriptNames = "WatermelonGrowth";
                         }
                         break;
@@ -216,7 +216,7 @@ public class HelperNPC : MonoBehaviour
 
                 // prioritizes crop growth over crop value
                 if (currentGrowthPhase > highestGrowthPhase ||
-                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue))
+                    (currentGrowthPhase == highestGrowthPhase && currentValue > highestValue) && !isGrowing && highestGrowthPhase != 2)
                 {
                     highestGrowthPhase = currentGrowthPhase;
                     highestValue = currentValue;
