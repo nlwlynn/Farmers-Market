@@ -342,10 +342,15 @@ public class HelperNPC : MonoBehaviour
         Vector3 moveDirection = (transform.position - targetCrop.transform.position).normalized;
 
         // Define a distance to move away
-        float moveDistance = 50f;
+        float moveDistance = 20f;
 
         // Calculate the target position
         Vector3 targetPosition = transform.position + moveDirection * moveDistance;
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = targetRotation;
+        }
 
         // Move the NPC to the new position
         StartCoroutine(MoveNPCToPosition(targetPosition));
@@ -353,7 +358,7 @@ public class HelperNPC : MonoBehaviour
 
     IEnumerator MoveNPCToPosition(Vector3 targetPosition)
     {
-        float duration = 1f; // Duration for the movement
+        float duration = 3f; 
         Vector3 startPosition = transform.position;
         float timeElapsed = 0f;
 
