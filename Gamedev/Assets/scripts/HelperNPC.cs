@@ -31,6 +31,7 @@ public class HelperNPC : MonoBehaviour
     public Transform spawnPoint;
     private string scriptNames = "";
     private string targetScript = "";
+    public bool playerPurchased = false; // variable for the store
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -62,8 +63,9 @@ public class HelperNPC : MonoBehaviour
 
     void Update()
     {
-        if (uiController.IsNightPhase)
+        if (uiController.IsNightPhase || !playerPurchased)
         {
+            UnityEngine.Debug.Log("Player Purchased: " + playerPurchased);
             transform.position = hiddenPosition; // Move away
             toOrigin = false;
         }
