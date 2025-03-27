@@ -20,8 +20,8 @@ public class HelperNPC : MonoBehaviour
     private Material faceMaterial;
     private Vector3 originPos;
 
-    public enum WalkType { ToOrigin }
-    private WalkType walkType;
+    //public enum WalkType { ToOrigin }
+    //private WalkType walkType;
     public bool atCrop = false;
     public UIController uiController;
 
@@ -33,7 +33,8 @@ public class HelperNPC : MonoBehaviour
     private string targetScript = "";
     private int interactionCount = 0;
     private bool waitToResp = false;
-    public bool playerPurchased = false; // variable for the store
+
+    public bool playerPurchased = true; // variable for the store
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -54,7 +55,7 @@ public class HelperNPC : MonoBehaviour
     {
         originPos = spawnPoint.position;
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
-        walkType = WalkType.ToOrigin;
+        //walkType = WalkType.ToOrigin;
 
         // Ensure NavMeshAgent is correctly set up
         if (agent == null)
@@ -389,19 +390,14 @@ public class HelperNPC : MonoBehaviour
         isMovingAway = true;
         atCrop = false;
 
-        // Get the direction away from the crop (opposite direction of target crop)
-        Vector3 moveDirection = (transform.position - targetCrop.transform.position).normalized;
+        // Get the NPC's current forward direction
+        Vector3 moveDirection = transform.forward;
 
         // Define a distance to move away
-        float moveDistance = 20f;
+        float moveDistance = 10f;
 
-        // Calculate the target position
+        // Calculate the target position in the direction it's already facing
         Vector3 targetPosition = transform.position + moveDirection * moveDistance;
-        if (moveDirection != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = targetRotation;
-        }
 
         // Move the NPC to the new position
         StartCoroutine(MoveNPCToPosition(targetPosition));
@@ -451,7 +447,7 @@ public class HelperNPC : MonoBehaviour
             float distanceOrg = Vector3.Distance(transform.position, originPos);
             if (distanceOrg > 1f)
             {
-                walkType = WalkType.ToOrigin;
+                //walkType = WalkType.ToOrigin;
                 currentState = SlimeAnimationState.Walk;
             }
             else currentState = SlimeAnimationState.Idle;
