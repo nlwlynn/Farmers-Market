@@ -102,8 +102,6 @@ public class NPCInteraction : MonoBehaviour
 
             while (counterOccupied[assignedCounter] || waitingCustomers[assignedCounter].Peek() != this)
             {
-                Debug.Log($"{gameObject.name} waiting at counter {assignedCounter}");
-
                 yield return null;
             }
 
@@ -133,8 +131,6 @@ public class NPCInteraction : MonoBehaviour
                 npcTextBox.text = "Oh well!";
                 requestedItems.Clear();
             }
-
-            Debug.Log($"NPC {gameObject.name} freed counter {assignedCounter}");
 
             counterOccupied[assignedCounter] = false;
 
@@ -291,7 +287,6 @@ public class NPCInteraction : MonoBehaviour
         if (waitingCustomers.ContainsKey(assignedCounter))
         {
             waitingCustomers[assignedCounter].Clear();
-            Debug.Log($"Queue for counter {assignedCounter} has been reset.");
         }
     }
     void ResetCounters()
@@ -299,7 +294,6 @@ public class NPCInteraction : MonoBehaviour
         // Reset counter states to free
         counterOccupied[1] = false;
         counterOccupied[2] = false;
-        Debug.Log("Counters have been reset for the new day.");
     }
 
 }
