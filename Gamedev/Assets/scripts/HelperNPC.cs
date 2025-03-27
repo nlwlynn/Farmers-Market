@@ -32,6 +32,7 @@ public class HelperNPC : MonoBehaviour
     private string scriptNames = "";
     private string targetScript = "";
     private int interactionCount = 0;
+    private bool waitToResp = false;
     public bool playerPurchased = false; // variable for the store
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
@@ -64,7 +65,7 @@ public class HelperNPC : MonoBehaviour
 
     void Update()
     {
-        if (uiController.IsNightPhase || !playerPurchased)
+        if (uiController.IsNightPhase || !playerPurchased || waitToResp)
         {
             transform.position = hiddenPosition; // Move away
             toOrigin = false;
@@ -336,15 +337,15 @@ public class HelperNPC : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // After the wait, move the NPC back to spawn
-        MoveToSpawn();
+        yield return StartCoroutine(MoveToSpawn());
     }
 
     // Move the NPC to the spawn point
-    void MoveToSpawn()
+    IEnumerator MoveToSpawn()
     {
         if (spawnPoint == null)
         {
-            return;
+            yield break; // Exit the coroutine if no spawn point is assigned
         }
 
         currentState = SlimeAnimationState.Walk;
@@ -352,7 +353,12 @@ public class HelperNPC : MonoBehaviour
         atCrop = false;
 
         // Start moving the NPC to the spawn point
-        StartCoroutine(MoveNPCToPosition(spawnPoint.position));
+        yield return StartCoroutine(MoveNPCToPosition(spawnPoint.position));
+
+        // Wait for 6 seconds before allowing NPC to respawn
+        waitToResp = true;
+        yield return new WaitForSeconds(6f);
+        waitToResp = false;
     }
 
     // Coroutine to handle waiting and then moving away from the crop
