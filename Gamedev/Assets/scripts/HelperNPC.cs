@@ -57,7 +57,7 @@ public class HelperNPC : MonoBehaviour
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         //walkType = WalkType.ToOrigin;
 
-        // Ensure NavMeshAgent is correctly set up
+        // Check NavMeshAgent
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
@@ -68,18 +68,18 @@ public class HelperNPC : MonoBehaviour
     {
         if (uiController.IsNightPhase || !playerPurchased || waitToResp)
         {
-            transform.position = hiddenPosition; // Move away
+            transform.position = hiddenPosition; // Move in house
             toOrigin = false;
         }
         else if(!toOrigin)
         {
-            agent.Warp(originPos); // Move back
+            agent.Warp(originPos); // Move to house
             toOrigin = true;
         }
 
         if (!uiController.IsNightPhase)
         {
-            // Look for target crop if none is assigned
+            // Finds target crop
             if (targetCrop == null || atCrop == false)
             {
                 FindTargetCrop();
@@ -214,6 +214,7 @@ public class HelperNPC : MonoBehaviour
 
                 if (cropGrowthScript == null) continue;
 
+                // makes sure it doesnt go to crops that are ready to be harvested
                 if (isGrowing || currentGrowthPhase == 2) continue;
 
                 int currentValue = cropValues[crop.tag];
@@ -245,25 +246,25 @@ public class HelperNPC : MonoBehaviour
     {
         if (targetCrop != null)
         {
-            // Ignore Y by keeping NPC's current Y level
+            // Ignore y position
             Vector3 targetPosition = targetCrop.transform.position;
-            targetPosition.y = transform.position.y; // Keep NPC's current Y position
+            targetPosition.y = transform.position.y;
 
-            // Move towards target while ignoring Y
+            // Move to target 
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
 
-            // Get direction (ignoring Y)
+            // Gets direction of target
             Vector3 direction = targetPosition - transform.position;
-            direction.y = 0; // Ignore vertical rotation
+            direction.y = 0; 
 
-            // Rotate towards target only if there is movement
+            // Faces target
             if (direction.sqrMagnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
 
-            // Check if NPC has reached the crop (ignoring Y)
+            // Check if helper is at the crop
             if (Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z),
                                  new Vector3(targetCrop.transform.position.x, 0, targetCrop.transform.position.z)) < 1f)
             {
@@ -277,7 +278,6 @@ public class HelperNPC : MonoBehaviour
     {
         if (targetCrop == null || isMovingAway) return;
 
-        // Get the script type dynamically
         System.Type scriptType = System.Type.GetType(targetScript);
 
         if (scriptType != null)
@@ -291,13 +291,13 @@ public class HelperNPC : MonoBehaviour
                     method.Invoke(cropGrowthScript, null); 
                 }
 
-                // Handle NPC state changes
                 currentState = SlimeAnimationState.Idle;
                 animator.SetFloat("Speed", 0); 
 
-                // Get the growth phase dynamically
                 var phaseProperty = scriptType.GetProperty("growingPhase");
                 int currentGrowthPhase = 0;
+
+                // checks growth phase is interactable
                 if (phaseProperty != null)
                 {
                     currentGrowthPhase = (int)phaseProperty.GetValue(cropGrowthScript);
@@ -307,6 +307,7 @@ public class HelperNPC : MonoBehaviour
 
                 interactionCount++; 
 
+                // allows the helper to interact with 3 crops at a time
                 if (interactionCount >= 3)
                 {
                     interactionCount = 0; 
@@ -314,6 +315,7 @@ public class HelperNPC : MonoBehaviour
                 } 
                 else
                 { 
+                    // farming interactions
                     switch (currentGrowthPhase)
                     {
                         case 0:
@@ -331,57 +333,50 @@ public class HelperNPC : MonoBehaviour
         }
     }
 
+    // returns helper back to house
     IEnumerator WaitAndReturnToSpawn()
     {
-        currentState = SlimeAnimationState.Jump; // Set state before moving
-
+        currentState = SlimeAnimationState.Jump; 
         yield return new WaitForSeconds(1.0f);
-
-        // After the wait, move the NPC back to spawn
         yield return StartCoroutine(MoveToSpawn());
     }
 
-    // Move the NPC to the spawn point
     IEnumerator MoveToSpawn()
     {
         if (spawnPoint == null)
         {
-            yield break; // Exit the coroutine if no spawn point is assigned
+            yield break; 
         }
 
         currentState = SlimeAnimationState.Walk;
         isMovingAway = true;
         atCrop = false;
 
+        // faces the direction of the house
         Vector3 directionToSpawn = (spawnPoint.position - transform.position).normalized;
         if (directionToSpawn != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(directionToSpawn);
-            transform.rotation = targetRotation; // Instantly rotate the NPC towards spawn
+            transform.rotation = targetRotation; 
         }
 
-        // Start moving the NPC to the spawn point
         yield return StartCoroutine(MoveNPCToPosition(spawnPoint.position));
 
-        // Wait for 6 seconds before allowing NPC to respawn
+        // resting time for helper to respawn
         waitToResp = true;
         yield return new WaitForSeconds(6f);
         waitToResp = false;
     }
 
-    // Coroutine to handle waiting and then moving away from the crop
+    // moves helper away from crop
     IEnumerator WaitAndMoveAway(float waitTime)
     {
         currentState = SlimeAnimationState.Jump;
-
-        // Wait for the specified amount of time while the NPC is idle
         yield return new WaitForSeconds(waitTime);
-
-        // After the wait, move the NPC away from the crop
         MoveAwayFromCrop();
     }
 
-    // Move the NPC away from the crop (already in your previous code)
+   
     void MoveAwayFromCrop()
     {
         if (targetCrop == null) return;
@@ -390,16 +385,14 @@ public class HelperNPC : MonoBehaviour
         isMovingAway = true;
         atCrop = false;
 
-        // Get the NPC's current forward direction
+        // has the npc move in current direciton
         Vector3 moveDirection = transform.forward;
 
-        // Define a distance to move away
         float moveDistance = 10f;
 
-        // Calculate the target position in the direction it's already facing
+        // finds new target
         Vector3 targetPosition = transform.position + moveDirection * moveDistance;
 
-        // Move the NPC to the new position
         StartCoroutine(MoveNPCToPosition(targetPosition));
     }
 
@@ -409,7 +402,7 @@ public class HelperNPC : MonoBehaviour
         Vector3 startPosition = transform.position;
         float timeElapsed = 0f;
 
-        // Smoothly move the NPC towards the target position
+        // moves the helper to target
         while (timeElapsed < duration)
         {
             transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
@@ -417,14 +410,11 @@ public class HelperNPC : MonoBehaviour
             yield return null;
         }
 
-        // Ensure NPC ends at the target position
         transform.position = targetPosition;
 
-        // After moving away, allow the NPC to resume normal movement
         isMovingAway = false;
         targetCrop = null;
     }
-
 
     private void StopAgent()
     {
