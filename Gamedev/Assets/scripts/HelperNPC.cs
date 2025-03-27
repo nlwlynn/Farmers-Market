@@ -66,7 +66,6 @@ public class HelperNPC : MonoBehaviour
     {
         if (uiController.IsNightPhase || !playerPurchased)
         {
-            UnityEngine.Debug.Log("Player Purchased: " + playerPurchased);
             transform.position = hiddenPosition; // Move away
             toOrigin = false;
         }
@@ -309,7 +308,7 @@ public class HelperNPC : MonoBehaviour
                 if (interactionCount >= 3)
                 {
                     interactionCount = 0; 
-                    StartCoroutine(ReturnToSpawn());
+                    StartCoroutine(WaitAndReturnToSpawn());
                 } 
                 else
                 { 
@@ -330,32 +329,30 @@ public class HelperNPC : MonoBehaviour
         }
     }
 
-    IEnumerator ReturnToSpawn()
+    IEnumerator WaitAndReturnToSpawn()
     {
+        currentState = SlimeAnimationState.Idle; // Set state before moving
+
+        yield return new WaitForSeconds(0.5f);
+
+        // After the wait, move the NPC back to spawn
+        MoveToSpawn();
+    }
+
+    // Move the NPC to the spawn point
+    void MoveToSpawn()
+    {
+        if (spawnPoint == null)
+        {
+            return;
+        }
+
+        currentState = SlimeAnimationState.Walk;
         isMovingAway = true;
         atCrop = false;
 
-        yield return new WaitForSeconds(1.0f);  // Small delay before moving
-
-        if (spawnPoint == null)
-        {
-            UnityEngine.Debug.LogError("Spawn point not assigned!");
-            yield break;
-        }
-
-        UnityEngine.Debug.Log("Returning to spawn...");
-
-        agent.isStopped = false;  // Ensure the agent is not stopped
-        agent.SetDestination(spawnPoint.position);  // Move back to spawn
-
-        while (agent.pathPending || agent.remainingDistance > 0.5f)
-        {
-            yield return null;  // Wait until the entity reaches the destination
-        }
-
-        UnityEngine.Debug.Log("Reached spawn.");
-        isMovingAway = false;
-        targetCrop = null;
+        // Start moving the NPC to the spawn point
+        StartCoroutine(MoveNPCToPosition(spawnPoint.position));
     }
 
     // Coroutine to handle waiting and then moving away from the crop
@@ -399,7 +396,7 @@ public class HelperNPC : MonoBehaviour
 
     IEnumerator MoveNPCToPosition(Vector3 targetPosition)
     {
-        float duration = 3f; 
+        float duration = 5f; 
         Vector3 startPosition = transform.position;
         float timeElapsed = 0f;
 
