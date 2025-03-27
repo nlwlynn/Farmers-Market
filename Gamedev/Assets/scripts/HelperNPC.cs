@@ -332,9 +332,9 @@ public class HelperNPC : MonoBehaviour
 
     IEnumerator WaitAndReturnToSpawn()
     {
-        currentState = SlimeAnimationState.Idle; // Set state before moving
+        currentState = SlimeAnimationState.Jump; // Set state before moving
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
 
         // After the wait, move the NPC back to spawn
         yield return StartCoroutine(MoveToSpawn());
@@ -351,6 +351,13 @@ public class HelperNPC : MonoBehaviour
         currentState = SlimeAnimationState.Walk;
         isMovingAway = true;
         atCrop = false;
+
+        Vector3 directionToSpawn = (spawnPoint.position - transform.position).normalized;
+        if (directionToSpawn != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToSpawn);
+            transform.rotation = targetRotation; // Instantly rotate the NPC towards spawn
+        }
 
         // Start moving the NPC to the spawn point
         yield return StartCoroutine(MoveNPCToPosition(spawnPoint.position));
