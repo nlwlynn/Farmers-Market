@@ -22,10 +22,25 @@ public class PlacementSystem : MonoBehaviour
     public Inventory inventory; // Reference to the Inventory Manager
     public bool isBuilding = false;
 
+    private Dictionary<Vector3Int, GameObject> placedObjects = new Dictionary<Vector3Int, GameObject>();
+
     private void Start()
     {
         StopPlacement();
+
+        // preplaced carrot plot
+        Vector3 preplacedWorldPos = new Vector3(142.35f, 0f, 120.98f); 
+        Vector3Int preplacedGridPos = grid.WorldToCell(preplacedWorldPos);
+
+        GameObject preplacedObject = GameObject.Find("carrot-plot"); 
+
+        if (!placedObjects.ContainsKey(preplacedGridPos))
+        {
+            placedObjects[preplacedGridPos] = preplacedObject;
+            Debug.Log($"Preplaced object registered at Grid Position: {preplacedGridPos}");
+        }
     }
+
 
     public void StartPlacement(int ID)
     {
@@ -137,7 +152,12 @@ public class PlacementSystem : MonoBehaviour
             // Ensure stock is available before placing
             if (inventory.stock[selectedObjectIndex] <= 0)
             {
-                Debug.Log("Not enough stock to place this item!");
+                return;
+            }
+
+            // checks if spot is taken
+            if (placedObjects.ContainsKey(gridPosition))
+            {
                 return;
             }
 
@@ -147,21 +167,17 @@ public class PlacementSystem : MonoBehaviour
 
             Debug.Log($"Placed object at {grid.CellToWorld(gridPosition)}. Remaining stock: {inventory.stock[selectedObjectIndex]}");
 
+            // Instantiate and track the placed object
             GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
             newObject.transform.position = grid.CellToWorld(gridPosition);
+            placedObjects[gridPosition] = newObject;
 
             // Re-enable UI raycasts after placement
             SetUIRaycasts(true);
             StopPlacement();
             isBuilding = false;
         }
-        else
-        {
-            Debug.Log("Pointer is over UI, skipping placement.");
-        }
     }
-
-
 
 
     private void Update()
