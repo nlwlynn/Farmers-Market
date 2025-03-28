@@ -79,10 +79,6 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
-
-
-
-
     private void StopPlacement()
     {
         selectedObjectIndex = -1;
@@ -93,7 +89,6 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
 
     }
-
 
     public void StopPlacementWrapper()
     {
@@ -176,6 +171,45 @@ public class PlacementSystem : MonoBehaviour
             SetUIRaycasts(true);
             StopPlacement();
             isBuilding = false;
+        }
+    }
+
+    public void RemoveObject()
+    {
+        isBuilding = true;
+        // Get mouse position and convert to grid position
+        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+
+        Debug.Log($"Trying to remove object at {gridPosition}");
+
+        // Check if there is an object at the selected position
+        if (placedObjects.ContainsKey(gridPosition))
+        {
+            GameObject objectToRemove = placedObjects[gridPosition];
+
+            // Find which object type it is by checking the prefab database
+            int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
+
+            if (objectID >= 0)
+            {
+                Debug.Log($"Removing object: {objectToRemove.name} (ID: {objectID})");
+
+                // Return the object to inventory
+                inventory.stock[objectID]++;
+                inventory.UpdateStockUI();
+
+                // Destroy the object
+                Destroy(objectToRemove);
+
+                // Remove from tracking dictionary
+                placedObjects.Remove(gridPosition);
+                isBuilding = false;
+            }
+        }
+        else
+        {
+            Debug.Log("No object found at this position to remove.");
         }
     }
 
