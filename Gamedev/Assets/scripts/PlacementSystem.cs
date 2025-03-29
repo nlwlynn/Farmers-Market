@@ -234,33 +234,24 @@ public class PlacementSystem : MonoBehaviour
     {
         if (!inputManager.IsPointerOverUI())
         {
-            Debug.Log("Removing structure, ignoring UI click blocking.");
-
             Vector3 mousePosition = inputManager.GetSelectedMapPosition();
             Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
             Debug.Log($"Mouse Position: {mousePosition}, Grid Position: {gridPosition}");
 
-            // Check if there is an object at the selected position
             if (placedObjects.ContainsKey(gridPosition))
             {
                 GameObject objectToRemove = placedObjects[gridPosition];
-
-                // Find which object type it is by checking the prefab database
                 int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
 
                 if (objectID >= 0)
                 {
                     Debug.Log($"Removing object: {objectToRemove.name} (ID: {objectID})");
 
-                    // Return the object to inventory
                     inventory.stock[objectID]++;
                     inventory.UpdateStockUI();
 
-                    // Destroy the object
                     Destroy(objectToRemove);
-
-                    // Remove from tracking dictionary
                     placedObjects.Remove(gridPosition);
                 }
             }
@@ -269,19 +260,23 @@ public class PlacementSystem : MonoBehaviour
                 Debug.Log("No object found at this position to remove.");
             }
 
-            // End the removal mode after an action
-            StopPlacement();
+            // Only stop removal mode if the user intends to exit
+            // StopPlacement(); <- Remove or handle it elsewhere
         }
     }
 
     private void Update()
     {
-        if (selectedObjectIndex < 0)
-            return;
+        if (!isBuilding) return; // Only update if we are in placement or removal mode
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-        mouseIndicator.transform.position = mousePosition;
-        cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+
+        if (mouseIndicator != null)
+            mouseIndicator.transform.position = mousePosition;
+
+        if (cellIndicator != null)
+            cellIndicator.transform.position = grid.CellToWorld(gridPosition);
     }
+
 }
