@@ -173,47 +173,9 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-    public void RemoveObject()
-    {
-        isBuilding = true;
-        // Get mouse position and convert to grid position
-        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-
-        Debug.Log($"Trying to remove object at {gridPosition}");
-
-        // Check if there is an object at the selected position
-        if (placedObjects.ContainsKey(gridPosition))
-        {
-            GameObject objectToRemove = placedObjects[gridPosition];
-
-            // Find which object type it is by checking the prefab database
-            int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
-
-            if (objectID >= 0)
-            {
-                Debug.Log($"Removing object: {objectToRemove.name} (ID: {objectID})");
-
-                // Return the object to inventory
-                inventory.stock[objectID]++;
-                inventory.UpdateStockUI();
-
-                // Destroy the object
-                Destroy(objectToRemove);
-
-                // Remove from tracking dictionary
-                placedObjects.Remove(gridPosition);
-                isBuilding = false;
-            }
-        }
-        else
-        {
-            Debug.Log("No object found at this position to remove.");
-        }
-    }
-
     public void OnRemoveButtonClicked()
     {
+        InputManager.ignoreNextUIInteraction = true;
         StartRemoval();
     }
 
@@ -232,38 +194,46 @@ public class PlacementSystem : MonoBehaviour
 
     private void RemoveStructure()
     {
-        if (!inputManager.IsPointerOverUI())
+        // Allow one UI click to be ignored
+        if (InputManager.ignoreNextUIInteraction)
         {
-            Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-            Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+            InputManager.ignoreNextUIInteraction = false; // Reset after one click
+        }
+        else if (inputManager.IsPointerOverUI())
+        {
+            Debug.Log("Click ignored: Pointer is over UI");
+            return;
+        }
 
-            Debug.Log($"Mouse Position: {mousePosition}, Grid Position: {gridPosition}");
+        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-            if (placedObjects.ContainsKey(gridPosition))
+        Debug.Log($"Mouse Position: {mousePosition}, Grid Position: {gridPosition}");
+
+        if (placedObjects.ContainsKey(gridPosition))
+        {
+            GameObject objectToRemove = placedObjects[gridPosition];
+            int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
+            Debug.Log($"Object Name in Scene: {objectToRemove.name}, Looking for match in database...");
+
+            if (objectID >= 0)
             {
-                GameObject objectToRemove = placedObjects[gridPosition];
-                int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
+                Debug.Log($"Removing object: {objectToRemove.name} (ID: {objectID})");
 
-                if (objectID >= 0)
-                {
-                    Debug.Log($"Removing object: {objectToRemove.name} (ID: {objectID})");
+                inventory.stock[objectID]++;
+                inventory.UpdateStockUI();
 
-                    inventory.stock[objectID]++;
-                    inventory.UpdateStockUI();
-
-                    Destroy(objectToRemove);
-                    placedObjects.Remove(gridPosition);
-                }
+                Destroy(objectToRemove);
+                placedObjects.Remove(gridPosition);
+                isBuilding = false;
             }
-            else
-            {
-                Debug.Log("No object found at this position to remove.");
-            }
-
-            // Only stop removal mode if the user intends to exit
-            // StopPlacement(); <- Remove or handle it elsewhere
+        }
+        else
+        {
+            Debug.Log("No object found at this position to remove.");
         }
     }
+
 
     private void Update()
     {
