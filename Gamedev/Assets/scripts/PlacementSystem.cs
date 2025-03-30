@@ -192,10 +192,21 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
+    public void StopRemoval()
+    {
+
+        gridVisualization.SetActive(false);
+        cellIndicator.SetActive(false);
+        mouseIndicator.SetActive(false);
+
+        inputManager.OnClicked += RemoveStructure;
+        inputManager.OnExit += StopPlacement;
+    }
+
     private void RemoveStructure()
     {
         // Allow one UI click to be ignored
-        if (InputManager.ignoreNextUIInteraction)
+        /*if (InputManager.ignoreNextUIInteraction)
         {
             InputManager.ignoreNextUIInteraction = false; // Reset after one click
         }
@@ -203,7 +214,7 @@ public class PlacementSystem : MonoBehaviour
         {
             Debug.Log("Click ignored: Pointer is over UI");
             return;
-        }
+        } */
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
@@ -225,6 +236,7 @@ public class PlacementSystem : MonoBehaviour
 
                 Destroy(objectToRemove);
                 placedObjects.Remove(gridPosition);
+                StopRemoval();
                 isBuilding = false;
             }
         }
