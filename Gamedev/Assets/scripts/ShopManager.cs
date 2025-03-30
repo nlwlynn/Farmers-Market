@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 
 
-
 public class ShopManager : MonoBehaviour
 {
     public ShopItemSO[] shopItemsSO;
@@ -94,8 +93,6 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Not enough coins to purchase this item!");
         }
     }
-
-
 
     public void Exit()
     {

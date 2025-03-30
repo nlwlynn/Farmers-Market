@@ -21,16 +21,30 @@ public class PlacementSystem : MonoBehaviour
     private GameObject inventoryPanel;
     public Inventory inventory; // Reference to the Inventory Manager
     public bool isBuilding = false;
+    public int itemID = -1;
+
+    private Dictionary<Vector3Int, GameObject> placedObjects = new Dictionary<Vector3Int, GameObject>();
 
     private void Start()
     {
         StopPlacement();
+
+        // preplaced carrot plot
+        Vector3 preplacedWorldPos = new Vector3(142.35f, 0f, 120.98f);
+        Vector3Int preplacedGridPos = grid.WorldToCell(preplacedWorldPos);
+
+        GameObject preplacedObject = GameObject.Find("carrot-plot");
+
+        if (!placedObjects.ContainsKey(preplacedGridPos))
+        {
+            placedObjects[preplacedGridPos] = preplacedObject;
+        }
     }
+
 
     public void StartPlacement(int ID)
     {
-        Debug.Log($"StartPlacement called with ID: {ID}");
-
+        itemID = ID;
         isBuilding = true;
 
         // Ensure we find the correct stock index in inventory
@@ -38,15 +52,11 @@ public class PlacementSystem : MonoBehaviour
 
         if (itemIndex < 0 || itemIndex >= inventory.stock.Length)
         {
-            Debug.LogError($"No valid inventory stock entry for ID: {ID} (Mapped Index: {itemIndex})");
             return;
         }
 
-        Debug.Log($"Checking stock for itemIndex: {itemIndex}, Current Stock: {inventory.stock[itemIndex]}");
-
         if (inventory.stock[itemIndex] <= 0)
         {
-            Debug.Log("Not enough stock to place this item!");
             return;
         }
 
@@ -64,10 +74,6 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
-
-
-
-
     private void StopPlacement()
     {
         selectedObjectIndex = -1;
@@ -76,9 +82,7 @@ public class PlacementSystem : MonoBehaviour
         mouseIndicator.SetActive(false);
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
-
     }
-
 
     public void StopPlacementWrapper()
     {
@@ -116,62 +120,171 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-
     private void PlaceStructure()
     {
         if (!inputManager.IsPointerOverUI())
         {
-            Debug.Log("Placing structure, ignoring UI click blocking.");
-
             Vector3 mousePosition = inputManager.GetSelectedMapPosition();
             Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-            Debug.Log($"Mouse Position: {mousePosition}, Grid Position: {gridPosition}");
-
-            if (selectedObjectIndex < 0 || selectedObjectIndex >= database.objectsData.Count)
+            if (IsWithinGridBoundaries(gridPosition)) // Only place if within boundaries
             {
-                Debug.LogError("Invalid object index! Cannot place structure.");
-                return;
-            }
+                if (selectedObjectIndex < 0 || selectedObjectIndex >= database.objectsData.Count)
+                {
+                    return;
+                }
 
-            // Ensure stock is available before placing
-            if (inventory.stock[selectedObjectIndex] <= 0)
+                // Ensure stock is available before placing
+                if (inventory.stock[selectedObjectIndex] <= 0)
+                {
+                    return;
+                }
+
+                // Check if spot is taken
+                if (placedObjects.ContainsKey(gridPosition))
+                {
+                    return;
+                }
+
+                // Deduct stock
+                inventory.stock[selectedObjectIndex]--;
+                inventory.UpdateStockUI(); // Refresh UI immediately
+
+                // Instantiate and track the placed object
+                GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
+                newObject.transform.position = grid.CellToWorld(gridPosition);
+                placedObjects[gridPosition] = newObject;
+
+                // Stop placement only after a successful placement
+                StopPlacement();
+                isBuilding = false;
+                itemID = -1;
+            }
+            else
             {
-                Debug.Log("Not enough stock to place this item!");
-                return;
+                StartPlacement(itemID);
             }
-
-            // Deduct stock
-            inventory.stock[selectedObjectIndex]--;
-            inventory.UpdateStockUI(); // Refresh UI immediately
-
-            Debug.Log($"Placed object at {grid.CellToWorld(gridPosition)}. Remaining stock: {inventory.stock[selectedObjectIndex]}");
-
-            GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
-            newObject.transform.position = grid.CellToWorld(gridPosition);
-
-            // Re-enable UI raycasts after placement
-            SetUIRaycasts(true);
-            StopPlacement();
-            isBuilding = false;
-        }
-        else
-        {
-            Debug.Log("Pointer is over UI, skipping placement.");
         }
     }
 
 
+    public void OnRemoveButtonClicked()
+    {
+        InputManager.ignoreNextUIInteraction = true;
+        StartRemoval();
+    }
 
+    public void StartRemoval()
+    {
+        isBuilding = true;
+        gridVisualization.SetActive(true);
+        cellIndicator.SetActive(true);
+        mouseIndicator.SetActive(true);
+
+        inputManager.OnClicked += RemoveStructure;
+        inputManager.OnExit += StopPlacement;
+    }
+
+    public void StopRemoval()
+    {
+        gridVisualization.SetActive(false);
+        cellIndicator.SetActive(false);
+        mouseIndicator.SetActive(false);
+
+        inputManager.OnClicked -= RemoveStructure;
+        inputManager.OnExit -= StopPlacement;
+
+        isBuilding = false;
+    }
+
+    private void RemoveStructure()
+    {
+        // Allow one UI click to be ignored
+        /*if (InputManager.ignoreNextUIInteraction)
+        {
+            InputManager.ignoreNextUIInteraction = false; // Reset after one click
+        }
+        else if (inputManager.IsPointerOverUI())
+        {
+            Debug.Log("Click ignored: Pointer is over UI");
+            return;
+        } */
+
+        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+
+        if (!IsWithinGridBoundaries(gridPosition))
+        {
+            return;
+        }
+
+        if (placedObjects.ContainsKey(gridPosition))
+        {
+            GameObject objectToRemove = placedObjects[gridPosition];
+            int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
+
+            if (objectID >= 0)
+            {
+                inventory.stock[objectID]++;
+                inventory.UpdateStockUI();
+
+                Destroy(objectToRemove);
+                placedObjects.Remove(gridPosition);
+                StopRemoval();
+                isBuilding = false;
+            }
+        }
+        else
+        {
+            Debug.Log("No object found.");
+        }
+    }
 
     private void Update()
     {
-      if(selectedObjectIndex < 0)
-      return;
-       
+        if (!isBuilding) return; // Only update if we are in placement or removal mode
+
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-        mouseIndicator.transform.position = mousePosition;
-        cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+
+        if (mouseIndicator != null)
+            mouseIndicator.transform.position = mousePosition;
+
+        if (cellIndicator != null)
+        {
+            cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+        }
+
+        if(IsWithinGridBoundaries(gridPosition)) {
+            inBounds();
+        } else
+        {
+            outOfBounds();
+        }
+    }
+
+    private bool IsWithinGridBoundaries(Vector3Int gridPosition)
+    {
+        // Define grid boundaries
+        int minX = -3;
+        int minY = -3;
+
+        // You may want to set max boundaries too if needed
+        // int maxX = someValue;
+        // int maxZ = someValue;
+
+        return gridPosition.x >= minX && gridPosition.y >= minY;
+    }
+
+    private void outOfBounds()
+    {
+        cellIndicator.SetActive(false);
+        mouseIndicator.SetActive(false);
+    }
+
+    private void inBounds()
+    {
+        cellIndicator.SetActive(true);
+        mouseIndicator.SetActive(true);
     }
 }
