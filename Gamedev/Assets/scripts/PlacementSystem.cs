@@ -194,13 +194,14 @@ public class PlacementSystem : MonoBehaviour
 
     public void StopRemoval()
     {
-
         gridVisualization.SetActive(false);
         cellIndicator.SetActive(false);
         mouseIndicator.SetActive(false);
 
-        inputManager.OnClicked += RemoveStructure;
-        inputManager.OnExit += StopPlacement;
+        inputManager.OnClicked -= RemoveStructure;
+        inputManager.OnExit -= StopPlacement;       
+
+        isBuilding = false;  
     }
 
     private void RemoveStructure()
