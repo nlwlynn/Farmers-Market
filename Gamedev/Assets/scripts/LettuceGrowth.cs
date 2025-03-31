@@ -120,6 +120,13 @@ public class LettuceGrowth : MonoBehaviour
                 playerAnimator.SetBool("isWatering", false);
             if (playerAnimator != null)
                 playerAnimator.SetBool("isHarvesting", false);
+            if (shovel != null)
+                shovel.SetActive(false);
+            if (watering_can != null)
+                watering_can.SetActive(false);
+            if (sickle != null)
+                sickle.SetActive(false);
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             StopAllCoroutines();
             ResetPlot();        // Reset plot
         }
