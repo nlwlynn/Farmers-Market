@@ -13,12 +13,39 @@ public class Inventory : MonoBehaviour
     public GameObject inventoryPanel;
     [SerializeField]
     private ObjectsDatabaseSO database;
+    public static Inventory Instance { get; private set; }
+    public Button[] itemButtons; // UI buttons corresponding to inventory items
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     void Start()
+    {
+        InitializeInventory();
+    }
+
+    // Initialize or reset the inventory
+    public void InitializeInventory()
     {
         if (stock == null || stock.Length != database.objectsData.Count)
         {
             stock = new int[database.objectsData.Count]; // Ensure stock array is same size as database
+        }
+        else
+        {
+            // Reset all stock to zero
+            for (int i = 0; i < stock.Length; i++)
+            {
+                stock[i] = 0;
+            }
         }
 
         // Debugging: Verify correct stock assignment
@@ -41,9 +68,6 @@ public class Inventory : MonoBehaviour
 
         UpdateStockUI(); // Ensure the UI updates immediately
     }
-
-
-    public Button[] itemButtons; // UI buttons corresponding to inventory items
 
     public void UpdateStockUI()
     {
