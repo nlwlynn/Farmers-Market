@@ -9,6 +9,8 @@ using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
+using System.Reflection.Emit;
 
 
 public class UIController : MonoBehaviour
@@ -67,7 +69,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 5f; //5min
+    private float timerDuration = 100f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -91,8 +93,8 @@ public class UIController : MonoBehaviour
             return;
         }
 
-        Instance = this; 
-        DontDestroyOnLoad(gameObject); 
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         ui = GetComponent<UIDocument>().rootVisualElement;
 
         // End of Day UI Elements
@@ -129,9 +131,9 @@ public class UIController : MonoBehaviour
         // Add button click event to transition from Main Menu -> Night UI
         StartButton.clicked += () =>
         {
-            isNightPhase = true;
             GameBackground.style.display = DisplayStyle.None;  // Hide Main Menu
             nightUI.style.display = DisplayStyle.Flex;// Start the night
+            isNightPhase = true;
         };
 
         // Hide the settings panel initially
@@ -237,19 +239,19 @@ public class UIController : MonoBehaviour
     {
 
         //bottomContainer Buttons
-        Harvest = ui.Q<UnityEngine.UIElements.Button> ("Harvest");
+        Harvest = ui.Q<UnityEngine.UIElements.Button>("Harvest");
         if (Harvest != null)
         {
             Harvest.clicked += OnHarvestButtonClicked;
         }
 
-        Spray = ui.Q<UnityEngine.UIElements.Button> ("Spray");
+        Spray = ui.Q<UnityEngine.UIElements.Button>("Spray");
         if (Spray != null)
         {
             Spray.clicked += OnSprayButtonClicked;
         }
 
-        Move = ui.Q<UnityEngine.UIElements.Button> ("Move");
+        Move = ui.Q<UnityEngine.UIElements.Button>("Move");
         if (Move != null)
         {
             Move.clicked += OnMoveButtonClicked;
@@ -257,32 +259,32 @@ public class UIController : MonoBehaviour
 
         //SideBar Buttons
 
-        Shop = ui.Q<UnityEngine.UIElements.Button> ("Shop");
+        Shop = ui.Q<UnityEngine.UIElements.Button>("Shop");
         if (Shop != null)
         {
             Shop.clicked += OnShopButtonClicked;
         }
 
-        Inventory = ui.Q<UnityEngine.UIElements.Button> ("Inventory");
+        Inventory = ui.Q<UnityEngine.UIElements.Button>("Inventory");
         if (Inventory != null)
         {
             Inventory.clicked += OnInventoryButtonClicked;
         }
 
 
-        NewDay = ui.Q< UnityEngine.UIElements.Button> ("NewDay");
+        NewDay = ui.Q<UnityEngine.UIElements.Button>("NewDay");
         if (NewDay != null)
         {
             NewDay.clicked += OnNewDayButtonClicked;
         }
 
-        PlayPause = ui.Q<UnityEngine.UIElements.Button> ("PlayPause");
+        PlayPause = ui.Q<UnityEngine.UIElements.Button>("PlayPause");
         if (PlayPause != null)
         {
             PlayPause.clicked += OnPlayPauseButtonClicked;
         }
 
-        Settings = ui.Q<UnityEngine.UIElements.Button> ("Settings");
+        Settings = ui.Q<UnityEngine.UIElements.Button>("Settings");
         if (Settings != null)
         {
             Settings.clicked += OnSettingsButtonClicked;
@@ -402,7 +404,7 @@ public class UIController : MonoBehaviour
         // Update Objectives labels
         currentMoneyLabel.text = currentCoin + " Coins";
         moneyGoalLabel.text = goalCoin + " Coins";
-        warningsLabel.text = "Need at least "+ goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
+        warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
         objectivesScreen.style.display = DisplayStyle.Flex;
 
         // Remove previous event listeners to prevent stacking
@@ -438,7 +440,7 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
 
         // Calculate revenue made during the day
-        int revenueEarned = coinCount; 
+        int revenueEarned = coinCount;
 
         // Goal for the day (can be dynamic)
         bool goalMet = revenueEarned >= dailyGoal;
@@ -452,7 +454,7 @@ public class UIController : MonoBehaviour
             resultTextLabel.text = "PASSED!";
             resultTextLabel.style.color = new StyleColor(Color.green);
             summaryMessageLabel.text = "Now transitioning to night time, buy more plots to make more earnings!";
-            continueButton.text = "Proceed to Night Phase"; 
+            continueButton.text = "Proceed to Night Phase";
 
         }
         else
@@ -518,12 +520,12 @@ public class UIController : MonoBehaviour
 
     //private void SetButtonInteractivity(bool isEnabled)
     //{
-       // Harvest.SetEnabled(isEnabled);
-        //Spray.SetEnabled(isEnabled);
-        //Move.SetEnabled(isEnabled);
-        //Shop.SetEnabled(isEnabled);
-        //Settings.SetEnabled(isEnabled);
-        //Settings.SetEnabled(isEnabled);
+    // Harvest.SetEnabled(isEnabled);
+    //Spray.SetEnabled(isEnabled);
+    //Move.SetEnabled(isEnabled);
+    //Shop.SetEnabled(isEnabled);
+    //Settings.SetEnabled(isEnabled);
+    //Settings.SetEnabled(isEnabled);
     //}
 
     private void OnSettingsButtonClicked()
@@ -536,8 +538,9 @@ public class UIController : MonoBehaviour
             {
                 settingsPanel.style.display = DisplayStyle.Flex;
             }
-            else { 
-            
+            else
+            {
+
                 settingsPanel.style.display = DisplayStyle.None;
             }
         }
@@ -580,7 +583,7 @@ public class UIController : MonoBehaviour
         {
             coinsLabelShop.text = "Coins: " + coinCount.ToString();
         }
-     }
+    }
 
     public int GetCoins()
     {
