@@ -593,10 +593,27 @@ public class UIController : MonoBehaviour
     }
     public void RestartGame()
     {
+        // First, hide all UI panels
         if (shopPanel != null) shopPanel.SetActive(false);
         if (inventoryPanel != null) inventoryPanel.SetActive(false);
-        isNightPhase = true;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Reset game state variables
+        isNightPhase = true;
+        elapsedTime = 0f;
+        isTimerRunning = false;
+        coinCount = 20; // Reset to default coins
+
+        // Reset all UI displays to initial state
+        GameBackground.style.display = DisplayStyle.None;
+        dayUI.style.display = DisplayStyle.None;
+        endDayScreen.style.display = DisplayStyle.None;
+        objectivesScreen.style.display = DisplayStyle.None;
+        nightUI.style.display = DisplayStyle.Flex; // Make night UI visible
+
+        // Update UI to reflect reset state
+        UpdateCoinUI();
+
+        // Optional: If you need to reload the entire scene
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
