@@ -130,18 +130,6 @@ public class UIController : MonoBehaviour
         StartButton.clicked += () =>
         {
             isNightPhase = true;
-            elapsedTime = 0f;
-            isTimerRunning = true;
-            coinCount = 20;
-
-            Inventory inventoryComponent = FindObjectOfType<Inventory>();
-            if (inventoryComponent != null)
-            {
-                inventoryComponent.InitializeInventory();
-            }
-
-            UpdateCoinUI();
-
             GameBackground.style.display = DisplayStyle.None;  // Hide Main Menu
             nightUI.style.display = DisplayStyle.Flex;// Start the night
         };
