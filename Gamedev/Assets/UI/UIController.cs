@@ -66,7 +66,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 3f; //5min
+    private float timerDuration = 15f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -602,16 +602,16 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
         elapsedTime = 0f;
         isTimerRunning = false;
-        coinCount = 20; // Reset to default coins
+        coinCount = 20; 
         isGamePaused = false;
-        Time.timeScale = 1; // Ensure game is unpaused
+        Time.timeScale = 1; 
 
-        // Reset all UI displays to initial state
+        // Reset all UI
         GameBackground.style.display = DisplayStyle.None;
         dayUI.style.display = DisplayStyle.None;
         endDayScreen.style.display = DisplayStyle.None;
         objectivesScreen.style.display = DisplayStyle.None;
-        nightUI.style.display = DisplayStyle.Flex; // Make night UI visible
+        nightUI.style.display = DisplayStyle.Flex; 
 
         // Hide settings panel if it's open
         if (settingsPanel != null)
@@ -619,24 +619,35 @@ public class UIController : MonoBehaviour
             settingsPanel.style.display = DisplayStyle.None;
         }
 
-        // Update UI to reflect reset state
+        // Update coins
         UpdateCoinUI();
 
-        // Reset any progress bars
+        // Reset progress bar
         if (phaseTimer != null)
         {
             phaseTimer.value = 0f;
         }
 
-        // Reset gameplay objects (like plants, plots, etc.)
-        // You'll need to implement references to these objects
-        ResetGameplayObjects();
+        Inventory inventory = FindObjectOfType<Inventory>(true); 
+        if (inventory != null)
+        {
+            inventory.ResetInventory();
+        }
+        else
+        {
+            if (inventoryPanel != null && inventoryPanel.activeSelf)
+            {
+                inventory = inventoryPanel.GetComponent<Inventory>();
+                if (inventory != null)
+                {
+                    inventory.ResetInventory();
+                }
+            }
+        }
 
-        // Remove the scene reload line
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name); <- REMOVE THIS
+        ResetGameplayObjects();
     }
 
-    // Add this method to reset any gameplay objects
     private void ResetGameplayObjects()
     {
         GameObject[] carrots = GameObject.FindGameObjectsWithTag("Carrot");
@@ -646,7 +657,7 @@ public class UIController : MonoBehaviour
         GameObject[] corn = GameObject.FindGameObjectsWithTag("Corn");
         GameObject[] cauliflower = GameObject.FindGameObjectsWithTag("Cauliflower");
 
-        // Selectively destroy carrot plots
+        // Dont destroy set plot
         foreach (GameObject carrot in carrots)
         {
             if (carrot.name != "carrot-plot-perm")

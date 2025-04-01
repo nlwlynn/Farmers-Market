@@ -69,6 +69,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void ResetInventory()
+    {
+        // Reset all stock values to 0
+        for (int i = 0; i < stock.Length; i++)
+        {
+            stock[i] = 0;
+        }
+
+        UpdateStockUI();
+
+        Debug.Log("Inventory has been reset");
+    }
+
     public void Exit()
     {
         inventoryPanel.SetActive(false);
