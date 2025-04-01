@@ -51,6 +51,7 @@ public class LightingChanges : MonoBehaviour
         }
         else
         {
+            Debug.Log("WHYYY CRUEL WORLD");
             postProcessVolume.profile = dayProfile;
         }
     }

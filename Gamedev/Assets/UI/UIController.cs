@@ -9,9 +9,6 @@ using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Diagnostics;
-using System.Reflection.Emit;
-
 
 public class UIController : MonoBehaviour
 {
@@ -74,7 +71,7 @@ public class UIController : MonoBehaviour
     private bool isTimerRunning = true;
 
     //for night phase
-    public bool isNightPhase = false;
+    public bool isNightPhase = true;
 
     //brightness slider
     public UnityEngine.UIElements.Slider brightnessSlider;
@@ -131,6 +128,7 @@ public class UIController : MonoBehaviour
         // Add button click event to transition from Main Menu -> Night UI
         StartButton.clicked += () =>
         {
+            RestartGame();
             GameBackground.style.display = DisplayStyle.None;  // Hide Main Menu
             nightUI.style.display = DisplayStyle.Flex;// Start the night
             isNightPhase = true;
@@ -593,5 +591,12 @@ public class UIController : MonoBehaviour
     {
         get { return isNightPhase; }
     }
+    public void RestartGame()
+    {
+        if (shopPanel != null) shopPanel.SetActive(false);
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
+        isNightPhase = true;
 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
