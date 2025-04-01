@@ -27,4 +27,9 @@ public class GameInput : MonoBehaviour
 
         return inputVector;
     }
+    public void DisableInput()
+    {
+        playerInputActions?.Disable();
+    }
+
 }

@@ -66,7 +66,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 3f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -613,7 +613,13 @@ public class UIController : MonoBehaviour
         // Update UI to reflect reset state
         UpdateCoinUI();
 
+        GameInput gameInput = FindObjectOfType<GameInput>();
+        if (gameInput != null)
+        {
+            gameInput.DisableInput();
+        }
+
         // Optional: If you need to reload the entire scene
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
