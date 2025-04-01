@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+
 public class Inventory : MonoBehaviour
 {
     public int[] stock; // Array to store stock for each item
@@ -20,10 +22,10 @@ public class Inventory : MonoBehaviour
         }
 
         // Debugging: Verify correct stock assignment
-        //for (int i = 0; i < stock.Length; i++)
-        //{
-        //    Debug.Log($"Stock[{i}] = {stock[i]} (Database ID: {database.objectsData[i].ID})");
-        //}
+        for (int i = 0; i < stock.Length; i++)
+        {
+            Debug.Log($"Stock[{i}] = {stock[i]} (Database ID: {database.objectsData[i].ID})");
+        }
 
         UpdateStockUI(); // Ensure UI is updated correctly
     }
@@ -31,11 +33,11 @@ public class Inventory : MonoBehaviour
     // This function is called when an item is purchased
     public void AddItemToStock(int itemIndex)
     {
-        //Debug.Log($"Before Purchase - Stock[{itemIndex}]: {stock[itemIndex]}");
+        Debug.Log($"Before Purchase - Stock[{itemIndex}]: {stock[itemIndex]}");
 
         stock[itemIndex]++; // Increase stock count for the purchased item
 
-        //Debug.Log($"After Purchase - Stock[{itemIndex}]: {stock[itemIndex]}");
+        Debug.Log($"After Purchase - Stock[{itemIndex}]: {stock[itemIndex]}");
 
         UpdateStockUI(); // Ensure the UI updates immediately
     }
@@ -45,13 +47,13 @@ public class Inventory : MonoBehaviour
 
     public void UpdateStockUI()
     {
-        //Debug.Log("Updating Stock UI...");
+        Debug.Log("Updating Stock UI...");
 
         for (int i = 0; i < stock.Length; i++)
         {
             if (stockTexts[i] != null)
             {
-                //stockTexts[i].text = "Stock: " + stock[i].ToString();
+                stockTexts[i].text = "Stock: " + stock[i].ToString();
                 stockTexts[i].ForceMeshUpdate();
 
                 // Disable button if stock is 0

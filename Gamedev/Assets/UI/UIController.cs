@@ -591,9 +591,10 @@ public class UIController : MonoBehaviour
     {
         get { return isNightPhase; }
     }
+
     public void RestartGame()
     {
-        // First, hide all UI panels
+        // Hide all UI panels
         if (shopPanel != null) shopPanel.SetActive(false);
         if (inventoryPanel != null) inventoryPanel.SetActive(false);
 
@@ -602,6 +603,8 @@ public class UIController : MonoBehaviour
         elapsedTime = 0f;
         isTimerRunning = false;
         coinCount = 20; // Reset to default coins
+        isGamePaused = false;
+        Time.timeScale = 1; // Ensure game is unpaused
 
         // Reset all UI displays to initial state
         GameBackground.style.display = DisplayStyle.None;
@@ -610,16 +613,61 @@ public class UIController : MonoBehaviour
         objectivesScreen.style.display = DisplayStyle.None;
         nightUI.style.display = DisplayStyle.Flex; // Make night UI visible
 
+        // Hide settings panel if it's open
+        if (settingsPanel != null)
+        {
+            settingsPanel.style.display = DisplayStyle.None;
+        }
+
         // Update UI to reflect reset state
         UpdateCoinUI();
 
-        GameInput gameInput = FindObjectOfType<GameInput>();
-        if (gameInput != null)
+        // Reset any progress bars
+        if (phaseTimer != null)
         {
-            gameInput.DisableInput();
+            phaseTimer.value = 0f;
         }
 
-        // Optional: If you need to reload the entire scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // Reset gameplay objects (like plants, plots, etc.)
+        // You'll need to implement references to these objects
+        ResetGameplayObjects();
+
+        // Remove the scene reload line
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name); <- REMOVE THIS
+    }
+
+    // Add this method to reset any gameplay objects
+    private void ResetGameplayObjects()
+    {
+        GameObject[] carrots = GameObject.FindGameObjectsWithTag("Carrot");
+        GameObject[] broccoli = GameObject.FindGameObjectsWithTag("Broccoli");
+        GameObject[] mushrooms = GameObject.FindGameObjectsWithTag("Mushroom");
+        GameObject[] sunflowers = GameObject.FindGameObjectsWithTag("Sunflower");
+        GameObject[] corn = GameObject.FindGameObjectsWithTag("Corn");
+        GameObject[] cauliflower = GameObject.FindGameObjectsWithTag("Cauliflower");
+
+        // Selectively destroy carrot plots
+        foreach (GameObject carrot in carrots)
+        {
+            if (carrot.name != "carrot-plot-perm")
+            {
+                Destroy(carrot);
+            }
+        }
+
+        // Destroy all other plant types
+        DestroyTaggedObjects(broccoli);
+        DestroyTaggedObjects(mushrooms);
+        DestroyTaggedObjects(sunflowers);
+        DestroyTaggedObjects(corn);
+        DestroyTaggedObjects(cauliflower);
+    }
+
+    private void DestroyTaggedObjects(GameObject[] objects)
+    {
+        foreach (GameObject obj in objects)
+        {
+            Destroy(obj);
+        }
     }
 }
