@@ -602,16 +602,16 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
         elapsedTime = 0f;
         isTimerRunning = false;
-        coinCount = 20; 
+        coinCount = 20;
         isGamePaused = false;
-        Time.timeScale = 1; 
+        Time.timeScale = 1;
 
         // Reset all UI
         GameBackground.style.display = DisplayStyle.None;
         dayUI.style.display = DisplayStyle.None;
         endDayScreen.style.display = DisplayStyle.None;
         objectivesScreen.style.display = DisplayStyle.None;
-        nightUI.style.display = DisplayStyle.Flex; 
+        nightUI.style.display = DisplayStyle.Flex;
 
         // Hide settings panel if it's open
         if (settingsPanel != null)
@@ -628,7 +628,7 @@ public class UIController : MonoBehaviour
             phaseTimer.value = 0f;
         }
 
-        Inventory inventory = FindObjectOfType<Inventory>(true); 
+        Inventory inventory = FindObjectOfType<Inventory>(true);
         if (inventory != null)
         {
             inventory.ResetInventory();
@@ -644,7 +644,7 @@ public class UIController : MonoBehaviour
                 }
             }
         }
-
+        ResetPlayerPosition();
         ResetGameplayObjects();
     }
 
@@ -679,6 +679,18 @@ public class UIController : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             Destroy(obj);
+        }
+    }
+
+    private void ResetPlayerPosition()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag("Player-Spawn");
+
+        if (player != null && spawnPoint != null)
+        {
+            player.transform.position = spawnPoint.transform.position;
+            player.transform.rotation = spawnPoint.transform.rotation;
         }
     }
 }
