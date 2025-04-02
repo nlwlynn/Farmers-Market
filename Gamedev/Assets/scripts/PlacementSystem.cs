@@ -36,10 +36,11 @@ public class PlacementSystem : MonoBehaviour
         Vector3 preplacedWorldPos = new Vector3(142.35f, 0f, 120.98f);
         Vector3Int preplacedGridPos = grid.WorldToCell(preplacedWorldPos);
 
-        GameObject preplacedObject = GameObject.Find("carrot-plot");
+        GameObject preplacedObject = GameObject.Find("carrot-plot-perm");
 
         if (!placedObjects.ContainsKey(preplacedGridPos))
         {
+            Debug.Log("found plot");
             placedObjects[preplacedGridPos] = preplacedObject;
         }
     }
