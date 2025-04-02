@@ -45,7 +45,6 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-
     public void StartPlacement(int ID)
     {
         itemID = ID;
@@ -176,8 +175,29 @@ public class PlacementSystem : MonoBehaviour
 
     public void OnRemoveButtonClicked()
     {
-        InputManager.ignoreNextUIInteraction = true;
-        StartRemoval();
+        if (isBuilding)
+        {
+            StopRemoval();
+            isBuilding = false;
+
+            if (GetComponent<InputManager>() != null)
+            {
+                GetComponent<InputManager>().SwitchCameraOff();
+            }
+            else
+            {
+                InputManager inputManager = FindObjectOfType<InputManager>();
+                if (inputManager != null)
+                {
+                    inputManager.SwitchCameraOff();
+                }
+            }
+        }
+        else
+        {
+            InputManager.ignoreNextUIInteraction = true;
+            StartRemoval();
+        }
     }
 
     public void StartRemoval()
