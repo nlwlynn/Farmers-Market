@@ -371,6 +371,7 @@ GameObject:
   - component: {fileID: 742849466403482294}
   - component: {fileID: 928403119899988124}
   - component: {fileID: 698502569682045752}
+  - component: {fileID: 6543767657919890401}
   m_Layer: 0
   m_Name: carrot-plot
   m_TagString: Carrot
@@ -490,11 +491,26 @@ MonoBehaviour:
   carrot: {fileID: 0}
   playerAnimator: {fileID: 0}
   growingPhase: 0
+  harvestGrowth: 0
   plantHealth: 0
   interactionRange: 5
   uiController: {fileID: 0}
   rb: {fileID: 0}
   carrotScript: {fileID: 0}
+  NPCFarming: 0
+--- !u!114 &6543767657919890401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7517669496841006279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664ddfee9558b344f9d7e0b425c48893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProtected: 0
 --- !u!1 &8802665892087456276
 GameObject:
   m_ObjectHideFlags: 0

@@ -22,8 +22,11 @@ public class PlacementSystem : MonoBehaviour
     public Inventory inventory; // Reference to the Inventory Manager
     public bool isBuilding = false;
     public int itemID = -1;
+    private List<GameObject> scarecrowPreviewTiles = new List<GameObject>();
+    [SerializeField] private GameObject scarecrowDefenseHighlightPrefab; // assign in Inspecto
 
     private Dictionary<Vector3Int, GameObject> placedObjects = new Dictionary<Vector3Int, GameObject>();
+
 
     private void Start()
     {
@@ -82,34 +85,13 @@ public class PlacementSystem : MonoBehaviour
         mouseIndicator.SetActive(false);
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+        ClearScarecrowPreview();
     }
 
     public void StopPlacementWrapper()
     {
         StopPlacement();
     }
-
-    //private void PlaceStructure()
-    //{
-
-    //    if (inputManager.IsPointerOverUI())
-    //    {
-    //        Debug.Log("Pointer is over UI, skipping placement.");
-    //        return;
-    //    }
-    //    Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-
-    //    //mousePosition.y = 0f;
-
-    //    Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-
-    //    Debug.Log($"Mouse Position: {mousePosition}, Grid Position: {gridPosition}");
-    //    //Vector3 worldPosition = grid.CellToWorld(gridPosition);
-    //    GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
-    //    //mouseIndicator.transform.position = mousePosition;
-    //    //cellIndicator.transform.position = worldPosition;
-    //    newObject.transform.position = grid.CellToWorld(gridPosition);
-    //}
 
     private void SetUIRaycasts(bool enable)
     {
@@ -155,10 +137,34 @@ public class PlacementSystem : MonoBehaviour
                 newObject.transform.position = grid.CellToWorld(gridPosition);
                 placedObjects[gridPosition] = newObject;
 
+                // Initialize HelperNPC if it exists on the placed object
+                HelperNPC helper = newObject.GetComponent<HelperNPC>();
+                if (helper != null)
+                {
+                    Transform spawnTransform = GameObject.Find("Helper-Origin")?.transform;
+                    Face faceSO = Resources.Load<Face>("DataFace"); // Or assign from Inspector via serialized field
+                    GameObject smileBodyObj = newObject.transform.Find("Slime_03")?.gameObject;
+                    UIController controller = FindObjectOfType<UIController>();
+
+                    helper.Initialize(spawnTransform, faceSO, smileBodyObj, controller);
+                }
+                Scarecrow scarecrow = newObject.GetComponent<Scarecrow>();
+                if (scarecrow != null)
+                {
+                    UnityEngine.Debug.Log("Scarecrow component found, calling DefendNearbyCrops()");
+                    Vector3Int scarecrowGridPos = grid.WorldToCell(newObject.transform.position);
+                    scarecrow.DefendNearbyCrops(scarecrowGridPos, grid);
+                }
+                else
+                {
+                    UnityEngine.Debug.LogWarning("Scarecrow component NOT FOUND on placed object.");
+                }
                 // Stop placement only after a successful placement
                 StopPlacement();
                 isBuilding = false;
                 itemID = -1;
+                ClearScarecrowPreview();
+
             }
             else
             {
@@ -247,6 +253,11 @@ public class PlacementSystem : MonoBehaviour
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
+        if (isBuilding && itemID == 7) // Assuming ID 7 is scarecrow
+        {
+            UpdateScarecrowPreview(gridPosition);
+        }
+
         if (mouseIndicator != null)
             mouseIndicator.transform.position = mousePosition;
 
@@ -287,4 +298,37 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.SetActive(true);
         mouseIndicator.SetActive(true);
     }
+
+    private void UpdateScarecrowPreview(Vector3Int centerGridPos)
+    {
+        ClearScarecrowPreview();
+
+        Vector3Int[] offsets = new Vector3Int[]
+        {
+        new Vector3Int(-1, 1, 0), new Vector3Int(0, 1, 0), new Vector3Int(1, 1, 0),
+        new Vector3Int(-1, 0, 0),                       new Vector3Int(1, 0, 0),
+        new Vector3Int(-1, -1, 0), new Vector3Int(0, -1, 0), new Vector3Int(1, -1, 0),
+        };
+
+        foreach (Vector3Int offset in offsets)
+        {
+            Vector3Int targetPos = centerGridPos + offset;
+            Vector3 worldPos = grid.CellToWorld(targetPos) + new Vector3(0.5f, 0.01f, 0.5f);
+
+            GameObject marker = Instantiate(scarecrowDefenseHighlightPrefab, worldPos, Quaternion.identity);
+            marker.transform.localScale = Vector3.one * 1f;
+            scarecrowPreviewTiles.Add(marker);
+        }
+    }
+
+    private void ClearScarecrowPreview()
+    {
+        foreach (var obj in scarecrowPreviewTiles)
+        {
+            if (obj != null)
+                Destroy(obj);
+        }
+        scarecrowPreviewTiles.Clear();
+    }
+
 }
