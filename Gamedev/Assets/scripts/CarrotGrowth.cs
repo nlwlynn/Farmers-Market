@@ -99,7 +99,7 @@ public class CarrotGrowth : MonoBehaviour
     private void Update()
     {
         Vector3 currentPosition = transform.position;
-        transform.position = new Vector3(currentPosition.x, -2.9f, currentPosition.z);
+        transform.position = new Vector3(currentPosition.x, -3f, currentPosition.z);
 
         // checks if they player is in farming mode
         if (Input.GetKeyDown(KeyCode.E))
