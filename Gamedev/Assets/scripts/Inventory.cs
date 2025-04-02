@@ -87,4 +87,26 @@ public class Inventory : MonoBehaviour
         inventoryPanel.SetActive(false);
     }
 
+    public void SetButtonsInteractable(bool interactable)
+    {
+        if (itemButtons == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < itemButtons.Length; i++)
+        {
+            if (itemButtons[i] != null)
+            {
+                if (interactable)
+                {
+                    itemButtons[i].interactable = stock[i] > 0;
+                }
+                else
+                {
+                    itemButtons[i].interactable = false;
+                }
+            }
+        }
+    }
 }

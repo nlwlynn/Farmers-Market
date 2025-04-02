@@ -179,6 +179,7 @@ public class PlacementSystem : MonoBehaviour
         {
             StopRemoval();
             isBuilding = false;
+            SetInventoryButtonsInteractable(true);
 
             if (GetComponent<InputManager>() != null)
             {
@@ -197,6 +198,7 @@ public class PlacementSystem : MonoBehaviour
         {
             InputManager.ignoreNextUIInteraction = true;
             StartRemoval();
+            SetInventoryButtonsInteractable(false);
         }
     }
 
@@ -221,6 +223,7 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
 
         isBuilding = false;
+        SetInventoryButtonsInteractable(true);
     }
 
     private void RemoveStructure()
@@ -354,5 +357,13 @@ public class PlacementSystem : MonoBehaviour
     {
         StopRemoval();
         StopPlacement();
+    }
+
+    public void SetInventoryButtonsInteractable(bool interactable)
+    {
+        if (inventory != null)
+        {
+            inventory.SetButtonsInteractable(interactable);
+        }
     }
 }
