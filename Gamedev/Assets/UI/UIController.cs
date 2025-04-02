@@ -79,7 +79,8 @@ public class UIController : MonoBehaviour
     //volume slider
     public UnityEngine.UIElements.Slider volumeSlider;
 
-
+    //plots
+    public CarrotGrowth carrotGrowth;
 
     private void Awake()
     {
@@ -217,7 +218,6 @@ public class UIController : MonoBehaviour
         coinsLabel = root.Q<Label>("coinsLabel");  // For dayUI
         coinsLabelNight = root.Q<Label>("coinsLabelNight"); // For nightUI
 
-        // Find TMP Text inside the Shop Panel
         if (shopPanel != null)
         {
             coinsLabelShop = shopPanel.transform.Find("CoinUI").GetComponent<TMP_Text>();
@@ -228,6 +228,7 @@ public class UIController : MonoBehaviour
         if (coinsLabelNight == null) Debug.LogError("coinsLabelNight (Night UI) not found in UXML!");
         if (coinsLabelShop == null) Debug.LogError("coinsLabelShop (Shop UI) not found in GameObject!");
 
+        carrotGrowth = FindObjectOfType<CarrotGrowth>();
 
         UpdateCoinUI();
     }
@@ -404,6 +405,11 @@ public class UIController : MonoBehaviour
         moneyGoalLabel.text = goalCoin + " Coins";
         warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
         objectivesScreen.style.display = DisplayStyle.Flex;
+
+        if (carrotGrowth != null)
+        {
+            carrotGrowth.SetFarmingMode(true); 
+        } 
 
         // Remove previous event listeners to prevent stacking
         objectiveButton.clicked -= OnObjectiveButtonClicked;
