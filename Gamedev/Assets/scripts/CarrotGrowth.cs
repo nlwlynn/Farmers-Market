@@ -408,5 +408,4 @@ public class CarrotGrowth : MonoBehaviour
     {
         isFarmingMode = state;
     }
-
 }

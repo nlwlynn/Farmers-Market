@@ -81,6 +81,11 @@ public class UIController : MonoBehaviour
 
     //plots
     public CarrotGrowth carrotGrowth;
+    public BroccoliGrowth broccoliGrowth;
+    public CauliflowerGrowth cauliflowerGrowth;
+    public LettuceGrowth lettuceGrowth;
+    public PumpkinGrowth pumpkinGrowth;
+    public WatermelonGrowth watermelonGrowth;
 
     private void Awake()
     {
@@ -229,8 +234,13 @@ public class UIController : MonoBehaviour
         if (coinsLabelShop == null) Debug.LogError("coinsLabelShop (Shop UI) not found in GameObject!");
 
         carrotGrowth = FindObjectOfType<CarrotGrowth>();
+        broccoliGrowth = FindObjectOfType<BroccoliGrowth>();
+        cauliflowerGrowth = FindObjectOfType<CauliflowerGrowth>();
+        lettuceGrowth = FindObjectOfType<LettuceGrowth>();
+        pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
+        watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
 
-        UpdateCoinUI();
+    UpdateCoinUI();
     }
 
 
@@ -409,7 +419,27 @@ public class UIController : MonoBehaviour
         if (carrotGrowth != null)
         {
             carrotGrowth.SetFarmingMode(true); 
-        } 
+        }
+        if (broccoliGrowth != null)
+        {
+            broccoliGrowth.SetFarmingMode(true);
+        }
+        if (cauliflowerGrowth != null)
+        {
+            cauliflowerGrowth.SetFarmingMode(true);
+        }
+        if (lettuceGrowth != null)
+        {
+            lettuceGrowth.SetFarmingMode(true);
+        }
+        if (pumpkinGrowth != null)
+        {
+            pumpkinGrowth.SetFarmingMode(true);
+        }
+        if (watermelonGrowth != null)
+        {
+            watermelonGrowth.SetFarmingMode(true);
+        }
 
         // Remove previous event listeners to prevent stacking
         objectiveButton.clicked -= OnObjectiveButtonClicked;
