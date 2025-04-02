@@ -43,6 +43,7 @@ public class InputManager : MonoBehaviour
         }
         if (!placementSystem.isBuilding && shopManager.closeBuild)
         {
+            Debug.Log("input test");
             SwitchCameraOff();
         }
         if (Input.GetMouseButtonDown(0))
@@ -92,7 +93,7 @@ public class InputManager : MonoBehaviour
         return lastPosition;
     }
 
-    private void SwitchCameraOn()
+    public void SwitchCameraOn()
     {
         if (sceneCamera != null && buildCamera != null)
         {
@@ -101,12 +102,17 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void SwitchCameraOff()
+    public void SwitchCameraOff()
     {
         if (sceneCamera != null && buildCamera != null)
         {
             sceneCamera.gameObject.SetActive(true);
             buildCamera.gameObject.SetActive(false);
+
+            if (shopManager != null)
+            {
+                shopManager.closeBuild = false;
+            }
         }
     }
 

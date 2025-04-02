@@ -403,4 +403,9 @@ public class LettuceGrowth : MonoBehaviour
             fly.OnPlantDestroyed(this.gameObject);
         }
     }
+
+    public void SetFarmingMode(bool state)
+    {
+        isFarmingMode = state;
+    }
 }

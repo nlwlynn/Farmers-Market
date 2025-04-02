@@ -79,7 +79,13 @@ public class UIController : MonoBehaviour
     //volume slider
     public UnityEngine.UIElements.Slider volumeSlider;
 
-
+    //plots
+    public CarrotGrowth carrotGrowth;
+    public BroccoliGrowth broccoliGrowth;
+    public CauliflowerGrowth cauliflowerGrowth;
+    public LettuceGrowth lettuceGrowth;
+    public PumpkinGrowth pumpkinGrowth;
+    public WatermelonGrowth watermelonGrowth;
 
     private void Awake()
     {
@@ -217,7 +223,6 @@ public class UIController : MonoBehaviour
         coinsLabel = root.Q<Label>("coinsLabel");  // For dayUI
         coinsLabelNight = root.Q<Label>("coinsLabelNight"); // For nightUI
 
-        // Find TMP Text inside the Shop Panel
         if (shopPanel != null)
         {
             coinsLabelShop = shopPanel.transform.Find("CoinUI").GetComponent<TMP_Text>();
@@ -228,8 +233,14 @@ public class UIController : MonoBehaviour
         if (coinsLabelNight == null) Debug.LogError("coinsLabelNight (Night UI) not found in UXML!");
         if (coinsLabelShop == null) Debug.LogError("coinsLabelShop (Shop UI) not found in GameObject!");
 
+        carrotGrowth = FindObjectOfType<CarrotGrowth>();
+        broccoliGrowth = FindObjectOfType<BroccoliGrowth>();
+        cauliflowerGrowth = FindObjectOfType<CauliflowerGrowth>();
+        lettuceGrowth = FindObjectOfType<LettuceGrowth>();
+        pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
+        watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
 
-        UpdateCoinUI();
+    UpdateCoinUI();
     }
 
 
@@ -404,6 +415,31 @@ public class UIController : MonoBehaviour
         moneyGoalLabel.text = goalCoin + " Coins";
         warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
         objectivesScreen.style.display = DisplayStyle.Flex;
+
+        if (carrotGrowth != null)
+        {
+            carrotGrowth.SetFarmingMode(true); 
+        }
+        if (broccoliGrowth != null)
+        {
+            broccoliGrowth.SetFarmingMode(true);
+        }
+        if (cauliflowerGrowth != null)
+        {
+            cauliflowerGrowth.SetFarmingMode(true);
+        }
+        if (lettuceGrowth != null)
+        {
+            lettuceGrowth.SetFarmingMode(true);
+        }
+        if (pumpkinGrowth != null)
+        {
+            pumpkinGrowth.SetFarmingMode(true);
+        }
+        if (watermelonGrowth != null)
+        {
+            watermelonGrowth.SetFarmingMode(true);
+        }
 
         // Remove previous event listeners to prevent stacking
         objectiveButton.clicked -= OnObjectiveButtonClicked;

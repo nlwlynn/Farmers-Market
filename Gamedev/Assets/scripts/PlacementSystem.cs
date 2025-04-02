@@ -36,14 +36,14 @@ public class PlacementSystem : MonoBehaviour
         Vector3 preplacedWorldPos = new Vector3(142.35f, 0f, 120.98f);
         Vector3Int preplacedGridPos = grid.WorldToCell(preplacedWorldPos);
 
-        GameObject preplacedObject = GameObject.Find("carrot-plot");
+        GameObject preplacedObject = GameObject.Find("carrot-plot-perm");
 
         if (!placedObjects.ContainsKey(preplacedGridPos))
         {
+            Debug.Log("found plot");
             placedObjects[preplacedGridPos] = preplacedObject;
         }
     }
-
 
     public void StartPlacement(int ID)
     {
@@ -173,11 +173,33 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-
     public void OnRemoveButtonClicked()
     {
-        InputManager.ignoreNextUIInteraction = true;
-        StartRemoval();
+        if (isBuilding)
+        {
+            StopRemoval();
+            isBuilding = false;
+            SetInventoryButtonsInteractable(true);
+
+            if (GetComponent<InputManager>() != null)
+            {
+                GetComponent<InputManager>().SwitchCameraOff();
+            }
+            else
+            {
+                InputManager inputManager = FindObjectOfType<InputManager>();
+                if (inputManager != null)
+                {
+                    inputManager.SwitchCameraOff();
+                }
+            }
+        }
+        else
+        {
+            InputManager.ignoreNextUIInteraction = true;
+            StartRemoval();
+            SetInventoryButtonsInteractable(false);
+        }
     }
 
     public void StartRemoval()
@@ -201,6 +223,7 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
 
         isBuilding = false;
+        SetInventoryButtonsInteractable(true);
     }
 
     private void RemoveStructure()
@@ -330,5 +353,17 @@ public class PlacementSystem : MonoBehaviour
         }
         scarecrowPreviewTiles.Clear();
     }
+    public void stopAll()
+    {
+        StopRemoval();
+        StopPlacement();
+    }
 
+    public void SetInventoryButtonsInteractable(bool interactable)
+    {
+        if (inventory != null)
+        {
+            inventory.SetButtonsInteractable(interactable);
+        }
+    }
 }

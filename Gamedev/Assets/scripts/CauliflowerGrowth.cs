@@ -403,4 +403,8 @@ public class CauliflowerGrowth : MonoBehaviour
         }
     }
 
+    public void SetFarmingMode(bool state)
+    {
+        isFarmingMode = state;
+    }
 }

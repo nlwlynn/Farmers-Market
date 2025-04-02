@@ -16,7 +16,15 @@ public class ShopManager : MonoBehaviour
     public UIController uiController; // Reference to UIController
     public Inventory inventory; // Reference to the Inventory Manager
     public bool closeBuild = false;
+    public PlacementSystem placementSystem;
 
+    void Awake()
+    {
+        if (placementSystem == null)
+        {
+            placementSystem = FindObjectOfType<PlacementSystem>();
+        }
+    }
     void Start()
     {
        
@@ -98,7 +106,20 @@ public class ShopManager : MonoBehaviour
     {
         shopPanel.SetActive(false);
         closeBuild = true;
-        Debug.Log("Shop closed!");
+        placementSystem.stopAll();
+
+        if (GetComponent<InputManager>() != null)
+        {
+            GetComponent<InputManager>().SwitchCameraOff();
+        }
+        else
+        {
+            InputManager inputManager = FindObjectOfType<InputManager>();
+            if (inputManager != null)
+            {
+                inputManager.SwitchCameraOff();
+            }
+        }
     }
 }
 
