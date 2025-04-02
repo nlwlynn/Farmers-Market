@@ -43,6 +43,45 @@ public class HelperNPC : MonoBehaviour
     };
     public GameObject targetCrop;
 
+    public void Initialize(Transform spawn, Face faceData, GameObject smileBody, UIController controller)
+    {
+        spawnPoint = spawn;
+        faces = faceData;
+        SmileBody = smileBody;
+        uiController = controller;
+
+        if (SmileBody != null)
+        {
+            Renderer rend = SmileBody.GetComponent<Renderer>();
+            if (rend != null && rend.materials.Length > 0)
+            {
+                faceMaterial = rend.materials.Length > 1 ? rend.materials[1] : rend.materials[0];
+            }
+            else
+            {
+                UnityEngine.Debug.LogError("SmileBody Renderer is missing or has no materials.");
+            }
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("SmileBody is null during initialization.");
+        }
+
+        if (agent == null)
+        {
+            agent = GetComponent<NavMeshAgent>();
+        }
+
+        if (spawnPoint != null)
+        {
+            originPos = spawnPoint.position;
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("SpawnPoint is null during initialization.");
+        }
+    }
+
     private void Awake()
     {
         if (uiController == null)
@@ -93,43 +132,43 @@ public class HelperNPC : MonoBehaviour
         }
 
         // Handle animation transitions
-        switch (currentState)
-        {
-            case SlimeAnimationState.Idle:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
-                StopAgent();
-                SetFace(faces.Idleface);
-                break;
+        //switch (currentState)
+        //{
+        //    case SlimeAnimationState.Idle:
+        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
+        //        StopAgent();
+        //        SetFace(faces.Idleface);
+        //        break;
 
-            case SlimeAnimationState.Walk:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
-                agent.isStopped = false;
-                agent.updateRotation = true;
-                SetFace(faces.WalkFace);
-                break;
+        //    case SlimeAnimationState.Walk:
+        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
+        //        agent.isStopped = false;
+        //        agent.updateRotation = true;
+        //        SetFace(faces.WalkFace);
+        //        break;
 
-            case SlimeAnimationState.Jump:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
-                StopAgent();
-                SetFace(faces.jumpFace);
-                animator.SetTrigger("Jump");
-                break;
+        //    case SlimeAnimationState.Jump:
+        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
+        //        StopAgent();
+        //        SetFace(faces.jumpFace);
+        //        animator.SetTrigger("Jump");
+        //        break;
 
-            case SlimeAnimationState.Attack:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
-                StopAgent();
-                SetFace(faces.attackFace);
-                animator.SetTrigger("Attack");
-                break;
+        //    case SlimeAnimationState.Attack:
+        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
+        //        StopAgent();
+        //        SetFace(faces.attackFace);
+        //        animator.SetTrigger("Attack");
+        //        break;
 
-            case SlimeAnimationState.Damage:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
-                StopAgent();
-                animator.SetTrigger("Damage");
-                animator.SetInteger("DamageType", damType);
-                SetFace(faces.damageFace);
-                break;
-        }
+        //    case SlimeAnimationState.Damage:
+        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
+        //        StopAgent();
+        //        animator.SetTrigger("Damage");
+        //        animator.SetInteger("DamageType", damType);
+        //        SetFace(faces.damageFace);
+        //        break;
+        //}
     }
 
     void FindTargetCrop()
