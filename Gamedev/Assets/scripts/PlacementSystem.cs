@@ -174,7 +174,6 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-
     public void OnRemoveButtonClicked()
     {
         InputManager.ignoreNextUIInteraction = true;
@@ -331,5 +330,9 @@ public class PlacementSystem : MonoBehaviour
         }
         scarecrowPreviewTiles.Clear();
     }
-
+    public void stopAll()
+    {
+        StopRemoval();
+        StopPlacement();
+    }
 }
