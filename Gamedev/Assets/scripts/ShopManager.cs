@@ -41,7 +41,7 @@ public class ShopManager : MonoBehaviour
     public void AddCoins()
     {
         UIController.Instance.AddCoins(1);
-        Debug.Log("Coins Added!");
+        //Debug.Log("Coins Added!");
         CheckPurchaseable();
     }
 
@@ -72,7 +72,7 @@ public class ShopManager : MonoBehaviour
             if (shopItemsSO[i].itemImage != null) // Ensure there's an image
             {
 
-                Debug.Log("Setting sprite for: " + shopItemsSO[i].title);
+                //Debug.Log("Setting sprite for: " + shopItemsSO[i].title);
                 shopPanels[i].itemImage.sprite = shopItemsSO[i].itemImage;
             }
         }
@@ -83,7 +83,7 @@ public class ShopManager : MonoBehaviour
         if (UIController.Instance.GetCoins() >= shopItemsSO[btnNo].baseCost)
         {
             UIController.Instance.SpendCoins(shopItemsSO[btnNo].baseCost); // Deduct coins globally
-            Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
+            //Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
 
             inventory.AddItemToStock(btnNo);
             CheckPurchaseable();
