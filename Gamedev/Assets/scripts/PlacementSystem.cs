@@ -125,6 +125,7 @@ public class PlacementSystem : MonoBehaviour
                 // Check if spot is taken
                 if (placedObjects.ContainsKey(gridPosition))
                 {
+                    StartPlacement(itemID);
                     return;
                 }
 
