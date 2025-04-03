@@ -2087,7 +2087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1757912757667316607, guid: 6da02834f7cc3144ab3d230bce83db7e, type: 3}
       propertyPath: m_Lens.FieldOfView
-      value: 50
+      value: 60.37
       objectReference: {fileID: 0}
     - target: {fileID: 2570637740591797084, guid: 6da02834f7cc3144ab3d230bce83db7e, type: 3}
       propertyPath: m_TrackedObjectOffset.x
@@ -3378,7 +3378,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 50
+  field of view: 60.37
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5038,6 +5038,7 @@ GameObject:
   - component: {fileID: 1922670641}
   - component: {fileID: 1922670640}
   - component: {fileID: 1922670642}
+  - component: {fileID: 1922670643}
   m_Layer: 0
   m_Name: UIDocument
   m_TagString: Untagged
@@ -5091,7 +5092,112 @@ MonoBehaviour:
   shopPanel: {fileID: 1696857876}
   inventoryPanel: {fileID: 1583109687}
   coinsLabelShop: {fileID: 0}
+  BG_audioSFX: {fileID: 1922670643}
+  BGTitleAndNightSFX: {fileID: 8300000, guid: c3ee3c2670ad3e8469bda73aedbf51a4, type: 3}
+  BGDaySFX: {fileID: 8300000, guid: 79d9f8d813612104f88ac00ba422a7d5, type: 3}
   isNightPhase: 0
+  carrotGrowth: {fileID: 0}
+  broccoliGrowth: {fileID: 0}
+  cauliflowerGrowth: {fileID: 0}
+  lettuceGrowth: {fileID: 0}
+  pumpkinGrowth: {fileID: 0}
+  watermelonGrowth: {fileID: 0}
+--- !u!82 &1922670643
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922670639}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!850595691 &1993503791
 LightingSettings:
   m_ObjectHideFlags: 0
