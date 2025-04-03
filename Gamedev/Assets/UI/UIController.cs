@@ -46,6 +46,15 @@ public class UIController : MonoBehaviour
     private UnityEngine.UIElements.Button StartButton;
     private UnityEngine.UIElements.Button SettingsButton;
 
+    // sound effects
+    public AudioSource BG_audioSFX;
+    public AudioClip BGTitleAndNightSFX;
+    public AudioClip BGDaySFX;
+
+    //sound effect adjustments
+    private float BGVolume = 0.008f; // lower bg music
+    private float BG_Pitch = 1f; // slow/fast day time music
+
     //for playpause button
     private bool isGamePaused = false;
 
@@ -217,6 +226,12 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
+        // Play title sound effects
+        BG_audioSFX.clip = BGTitleAndNightSFX;
+        BG_audioSFX.volume = BGVolume;  // Lower volume
+        BG_audioSFX.loop = true; // Enable looping
+        BG_audioSFX.Play();
+
         var root = GetComponent<UIDocument>().rootVisualElement;
 
         // Get coin labels correctly
@@ -406,9 +421,18 @@ public class UIController : MonoBehaviour
         elapsedTime = 0f;
         isTimerRunning = true;
         nightUI.style.display = DisplayStyle.None;
+        
         // Calculate revenue made during the day
         int currentCoin = coinCount;
         int goalCoin = dailyGoal;
+
+        // Play day bg sound
+        BG_audioSFX.clip = BGDaySFX;
+        BG_audioSFX.volume = BGVolume;  // Lower volume
+        BG_audioSFX.pitch = BG_Pitch; // slow down a little
+        BG_audioSFX.loop = true; // Enable looping
+        BG_audioSFX.Play();
+
 
         // Update Objectives labels
         currentMoneyLabel.text = currentCoin + " Coins";
@@ -472,6 +496,12 @@ public class UIController : MonoBehaviour
     {
         // Switch to night phase
         isNightPhase = true;
+
+        // Play background music
+        BG_audioSFX.clip = BGTitleAndNightSFX;
+        BG_audioSFX.volume = BGVolume;  // Lower volume
+        BG_audioSFX.loop = true; // Enable looping
+        BG_audioSFX.Play();
 
         // Calculate revenue made during the day
         int revenueEarned = coinCount;
