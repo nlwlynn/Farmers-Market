@@ -10,6 +10,9 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+using Debug = UnityEngine.Debug;
+using static System.Net.Mime.MediaTypeNames;
+
 public class UIController : MonoBehaviour
 {
     public VisualElement ui;
@@ -28,10 +31,15 @@ public class UIController : MonoBehaviour
     public UnityEngine.UIElements.Button Inventory;
     public UnityEngine.UIElements.Button PlayPause;
     public UnityEngine.UIElements.Button Settings;
+    public UnityEngine.UIElements.Button NSettings;
     public UnityEngine.UIElements.Button NewDay;
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
     public TMP_Text coinsLabelShop; // Shop panel coin label
+
+    //quit button
+    public UnityEngine.UIElements.Button QuitButton;
+    public UnityEngine.UIElements.Button MQuitButton;
 
     //EOD
     private Label goalAmountLabel;
@@ -43,8 +51,8 @@ public class UIController : MonoBehaviour
     private Label warningsLabel;
     private UnityEngine.UIElements.Button continueButton;
     private UnityEngine.UIElements.Button objectiveButton;
-    private UnityEngine.UIElements.Button StartButton;
-    private UnityEngine.UIElements.Button SettingsButton;
+    public UnityEngine.UIElements.Button StartButton;
+    public UnityEngine.UIElements.Button SettingsButton;
 
     // sound effects
     public AudioSource BG_audioSFX;
@@ -95,6 +103,9 @@ public class UIController : MonoBehaviour
     public LettuceGrowth lettuceGrowth;
     public PumpkinGrowth pumpkinGrowth;
     public WatermelonGrowth watermelonGrowth;
+
+
+    
 
     private void Awake()
     {
@@ -160,6 +171,27 @@ public class UIController : MonoBehaviour
             Debug.LogError("Settings Panel not found");
         }
 
+        //main menu quit button
+        MQuitButton = ui.Q<UnityEngine.UIElements.Button>("MQuitButton");
+        if (MQuitButton != null)
+        {
+            MQuitButton.clicked += OnQuitButtonClicked;
+        }
+        else
+        {
+            Debug.LogError("Quit Button not found in UXML!");
+        }
+
+        //quit button
+        QuitButton = ui.Q<UnityEngine.UIElements.Button>("QuitButton");
+        if (QuitButton != null)
+        {
+            QuitButton.clicked += OnQuitButtonClicked;
+        }
+        else
+        {
+            Debug.LogError("QuitButton not found in UI Document");
+        }
 
         //Progress Bar
         phaseTimer = ui.Q<ProgressBar>("phaseTimer");
@@ -315,6 +347,13 @@ public class UIController : MonoBehaviour
 
         }
 
+        NSettings = ui.Q<UnityEngine.UIElements.Button>("NSettings");
+        if (NSettings != null)
+        {
+            NSettings.clicked += OnSettingsButtonClicked;
+
+        }
+
     }
 
     private void Update()
@@ -412,6 +451,75 @@ public class UIController : MonoBehaviour
 
     }
 
+
+    //confirm quit and then quit
+    private void OnQuitButtonClicked()
+    {
+    
+        var dialogBox = new UnityEngine.UIElements.Box();
+        dialogBox.style.position = Position.Absolute;
+        dialogBox.style.left = 0;
+        dialogBox.style.right = 0;
+        dialogBox.style.top = 0;
+        dialogBox.style.bottom = 0;
+        dialogBox.style.backgroundColor = new Color(0, 0, 0, 0.7f);
+        dialogBox.style.justifyContent = Justify.Center;
+        dialogBox.style.alignItems = Align.Center;
+
+        // Create dialog content
+        var dialogContent = new UnityEngine.UIElements.Box();
+        dialogContent.style.backgroundColor = Color.black;
+        dialogContent.style.paddingTop = 40;
+        dialogContent.style.paddingRight = 40;
+        dialogContent.style.paddingBottom = 40;
+        dialogContent.style.paddingLeft = 40;
+
+        var questionLabel = new UnityEngine.UIElements.Label("Are you sure you want to quit the farm?");
+        questionLabel.style.color = UnityEngine.Color.white;
+        questionLabel.style.unityFontStyleAndWeight = UnityEngine.FontStyle.Bold;
+        questionLabel.style.fontSize = 18;
+        questionLabel.style.marginBottom = 20;
+        dialogContent.Add(questionLabel);
+
+        // button container
+        var buttonContainer = new UnityEngine.UIElements.VisualElement();
+        buttonContainer.style.flexDirection = FlexDirection.Row;
+        buttonContainer.style.justifyContent = Justify.Center;
+        buttonContainer.style.marginTop = 20;
+
+        //  confirm button
+        var confirmButton = new UnityEngine.UIElements.Button(() => {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        });
+        confirmButton.text = "Yes, Quit";
+        confirmButton.style.marginRight = 10;
+        buttonContainer.Add(confirmButton);
+
+        // Add cancel button
+        var cancelButton = new UnityEngine.UIElements.Button(() => {
+            ui.Remove(dialogBox);
+        });
+        cancelButton.text = "Cancel";
+        buttonContainer.Add(cancelButton);
+
+        // Add everything to dialog
+        dialogContent.Add(buttonContainer);
+        dialogBox.Add(dialogContent);
+        ui.Add(dialogBox);
+    }
+
+    private void OnDisable()
+    {
+        if (QuitButton != null)
+        {
+            QuitButton.clicked -= OnQuitButtonClicked;
+        }
+        // ... your other cleanup code ...
+    }
 
 
     //NEXT DAY PHASE 
@@ -582,6 +690,11 @@ public class UIController : MonoBehaviour
 
     }
 
+
+
+    //QUIT GAME BUTTON
+
+
     //private void SetButtonInteractivity(bool isEnabled)
     //{
     // Harvest.SetEnabled(isEnabled);
@@ -594,22 +707,15 @@ public class UIController : MonoBehaviour
 
     private void OnSettingsButtonClicked()
     {
-        Debug.Log("Settings Button Clicked");
-
-        if (settingsPanel != null)
+        if (settingsPanel.style.display == DisplayStyle.None)
         {
-            if (settingsPanel.style.display == DisplayStyle.None)
-            {
-                settingsPanel.style.display = DisplayStyle.Flex;
-            }
-            else
-            {
-
-                settingsPanel.style.display = DisplayStyle.None;
-            }
+            settingsPanel.style.display = DisplayStyle.Flex;
+            settingsPanel.BringToFront(); // Ensures it appears above everything
         }
-
-
+        else
+        {
+            settingsPanel.style.display = DisplayStyle.None;
+        }
     }
 
 
