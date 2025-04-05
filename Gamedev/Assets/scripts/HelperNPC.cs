@@ -34,7 +34,7 @@ public class HelperNPC : MonoBehaviour
     private int interactionCount = 0;
     private bool waitToResp = false;
 
-    public bool playerPurchased = true; // variable for the store
+    public bool playerPurchased = false; // variable for the store
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -500,5 +500,10 @@ public class HelperNPC : MonoBehaviour
         position.y = agent.nextPosition.y;
         transform.position = position;
         agent.nextPosition = transform.position;
+    }
+
+    public void ResetHelper(bool state)
+    {
+        playerPurchased = state;
     }
 }

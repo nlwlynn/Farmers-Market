@@ -104,8 +104,9 @@ public class UIController : MonoBehaviour
     public PumpkinGrowth pumpkinGrowth;
     public WatermelonGrowth watermelonGrowth;
 
-
-    
+    //shop items
+    public PlayerAnimator playerAnimator;
+    public HelperNPC helperNPC;
 
     private void Awake()
     {
@@ -286,8 +287,10 @@ public class UIController : MonoBehaviour
         lettuceGrowth = FindObjectOfType<LettuceGrowth>();
         pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
         watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
-
-    UpdateCoinUI();
+        playerAnimator = FindObjectOfType<PlayerAnimator>();
+        helperNPC = FindObjectOfType<HelperNPC>();
+ 
+        UpdateCoinUI();
     }
 
 
@@ -571,6 +574,14 @@ public class UIController : MonoBehaviour
         if (watermelonGrowth != null)
         {
             watermelonGrowth.SetFarmingMode(true);
+        }
+        if (playerAnimator != null)
+        {
+            playerAnimator.ResetPestisideUpgrades(false);
+        }
+        if (helperNPC != null)
+        {
+            helperNPC.ResetHelper(false);
         }
 
         // Remove previous event listeners to prevent stacking
