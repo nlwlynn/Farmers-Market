@@ -83,7 +83,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -638,7 +638,8 @@ public class UIController : MonoBehaviour
             resultTextLabel.style.color = new StyleColor(Color.green);
             summaryMessageLabel.text = "Now transitioning to night time, buy more plots to make more earnings!";
             continueButton.text = "Proceed to Night Phase";
-
+            coinCount -= dailyGoal;
+            UpdateCoinUI();
         }
         else
         {
