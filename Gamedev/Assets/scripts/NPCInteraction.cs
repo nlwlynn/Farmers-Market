@@ -15,6 +15,7 @@ public class NPCInteraction : MonoBehaviour
     private bool orderComplete = false; // Flag to track order completion
     public UIController uiController; // Reference to UIController
     public int orderAmount = 0;
+    private static int totalDayEarned = 0;
     public Transform leavePoint;
     public Transform counter1; 
     public Transform counter2;
@@ -228,6 +229,9 @@ public class NPCInteraction : MonoBehaviour
             }
         }
 
+        totalDayEarned += orderAmount;
+        Debug.Log($"total day earned: {totalDayEarned}");
+
         if (uiController != null)
         {
             UIController.Instance.AddCoins(orderAmount);
@@ -296,4 +300,13 @@ public class NPCInteraction : MonoBehaviour
         counterOccupied[2] = false;
     }
 
+    public void NewDayEarned()
+    {
+        totalDayEarned = 0;
+    }
+    public int GetEarned()
+    {
+        Debug.Log($"Coins earned: {totalDayEarned}");
+        return totalDayEarned;
+    }
 }

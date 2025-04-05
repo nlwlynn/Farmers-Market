@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
     private Label coinsLabelNight;
     private int coinCount = 20;    // Default coin amount
     private int dailyGoal = 15;// Goal for the day (can be dynamic)
-
+    private int dayCount = 0;    // Default coin amount
 
     public UnityEngine.UIElements.Button Harvest;
     public UnityEngine.UIElements.Button Spray;
@@ -49,6 +49,7 @@ public class UIController : MonoBehaviour
     private Label currentMoneyLabel;
     private Label moneyGoalLabel;
     private Label warningsLabel;
+    private Label dayNumberLabel;
     private UnityEngine.UIElements.Button continueButton;
     private UnityEngine.UIElements.Button objectiveButton;
     public UnityEngine.UIElements.Button StartButton;
@@ -83,7 +84,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 10f; //5min
+    private float timerDuration = 20f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -108,6 +109,10 @@ public class UIController : MonoBehaviour
     public PlayerAnimator playerAnimator;
     public HelperNPC helperNPC;
 
+    //progression
+    public NPCInteraction npcInteraction;
+    public DayProgression dayProgression;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -130,6 +135,7 @@ public class UIController : MonoBehaviour
 
 
         //objectives element 
+        dayNumberLabel = ui.Q<Label>("dayNumber");
         currentMoneyLabel = ui.Q<Label>("currentMoney");
         moneyGoalLabel = ui.Q<Label>("moneyGoal");
         warningsLabel = ui.Q<Label>("warningMessage");
@@ -289,7 +295,9 @@ public class UIController : MonoBehaviour
         watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
         playerAnimator = FindObjectOfType<PlayerAnimator>();
         helperNPC = FindObjectOfType<HelperNPC>();
- 
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+        dayProgression = FindObjectOfType<DayProgression>();
+
         UpdateCoinUI();
     }
 
@@ -334,6 +342,7 @@ public class UIController : MonoBehaviour
         NewDay = ui.Q<UnityEngine.UIElements.Button>("NewDay");
         if (NewDay != null)
         {
+            NewDay.clicked -= OnNewDayButtonClicked;
             NewDay.clicked += OnNewDayButtonClicked;
         }
 
@@ -363,7 +372,7 @@ public class UIController : MonoBehaviour
     {
         if (dayUI.style.display != DisplayStyle.Flex)
         {
-            return; // Stop execution if Day UI is not active
+            return; 
         }
 
         // running and the game is not paused
@@ -521,21 +530,32 @@ public class UIController : MonoBehaviour
         {
             QuitButton.clicked -= OnQuitButtonClicked;
         }
-        // ... your other cleanup code ...
+        if (NewDay != null)
+        {
+            NewDay.clicked -= OnNewDayButtonClicked;
+        }
     }
 
 
     //NEXT DAY PHASE 
     private void OnNewDayButtonClicked()
     {
+        dayCount++;
         isNightPhase = false;
         elapsedTime = 0f;
         isTimerRunning = true;
         nightUI.style.display = DisplayStyle.None;
-        
+
         // Calculate revenue made during the day
         int currentCoin = coinCount;
         int goalCoin = dailyGoal;
+        int dayNum = dayCount;
+        int earnedAmount = npcInteraction.GetEarned();
+
+        dayProgression.EndDayEarnings(earnedAmount, dayNum);
+        goalCoin = dayProgression.NewGoal();
+
+        npcInteraction.NewDayEarned();
 
         // Play day bg sound
         BG_audioSFX.clip = BGDaySFX;
@@ -544,8 +564,8 @@ public class UIController : MonoBehaviour
         BG_audioSFX.loop = true; // Enable looping
         BG_audioSFX.Play();
 
-
         // Update Objectives labels
+        dayNumberLabel.text = "Day " + dayNum + "Objectives";
         currentMoneyLabel.text = currentCoin + " Coins";
         moneyGoalLabel.text = goalCoin + " Coins";
         warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
@@ -584,7 +604,6 @@ public class UIController : MonoBehaviour
             helperNPC.ResetHelper(false);
         }
 
-        // Remove previous event listeners to prevent stacking
         objectiveButton.clicked -= OnObjectiveButtonClicked;
         objectiveButton.clicked += OnObjectiveButtonClicked;
     }
@@ -781,6 +800,12 @@ public class UIController : MonoBehaviour
     {
         return coinCount;
     }
+
+    public int GetDays()
+    {
+        return dayCount;
+    }
+
     public bool IsNightPhase
     {
         get { return isNightPhase; }
@@ -797,6 +822,7 @@ public class UIController : MonoBehaviour
         elapsedTime = 0f;
         isTimerRunning = false;
         coinCount = 20;
+        dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
 

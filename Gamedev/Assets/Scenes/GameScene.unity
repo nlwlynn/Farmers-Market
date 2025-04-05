@@ -4782,6 +4782,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1434310523
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1434310525}
+  - component: {fileID: 1434310524}
+  m_Layer: 0
+  m_Name: DayProgressManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1434310524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434310523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26fba4b44f34ed4985245e7ed348cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentDay: 0
+  currentCoinGoal: 15
+--- !u!4 &1434310525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434310523}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 85.335396, y: 6.723339, z: 94.22965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1446639358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6070539245121607151, guid: 98825af05d3e8cf4783d19643a074a3e, type: 3}
@@ -6794,6 +6840,10 @@ MonoBehaviour:
   lettuceGrowth: {fileID: 0}
   pumpkinGrowth: {fileID: 0}
   watermelonGrowth: {fileID: 0}
+  playerAnimator: {fileID: 0}
+  helperNPC: {fileID: 0}
+  npcInteraction: {fileID: 0}
+  dayProgression: {fileID: 0}
 --- !u!82 &1922670643
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9612,3 +9662,4 @@ SceneRoots:
   - {fileID: 8165489664375404408}
   - {fileID: 2534382956987833652}
   - {fileID: 8489648576137525946}
+  - {fileID: 1434310525}
