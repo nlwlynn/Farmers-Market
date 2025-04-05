@@ -9,13 +9,17 @@ public class PlayerAnimator : MonoBehaviour
 
     [SerializeField] private Player player;
     [SerializeField] private GameObject sprayBottle;  // Spray Bottle GameObject
+    [SerializeField] private GameObject sprayBottleUpgrade;  // Spray Bottle GameObject
     [SerializeField] private Transform handTransform;  // Hand position to hold the spray bottle
     [SerializeField] private GameObject bulletPrefab;  // Bullet prefab to be fired
+    [SerializeField] private GameObject bulletUpgradePrefab;  // Bullet prefab to be fired
     [SerializeField] private float bulletSpeed = 10f;  // Bullet speed
     [SerializeField] private Animator playerAnimator;  // Animator reference
+    [SerializeField] private bool notPurchased = false; // to track here  
 
     private Animator animator;
     private bool isHoldingSpray = false;
+    public bool upgradePurchased = false;   // shop variable
 
     private void Awake()
     {
@@ -25,6 +29,10 @@ public class PlayerAnimator : MonoBehaviour
         {
             sprayBottle.SetActive(false);  // Start the spray bottle inactive
         }
+        if (sprayBottleUpgrade != null)
+        {
+            sprayBottleUpgrade.SetActive(false);  // Start the spray bottle inactive
+        }
     }
 
     private void Update()
@@ -32,14 +40,27 @@ public class PlayerAnimator : MonoBehaviour
         bool isWalking = player.IsWalking();
         animator.SetBool(IS_WALKING, isWalking);
 
+
+        if (sprayBottle != null && upgradePurchased && !notPurchased)
+        {
+            sprayBottle.SetActive(false);
+            isHoldingSpray = false;
+            animator.SetBool(IS_HOLDING_SPRAY, false);
+            notPurchased = true;
+        }
+
         // switches spray bottle mode when E is pressed
         if (Input.GetKeyDown(KeyCode.E) && !(FarmManager.IsHolding || FarmManager.IsAnimationPlaying))
         {
             isHoldingSpray = true;
 
-            if (sprayBottle != null && !sprayBottle.activeSelf)
+            if (sprayBottle != null && !sprayBottle.activeSelf && !upgradePurchased)
             {
                 sprayBottle.SetActive(true);
+            }
+            else if (sprayBottleUpgrade != null && !sprayBottleUpgrade.activeSelf && upgradePurchased)
+            {
+                sprayBottleUpgrade.SetActive(true);
             }
         }
 
@@ -52,6 +73,10 @@ public class PlayerAnimator : MonoBehaviour
             if (sprayBottle != null)
             {
                 sprayBottle.SetActive(false);
+            }
+            if (sprayBottleUpgrade != null)
+            {
+                sprayBottleUpgrade.SetActive(false);
             }
         }
 
@@ -79,7 +104,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void FireBullet()
     {
-        if (bulletPrefab != null && sprayBottle != null)
+        if (bulletPrefab != null && sprayBottle != null && !upgradePurchased)
         {
             // issue with getting it to look like it was firing from the gun
             Vector3 spawnPosition = sprayBottle.transform.position + Vector3.up * 0.5f;
@@ -98,5 +123,36 @@ public class PlayerAnimator : MonoBehaviour
             // bullets are destroyed after 3 seconds
             Destroy(bullet, 3f);
         }
+        else if (bulletUpgradePrefab != null && sprayBottleUpgrade != null && upgradePurchased)
+        {
+            // issue with getting it to look like it was firing from the gun
+            Vector3 spawnPosition = sprayBottleUpgrade.transform.position + Vector3.up * 0.5f;
+
+            GameObject bullet = Instantiate(bulletUpgradePrefab, spawnPosition, Quaternion.identity);
+
+            // bullets fire in the direction of the players
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+            if (bulletRb != null)
+            {
+                bulletRb.velocity = transform.forward * bulletSpeed;
+            }
+
+            bullet.transform.rotation = Quaternion.LookRotation(transform.forward);
+
+            // bullets are destroyed after 3 seconds
+            Destroy(bullet, 3f);
+        }
+    }
+
+    public void ResetPestisideUpgrades(bool state)
+    {
+        upgradePurchased = state;
+        notPurchased = state;
+    }
+
+    // shop variable for purchasing
+    public void PurchasedInShop()
+    {
+        upgradePurchased = true;
     }
 }
