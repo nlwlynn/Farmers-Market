@@ -649,34 +649,44 @@ public class UIController : MonoBehaviour
             continueButton.text = "Return to Main Menu";
         }
 
-
         // Hide the Day UI and Show End of Day UI
         dayUI.style.display = DisplayStyle.None;
         endDayScreen.style.display = DisplayStyle.Flex;
 
-        // Ensure Build and Shop buttons are available for the night phase
         if (Shop != null) Shop.style.display = DisplayStyle.Flex;
 
-        // Wait for player to click "Continue"
-        continueButton.clicked += () =>
+        continueButton.clicked -= OnContinueButtonClicked;
+        continueButton.clicked += OnContinueButtonClicked;
+
+        void OnContinueButtonClicked()
         {
             endDayScreen.style.display = DisplayStyle.None;
 
             if (goalMet)
             {
-                //If the goal was met, transition to night UI
                 nightUI.style.display = DisplayStyle.Flex;
+                GameBackground.style.display = DisplayStyle.None; 
             }
             else
             {
-                // If the player failed, return to the main menu
+                nightUI.style.display = DisplayStyle.None;
+                dayUI.style.display = DisplayStyle.None;
+                objectivesScreen.style.display = DisplayStyle.None;
+                if (settingsPanel != null)
+                {
+                    settingsPanel.style.display = DisplayStyle.None;
+                }
+
+                // Reset game 
+                ResetGameplayObjects();
+                ResetPlayerPosition();
+
                 GameBackground.style.display = DisplayStyle.Flex;
             }
-        };
+        }
+
         yield return null;
     }
-
-
 
     //PAUSE AND PLAY GAME
     private void OnPlayPauseButtonClicked()
