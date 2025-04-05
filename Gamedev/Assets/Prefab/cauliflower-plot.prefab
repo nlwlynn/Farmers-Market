@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 5570774295449327848}
   - component: {fileID: 2475660678765245663}
   - component: {fileID: 8728295280736911492}
+  - component: {fileID: -1264019464966843031}
   m_Layer: 0
   m_Name: cauliflower-plot
   m_TagString: Cauliflower
@@ -407,11 +408,26 @@ MonoBehaviour:
   cauliflower: {fileID: 0}
   playerAnimator: {fileID: 0}
   growingPhase: 0
+  harvestGrowth: 0
   plantHealth: 0
   interactionRange: 5
   uiController: {fileID: 0}
   rb: {fileID: 0}
   cauliflowerScript: {fileID: 0}
+  NPCFarming: 0
+--- !u!114 &-1264019464966843031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346191350629077163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664ddfee9558b344f9d7e0b425c48893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProtected: 0
 --- !u!1 &4847206411539297927
 GameObject:
   m_ObjectHideFlags: 0
