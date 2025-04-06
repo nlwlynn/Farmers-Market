@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5749444060199462692
+--- !u!1 &2739454657624715023
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1041481651286617502}
-  - component: {fileID: 2870217102095949542}
-  - component: {fileID: 6936842458003318461}
-  - component: {fileID: 7134248206323850073}
-  - component: {fileID: 1841130772784957548}
-  - component: {fileID: 903441190544491618}
+  - component: {fileID: 727422011077693063}
+  - component: {fileID: 679049575259032328}
+  - component: {fileID: 7418201900948715324}
+  - component: {fileID: 3464869120764036250}
+  - component: {fileID: 7144813362035025834}
+  - component: {fileID: 4829830262219994470}
   m_Layer: 0
   m_Name: Fly Swarm
   m_TagString: FlySwarm
@@ -21,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1041481651286617502
+--- !u!4 &727422011077693063
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749444060199462692}
+  m_GameObject: {fileID: 2739454657624715023}
   serializedVersion: 2
   m_LocalRotation: {x: 0.015152187, y: -0, z: -0, w: 0.99988526}
   m_LocalPosition: {x: 120.5, y: 7.76, z: -35.22}
@@ -36,13 +36,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 1.736, y: 0, z: 0}
---- !u!198 &2870217102095949542
+--- !u!198 &679049575259032328
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749444060199462692}
+  m_GameObject: {fileID: 2739454657624715023}
   serializedVersion: 8
   lengthInSec: 10
   simulationSpeed: 1
@@ -4817,14 +4817,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &6936842458003318461
+--- !u!199 &7418201900948715324
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749444060199462692}
+  m_GameObject: {fileID: 2739454657624715023}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -4891,32 +4891,33 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7134248206323850073
+--- !u!114 &3464869120764036250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749444060199462692}
+  m_GameObject: {fileID: 2739454657624715023}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c10bf5782b45724cbae79ba3ba91d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fly: {fileID: 5749444060199462692}
+  fly: {fileID: 2739454657624715023}
   spawnRadius: 5
   attackRange: 3
   moveSpeed: 10
   health: 20
+  healthTracker: 20
   uiController: {fileID: 0}
   spawnPoint: {fileID: 0}
---- !u!65 &1841130772784957548
+--- !u!65 &7144813362035025834
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749444060199462692}
+  m_GameObject: {fileID: 2739454657624715023}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4931,13 +4932,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.893524, y: 5.332181, z: 5.612648}
   m_Center: {x: 0.008903503, y: -0.73455554, z: 0.10520769}
---- !u!54 &903441190544491618
+--- !u!54 &4829830262219994470
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5749444060199462692}
+  m_GameObject: {fileID: 2739454657624715023}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0

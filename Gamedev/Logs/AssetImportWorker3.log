@@ -9,11 +9,11 @@ C:\Program Files\Unity\Hub\Editor\2022.3.55f1\Editor\Unity.exe
 -batchMode
 -noUpm
 -name
-AssetImportWorker0
+AssetImportWorker3
 -projectPath
 C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
 -logFile
-Logs/AssetImportWorker0.log
+Logs/AssetImportWorker3.log
 -srvPort
 51026
 Successfully changed project path to: C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
@@ -49,16 +49,16 @@ C:/Users/Jess/OneDrive/Documents/Unity/Team9/Gamedev
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [21316]  Target information:
+Player connection [13100]  Target information:
 
-Player connection [21316]  * "[IP] 10.127.30.112 [Port] 0 [Flags] 2 [Guid] 612423428 [EditorId] 612423428 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [13100]  * "[IP] 10.127.30.112 [Port] 0 [Flags] 2 [Guid] 403192185 [EditorId] 403192185 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [21316]  * "[IP] 172.19.176.1 [Port] 0 [Flags] 2 [Guid] 612423428 [EditorId] 612423428 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [13100]  * "[IP] 172.19.176.1 [Port] 0 [Flags] 2 [Guid] 403192185 [EditorId] 403192185 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-QQH6NVU) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
 Unable to join player connection multicast group (err: 10013).
-Player connection [21316] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [13100] Host joined alternative multi-casting on [225.0.0.222:34997]...
 [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-Refreshing native plugins compatible for Editor in 13.35 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 10.65 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.55f1 (9f374180d209)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/Resources/UnitySubsystems
@@ -74,17 +74,17 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56160
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56920
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.55f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.011904 seconds.
-- Loaded All Assemblies, in  0.363 seconds
+Registered in 0.010499 seconds.
+- Loaded All Assemblies, in  0.345 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.266 seconds
-Domain Reload Profiling: 627ms
-	BeginReloadAssembly (111ms)
+- Finished resetting the current domain, in  0.258 seconds
+Domain Reload Profiling: 601ms
+	BeginReloadAssembly (104ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
@@ -92,25 +92,25 @@ Domain Reload Profiling: 627ms
 		CreateAndSetChildDomain (1ms)
 	RebuildCommonClasses (35ms)
 	RebuildNativeTypeToScriptingClass (11ms)
-	initialDomainReloadingComplete (65ms)
-	LoadAllAssembliesAndSetupDomain (138ms)
-		LoadAssemblies (108ms)
+	initialDomainReloadingComplete (61ms)
+	LoadAllAssembliesAndSetupDomain (132ms)
+		LoadAssemblies (101ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (136ms)
-			TypeCache.Refresh (135ms)
-				TypeCache.ScanAssembly (122ms)
+		AnalyzeDomain (130ms)
+			TypeCache.Refresh (129ms)
+				TypeCache.ScanAssembly (117ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (266ms)
+	FinalizeReload (258ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (220ms)
+		SetupLoadedEditorAssemblies (214ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (10ms)
-			SetLoadedEditorAssemblies (8ms)
+			InitializePlatformSupportModulesInManaged (11ms)
+			SetLoadedEditorAssemblies (7ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (2ms)
-			ProcessInitializeOnLoadAttributes (153ms)
+			ProcessInitializeOnLoadAttributes (148ms)
 			ProcessInitializeOnLoadMethodAttributes (46ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
@@ -121,50 +121,50 @@ Worker process is ready to serve import requests
 Caller must complete domain reload
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.722 seconds
+- Loaded All Assemblies, in  0.600 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.655 seconds
-Domain Reload Profiling: 1371ms
-	BeginReloadAssembly (155ms)
+- Finished resetting the current domain, in  0.593 seconds
+Domain Reload Profiling: 1190ms
+	BeginReloadAssembly (133ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (5ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (21ms)
-	RebuildCommonClasses (39ms)
-	RebuildNativeTypeToScriptingClass (13ms)
-	initialDomainReloadingComplete (48ms)
-	LoadAllAssembliesAndSetupDomain (461ms)
-		LoadAssemblies (355ms)
+	RebuildCommonClasses (32ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (47ms)
+	LoadAllAssembliesAndSetupDomain (373ms)
+		LoadAssemblies (284ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (197ms)
-			TypeCache.Refresh (153ms)
-				TypeCache.ScanAssembly (138ms)
-			ScanForSourceGeneratedMonoScriptInfo (29ms)
-			ResolveRequiredComponents (13ms)
-	FinalizeReload (655ms)
+		AnalyzeDomain (165ms)
+			TypeCache.Refresh (126ms)
+				TypeCache.ScanAssembly (113ms)
+			ScanForSourceGeneratedMonoScriptInfo (26ms)
+			ResolveRequiredComponents (12ms)
+	FinalizeReload (593ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (494ms)
+		SetupLoadedEditorAssemblies (452ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
-			SetLoadedEditorAssemblies (5ms)
+			InitializePlatformSupportModulesInManaged (6ms)
+			SetLoadedEditorAssemblies (4ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (99ms)
-			ProcessInitializeOnLoadAttributes (289ms)
+			BeforeProcessingInitializeOnLoad (88ms)
+			ProcessInitializeOnLoadAttributes (262ms)
 			ProcessInitializeOnLoadMethodAttributes (80ms)
-			AfterProcessingInitializeOnLoad (11ms)
+			AfterProcessingInitializeOnLoad (10ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (6ms)
+		AwakeInstancesAfterBackupRestoration (5ms)
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 7.34 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 5.70 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 5468 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 51 unused Assets / (2.1 MB). Loaded Objects now: 5950.
-Memory consumption went from 227.6 MB to 225.4 MB.
-Total: 5.389600 ms (FindLiveObjects: 0.788600 ms CreateObjectMapping: 0.208600 ms MarkObjects: 3.708500 ms  DeleteObjects: 0.682600 ms)
+Memory consumption went from 227.4 MB to 225.3 MB.
+Total: 4.081300 ms (FindLiveObjects: 0.491300 ms CreateObjectMapping: 0.210800 ms MarkObjects: 2.846000 ms  DeleteObjects: 0.532000 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -179,48 +179,3 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 2831.000245 seconds.
-  path: Assets/Prefab/BuildingSystem.prefab
-  artifactKey: Guid(b73d9d1a313f9a94fb151199ad489f74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefab/BuildingSystem.prefab using Guid(b73d9d1a313f9a94fb151199ad489f74) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'f7f81784fde6abd1ef90ea0e9713ce9b') in 0.373321 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 479
-========================================================================
-Received Import Request.
-  Time since last request: 0.000043 seconds.
-  path: Assets/Prefab/character-male-b.prefab
-  artifactKey: Guid(f9c92655769d8df4295bac9b65d3d354) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefab/character-male-b.prefab using Guid(f9c92655769d8df4295bac9b65d3d354) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '97fa334c315160ec548c9a9b9c56d171') in 0.031968 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 104
-========================================================================
-Received Import Request.
-  Time since last request: 0.000078 seconds.
-  path: Assets/Prefab/test-customer-3.prefab
-  artifactKey: Guid(eb8b4a964469da740b38889e5cf45e84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefab/test-customer-3.prefab using Guid(eb8b4a964469da740b38889e5cf45e84) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: '3024d7cbc594c2bf39dadb0aa35d9ea4') in 0.075008 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 88
-========================================================================
-Received Import Request.
-  Time since last request: 9.076010 seconds.
-  path: Assets/PREFABS/AI Flies/Fly Swarm.prefab
-  artifactKey: Guid(a8ca9be5dc24c46498efe8ca34350ec0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PREFABS/AI Flies/Fly Swarm.prefab using Guid(a8ca9be5dc24c46498efe8ca34350ec0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) [PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
-[PhysX] Initialized MultithreadedTaskDispatcher with 12 workers.
- -> (artifact id: 'b935d296fdf770fe777f6536e63f7a0a') in 0.041745 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 10
-Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
-TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: The I/O operation has been aborted because of either a thread exit or an application request.
-AssetImportWorker is now disconnected from the server
-Process exiting
-Exiting without the bug reporter. Application will terminate with return code 0
