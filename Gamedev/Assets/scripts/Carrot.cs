@@ -7,6 +7,7 @@ public class Carrot : MonoBehaviour
     public GameObject carrot;
     private NPCInteraction npcInteraction;
     public UIController uiController;
+    private PlacematInteraction placematInteraction;
 
     private void Awake()
     {
@@ -19,6 +20,8 @@ public class Carrot : MonoBehaviour
     void Start()
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
+        placematInteraction = FindObjectOfType<PlacematInteraction>();
+
     }
 
     void Update()
@@ -56,6 +59,18 @@ public class Carrot : MonoBehaviour
                                 FarmManager.IsHolding = false;
                                 FarmManager.IsAnimationPlaying = false;
                             }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        PlacematInteraction placematInteraction = hit.collider.GetComponent<PlacematInteraction>();
+
+                        if (placematInteraction != null)
+                        {
+                            placematInteraction.PlaceInteract("carrot");
+                            carrot.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
                         }
                     }
                 }
