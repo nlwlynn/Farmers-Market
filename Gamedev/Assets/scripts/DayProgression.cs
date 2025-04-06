@@ -7,6 +7,12 @@ public class DayProgression : MonoBehaviour
     public int currentDay = 0;
     public int currentCoinGoal = 15; 
     private int moneyEarned = 0;
+    public FlyAI flyAI;
+
+    private void Awake()
+    {
+        flyAI = FindObjectOfType<FlyAI>();
+    }
 
     public void EndDayEarnings(int coinsEarnedToday, int getDay)
     {
@@ -17,6 +23,8 @@ public class DayProgression : MonoBehaviour
 
     public void StartNewDay()
     {
+        flyAI.IncreaseFlyDifficulty();
+
         if (currentDay == 1)
         {
             currentCoinGoal = 15;

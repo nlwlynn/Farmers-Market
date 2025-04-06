@@ -50,6 +50,7 @@ public class UIController : MonoBehaviour
     private Label moneyGoalLabel;
     private Label warningsLabel;
     private Label dayNumberLabel;
+    private Label dayNumberObjectivesLabel;
     private UnityEngine.UIElements.Button continueButton;
     private UnityEngine.UIElements.Button objectiveButton;
     public UnityEngine.UIElements.Button StartButton;
@@ -136,6 +137,7 @@ public class UIController : MonoBehaviour
 
         //objectives element 
         dayNumberLabel = ui.Q<Label>("dayNumber");
+        dayNumberObjectivesLabel = ui.Q<Label>("dayNumberObjectives");
         currentMoneyLabel = ui.Q<Label>("currentMoney");
         moneyGoalLabel = ui.Q<Label>("moneyGoal");
         warningsLabel = ui.Q<Label>("warningMessage");
@@ -565,7 +567,8 @@ public class UIController : MonoBehaviour
         BG_audioSFX.Play();
 
         // Update Objectives labels
-        dayNumberLabel.text = "Day " + dayNum + "Objectives";
+        dayNumberLabel.text = "" + dayNum;
+        dayNumberObjectivesLabel.text = "Day " + dayNum + " Objectives";
         currentMoneyLabel.text = currentCoin + " Coins";
         moneyGoalLabel.text = goalCoin + " Coins";
         warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
@@ -634,6 +637,7 @@ public class UIController : MonoBehaviour
     {
         // Switch to night phase
         isNightPhase = true;
+        ResetPlayerPosition();
 
         // Play background music
         BG_audioSFX.clip = BGTitleAndNightSFX;
@@ -697,8 +701,9 @@ public class UIController : MonoBehaviour
                 }
 
                 // Reset game 
-                ResetGameplayObjects();
                 ResetPlayerPosition();
+                ResetNPCPosition();
+                ResetFlyPosition();
 
                 GameBackground.style.display = DisplayStyle.Flex;
             }
@@ -865,6 +870,8 @@ public class UIController : MonoBehaviour
             }
         }
         ResetPlayerPosition();
+        ResetNPCPosition();
+        ResetFlyPosition();
         ResetGameplayObjects();
     }
 
@@ -911,6 +918,30 @@ public class UIController : MonoBehaviour
         {
             player.transform.position = spawnPoint.transform.position;
             player.transform.rotation = spawnPoint.transform.rotation;
+        }
+    }
+
+    private void ResetNPCPosition()
+    {
+        GameObject flyies = GameObject.FindGameObjectWithTag("FlySwarm");
+        GameObject flySpawn = GameObject.FindGameObjectWithTag("Fly-Spawn");
+
+        if (flyies != null && flySpawn != null)
+        {
+            flyies.transform.position = flySpawn.transform.position;
+            flyies.transform.rotation = flySpawn.transform.rotation;
+        }
+    }
+
+    private void ResetFlyPosition()
+    {
+        GameObject helper = GameObject.FindGameObjectWithTag("Helper");
+        GameObject helperOrigin = GameObject.FindGameObjectWithTag("Helper-Origin");
+
+        if (helper != null && helperOrigin != null)
+        {
+            helper.transform.position = helperOrigin.transform.position;
+            helper.transform.rotation = helperOrigin.transform.rotation;
         }
     }
 }
