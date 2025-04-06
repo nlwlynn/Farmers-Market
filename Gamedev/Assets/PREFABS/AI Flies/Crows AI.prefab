@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7919498363724741352
+--- !u!1 &8814773340021448492
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,13 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1661130556202185387}
-  - component: {fileID: 5144223776494438586}
-  - component: {fileID: 21661125391655205}
-  - component: {fileID: 2089296641883370244}
-  - component: {fileID: 1067805075243957624}
-  - component: {fileID: 2211435425571086284}
-  - component: {fileID: 750672003744398781}
+  - component: {fileID: 1317118676087470436}
+  - component: {fileID: 5140909864943091504}
+  - component: {fileID: 8797660868515312909}
+  - component: {fileID: 3177822171604339873}
+  - component: {fileID: 7460425436771814729}
+  - component: {fileID: 237344608934936614}
+  - component: {fileID: 3551581792652065655}
   m_Layer: 0
   m_Name: Crows AI
   m_TagString: CrowSwarm
@@ -22,13 +22,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1661130556202185387
+--- !u!4 &1317118676087470436
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   serializedVersion: 2
   m_LocalRotation: {x: 0.015152187, y: -0, z: -0, w: 0.99988526}
   m_LocalPosition: {x: 120.5, y: 7.76, z: -35.22}
@@ -37,13 +37,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 1.736, y: 0, z: 0}
---- !u!198 &5144223776494438586
+--- !u!198 &5140909864943091504
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   serializedVersion: 8
   lengthInSec: 10
   simulationSpeed: 1
@@ -608,7 +608,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 10
+    maxNumParticles: 3
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 1
@@ -4818,14 +4818,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &21661125391655205
+--- !u!199 &8797660868515312909
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -4892,32 +4892,33 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &2089296641883370244
+--- !u!114 &3177822171604339873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c10bf5782b45724cbae79ba3ba91d89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fly: {fileID: 7919498363724741352}
+  fly: {fileID: 8814773340021448492}
   spawnRadius: 5
   attackRange: 3
   moveSpeed: 10
   health: 20
+  healthTracker: 20
   uiController: {fileID: 0}
   spawnPoint: {fileID: 0}
---- !u!65 &1067805075243957624
+--- !u!65 &7460425436771814729
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -4932,13 +4933,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.893524, y: 5.332181, z: 5.612648}
   m_Center: {x: 0.008903503, y: -0.73455554, z: 0.10520769}
---- !u!54 &2211435425571086284
+--- !u!54 &237344608934936614
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -4959,22 +4960,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &750672003744398781
+--- !u!114 &3551581792652065655
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7919498363724741352}
+  m_GameObject: {fileID: 8814773340021448492}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bfb5ba1ec19b0e4096cb427fcbdf6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fly: {fileID: 7919498363724741352}
+  fly: {fileID: 8814773340021448492}
   spawnRadius: 5
   attackRange: 3
-  moveSpeed: 10
+  moveSpeed: 5
   health: 20
   uiController: {fileID: 0}
   spawnPoint: {fileID: 0}
