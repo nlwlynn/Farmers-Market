@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 6559978096018847382}
   - component: {fileID: 7014086755469857776}
   - component: {fileID: 9032080081107485313}
+  - component: {fileID: 4169501649567450613}
   m_Layer: 0
   m_Name: watermelon-plot
   m_TagString: Sunflower
@@ -587,6 +588,7 @@ MonoBehaviour:
   progressCanvas: {fileID: 4020291349544663577}
   progressCircle: {fileID: 1898620232819017527}
   growingPhase: 0
+  harvestGrowth: 0
   interactionRange: 5
   uiController: {fileID: 0}
   rb: {fileID: 0}
@@ -597,6 +599,20 @@ MonoBehaviour:
   sickle: {fileID: 0}
   watermelon: {fileID: 0}
   playerAnimator: {fileID: 0}
+  NPCFarming: 0
+--- !u!114 &4169501649567450613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7560274024925679753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664ddfee9558b344f9d7e0b425c48893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProtected: 0
 --- !u!1001 &2080203443850559742
 PrefabInstance:
   m_ObjectHideFlags: 0

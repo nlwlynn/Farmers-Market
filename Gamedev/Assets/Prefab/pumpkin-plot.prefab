@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 6759198157152422570}
   - component: {fileID: 2005996442575358894}
   - component: {fileID: 5938800938539795904}
+  - component: {fileID: -6415392896216028841}
   m_Layer: 0
   m_Name: pumpkin-plot
   m_TagString: Corn
@@ -392,11 +393,26 @@ MonoBehaviour:
   pumpkin: {fileID: 0}
   playerAnimator: {fileID: 0}
   growingPhase: 0
+  harvestGrowth: 0
   plantHealth: 0
   interactionRange: 5
   uiController: {fileID: 0}
   rb: {fileID: 0}
   pumpkinScript: {fileID: 0}
+  NPCFarming: 0
+--- !u!114 &-6415392896216028841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931950991403193917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664ddfee9558b344f9d7e0b425c48893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isProtected: 0
 --- !u!1 &5505944395652441152
 GameObject:
   m_ObjectHideFlags: 0

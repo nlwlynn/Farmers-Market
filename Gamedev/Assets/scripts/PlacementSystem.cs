@@ -47,8 +47,6 @@ public class PlacementSystem : MonoBehaviour
 
     public void StartPlacement(int ID)
     {
-        itemID = ID;
-        isBuilding = true;
 
         // Ensure we find the correct stock index in inventory
         int itemIndex = database.objectsData.FindIndex(obj => obj.ID == ID);
@@ -58,13 +56,55 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
 
-        if (inventory.stock[itemIndex] <= 0)
+        GameObject prefab = database.objectsData[itemIndex].Prefab;
+
+        // Step 2: If it's a HelperNPC, spawn it directly and EXIT
+        if (prefab.GetComponent<HelperNPC>() != null)
         {
-            return;
+            if (inventory.stock[itemIndex] <= 0)
+                return;
+
+            Debug.Log("Placing HelperNPC, exiting placement system...");
+
+            // Remove one from stock
+            inventory.stock[itemIndex]--;
+            inventory.UpdateStockUI();
+
+            // Hide any placement UI
+            StopPlacement(); // make absolutely sure grid and indicators are OFF
+            isBuilding = false;
+            itemID = -1;
+
+            //// Instantiate the HelperNPC
+            Transform spawnTransform = GameObject.Find("Helper-Origin")?.transform;
+            if (spawnTransform == null)
+            {
+                Debug.LogError("No spawn point found for HelperNPC.");
+                return;
+            }
+
+            GameObject newHelper = Instantiate(prefab, spawnTransform.position, Quaternion.identity);
+            HelperNPC helper = newHelper.GetComponent<HelperNPC>();
+            Face faceSO = Resources.Load<Face>("DataFace");
+            GameObject smileBodyObj = newHelper.transform.Find("Slime_03")?.gameObject;
+            UIController controller = FindObjectOfType<UIController>();
+
+            helper.Initialize(spawnTransform, faceSO, smileBodyObj, controller);
+            helper.playerPurchased = true;
+            helper.gameObject.SetActive(true);
+
+            Debug.Log("HelperNPC placed.");
+            return; // Exit early so no placement grid setup happens
         }
 
-        StopPlacement();
+        StopPlacement(); // always clear before starting fresh
+        itemID = ID;
         selectedObjectIndex = itemIndex;
+
+        if (inventory.stock[itemIndex] <= 0)
+            return;
+
+        isBuilding = true;
 
         InputManager.ignoreNextUIInteraction = true;
         SetUIRaycasts(false);
@@ -138,17 +178,6 @@ public class PlacementSystem : MonoBehaviour
                 newObject.transform.position = grid.CellToWorld(gridPosition);
                 placedObjects[gridPosition] = newObject;
 
-                // Initialize HelperNPC if it exists on the placed object
-                HelperNPC helper = newObject.GetComponent<HelperNPC>();
-                if (helper != null)
-                {
-                    Transform spawnTransform = GameObject.Find("Helper-Origin")?.transform;
-                    Face faceSO = Resources.Load<Face>("DataFace"); // Or assign from Inspector via serialized field
-                    GameObject smileBodyObj = newObject.transform.Find("Slime_03")?.gameObject;
-                    UIController controller = FindObjectOfType<UIController>();
-
-                    helper.Initialize(spawnTransform, faceSO, smileBodyObj, controller);
-                }
                 Scarecrow scarecrow = newObject.GetComponent<Scarecrow>();
                 if (scarecrow != null)
                 {
@@ -229,16 +258,7 @@ public class PlacementSystem : MonoBehaviour
 
     private void RemoveStructure()
     {
-        // Allow one UI click to be ignored
-        /*if (InputManager.ignoreNextUIInteraction)
-        {
-            InputManager.ignoreNextUIInteraction = false; // Reset after one click
-        }
-        else if (inputManager.IsPointerOverUI())
-        {
-            Debug.Log("Click ignored: Pointer is over UI");
-            return;
-        } */
+
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);

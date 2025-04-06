@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using TMPro;
 
 public enum SlimeAnimationSt { Idle, Walk, Jump, Attack, Damage }
 
@@ -20,6 +21,15 @@ public class HelperNPC : MonoBehaviour
     private Material faceMaterial;
     private Vector3 originPos;
 
+    [SerializeField] private TMP_Text messageText;
+    [SerializeField] private GameObject messageBubbleBG;
+
+    private Coroutine messageRoutine;
+
+    [SerializeField] private Transform messageCanvas;
+    private Camera mainCam;
+
+
     //public enum WalkType { ToOrigin }
     //private WalkType walkType;
     public bool atCrop = false;
@@ -34,7 +44,10 @@ public class HelperNPC : MonoBehaviour
     private int interactionCount = 0;
     private bool waitToResp = false;
 
-    public bool playerPurchased = false; // variable for the store
+    public bool playerPurchased = true; // variable for the store
+    public bool hasStartedNightMove = false;
+    public bool hasAnnouncedTonight = false;
+
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -88,6 +101,10 @@ public class HelperNPC : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        mainCam = Camera.main;
+
+        messageText = GetComponentInChildren<TMP_Text>(true); // true includes inactive
+        messageText.gameObject.SetActive(false);
     }
 
     void Start()
@@ -105,10 +122,24 @@ public class HelperNPC : MonoBehaviour
 
     void Update()
     {
-        if (uiController.IsNightPhase || !playerPurchased || waitToResp)
+        if (uiController.IsNightPhase)
         {
-            transform.position = hiddenPosition; // Move in house
-            toOrigin = false;
+            if (playerPurchased && !hasStartedNightMove)
+            {
+                hasStartedNightMove = true;
+                StartCoroutine(MoveInAtNight());
+
+                if (!hasAnnouncedTonight)
+                {
+                    hasAnnouncedTonight = true;
+                    ShowHelperMessage("I'm Sprouty!", 20f);
+                }
+            }
+            if (!playerPurchased || waitToResp)
+            {
+                transform.position = hiddenPosition; // Move in house
+                toOrigin = false;
+            }
         }
         else if(!toOrigin)
         {
@@ -118,6 +149,8 @@ public class HelperNPC : MonoBehaviour
 
         if (!uiController.IsNightPhase)
         {
+            hasStartedNightMove = false;
+            hasAnnouncedTonight = false;
             // Finds target crop
             if (targetCrop == null || atCrop == false)
             {
@@ -131,7 +164,7 @@ public class HelperNPC : MonoBehaviour
             }
         }
 
-        // Handle animation transitions
+        //Handle animation transitions
         //switch (currentState)
         //{
         //    case SlimeAnimationState.Idle:
@@ -455,6 +488,57 @@ public class HelperNPC : MonoBehaviour
         targetCrop = null;
     }
 
+    IEnumerator MoveInAtNight()
+    {
+        // Start walking from hidden position
+        transform.position = hiddenPosition;
+
+        yield return new WaitForSeconds(0.5f); // slight delay if you want
+
+        currentState = SlimeAnimationState.Walk;
+        animator.SetFloat("Speed", 1f);
+        isMovingAway = false;
+
+        Vector3 targetPosition = originPos;
+
+        float speed = 3f;
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+            // Face movement direction
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            if (direction != Vector3.zero)
+            {
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
+            }
+
+            yield return null;
+        }
+
+        // Stop at destination
+        transform.position = targetPosition;
+        //currentState = SlimeAnimationState.Idle;
+        animator.SetFloat("Speed", 0);
+    }
+
+    public void ShowHelperMessage(string message, float duration)
+    {
+        if (messageRoutine != null) StopCoroutine(messageRoutine);
+        messageRoutine = StartCoroutine(ShowHelperMessageRoutine(message, duration));
+    }
+
+    private IEnumerator ShowHelperMessageRoutine(string message, float duration)
+    {
+        messageText.text = message;
+        messageText.gameObject.SetActive(true);
+        messageBubbleBG.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        messageText.gameObject.SetActive(false);
+        messageBubbleBG.SetActive(false);
+    }
+
     private void StopAgent()
     {
         agent.isStopped = true;
@@ -505,5 +589,18 @@ public class HelperNPC : MonoBehaviour
     public void ResetHelper(bool state)
     {
         playerPurchased = state;
+    }
+
+    private void LateUpdate()
+    {
+        if (messageCanvas != null && mainCam != null)
+        {
+            // Flip the canvas toward the camera only on Y axis
+            Vector3 lookDirection = mainCam.transform.forward;
+            lookDirection.y = 0f; // Optional: keeps canvas upright
+            messageCanvas.LookAt(mainCam.transform);
+            messageCanvas.Rotate(0, 180, 0); // Flip it around after look
+
+        }
     }
 }
