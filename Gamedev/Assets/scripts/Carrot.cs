@@ -36,13 +36,12 @@ public class Carrot : MonoBehaviour
         // checks if the player clicks on the npc and is holding the vegtable
         if (FarmManager.IsHolding && Input.GetMouseButtonDown(0))
         {
-            // creates a ray from the mouse click position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider != null)
+               if (hit.collider != null)
                 {
                     // checks if the NPC is tagged
                     if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4"))
@@ -81,6 +80,7 @@ public class Carrot : MonoBehaviour
     // player is holding vegtable
     public void StartHoldingCarrot()
     {
+        Debug.Log("trying to hold carrot");
         FarmManager.IsHolding = true;
         carrot.SetActive(true);
     }
