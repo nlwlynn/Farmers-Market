@@ -8,6 +8,7 @@ public class Carrot : MonoBehaviour
     private NPCInteraction npcInteraction;
     public UIController uiController;
     private PlacematInteraction placematInteraction;
+    private CarrotGrowth carrotGrowth;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class Carrot : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        carrotGrowth = FindObjectOfType<CarrotGrowth>();
     }
 
     void Start()
@@ -57,6 +59,7 @@ public class Carrot : MonoBehaviour
                                 carrot.SetActive(false);
                                 FarmManager.IsHolding = false;
                                 FarmManager.IsAnimationPlaying = false;
+                                carrotGrowth.SetFarmingMode(true);
                             }
                         }
                     }
@@ -70,6 +73,7 @@ public class Carrot : MonoBehaviour
                             carrot.SetActive(false);
                             FarmManager.IsHolding = false;
                             FarmManager.IsAnimationPlaying = false;
+                            carrotGrowth.SetFarmingMode(true);
                         }
                     }
                 }
@@ -80,7 +84,6 @@ public class Carrot : MonoBehaviour
     // player is holding vegtable
     public void StartHoldingCarrot()
     {
-        Debug.Log("trying to hold carrot");
         FarmManager.IsHolding = true;
         carrot.SetActive(true);
     }
