@@ -41,4 +41,11 @@ public class DayProgression : MonoBehaviour
     {
         return currentCoinGoal;
     }
+
+    public void ResetProgression()
+    {
+        currentDay = 0;
+        currentCoinGoal = 15;
+        moneyEarned = 0;
+}
 }
