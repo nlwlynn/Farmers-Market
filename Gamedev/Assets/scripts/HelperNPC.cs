@@ -586,6 +586,11 @@ public class HelperNPC : MonoBehaviour
         agent.nextPosition = transform.position;
     }
 
+    public void ResetHelper(bool state)
+    {
+        playerPurchased = state;
+    }
+
     private void LateUpdate()
     {
         if (messageCanvas != null && mainCam != null)
