@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
     private Label coinsLabelNight;
     private int coinCount = 20;    // Default coin amount
     private int dailyGoal = 15;// Goal for the day (can be dynamic)
-
+    private int dayCount = 0;    // Default coin amount
 
     public UnityEngine.UIElements.Button Harvest;
     public UnityEngine.UIElements.Button Spray;
@@ -49,6 +49,8 @@ public class UIController : MonoBehaviour
     private Label currentMoneyLabel;
     private Label moneyGoalLabel;
     private Label warningsLabel;
+    private Label dayNumberLabel;
+    private Label dayNumberObjectivesLabel;
     private UnityEngine.UIElements.Button continueButton;
     private UnityEngine.UIElements.Button objectiveButton;
     public UnityEngine.UIElements.Button StartButton;
@@ -83,7 +85,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 20f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -104,8 +106,14 @@ public class UIController : MonoBehaviour
     public PumpkinGrowth pumpkinGrowth;
     public WatermelonGrowth watermelonGrowth;
 
+    //shop items
+    public PlayerAnimator playerAnimator;
+    public HelperNPC helperNPC;
 
-    
+    //progression
+    public NPCInteraction npcInteraction;
+    public DayProgression dayProgression;
+    public FlyAI flyAI;
 
     private void Awake()
     {
@@ -129,6 +137,8 @@ public class UIController : MonoBehaviour
 
 
         //objectives element 
+        dayNumberLabel = ui.Q<Label>("dayNumber");
+        dayNumberObjectivesLabel = ui.Q<Label>("dayNumberObjectives");
         currentMoneyLabel = ui.Q<Label>("currentMoney");
         moneyGoalLabel = ui.Q<Label>("moneyGoal");
         warningsLabel = ui.Q<Label>("warningMessage");
@@ -286,8 +296,13 @@ public class UIController : MonoBehaviour
         lettuceGrowth = FindObjectOfType<LettuceGrowth>();
         pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
         watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
+        playerAnimator = FindObjectOfType<PlayerAnimator>();
+        helperNPC = FindObjectOfType<HelperNPC>();
+        npcInteraction = FindObjectOfType<NPCInteraction>();
+        dayProgression = FindObjectOfType<DayProgression>();
+        flyAI = FindObjectOfType<FlyAI>();
 
-    UpdateCoinUI();
+        UpdateCoinUI();
     }
 
 
@@ -331,6 +346,7 @@ public class UIController : MonoBehaviour
         NewDay = ui.Q<UnityEngine.UIElements.Button>("NewDay");
         if (NewDay != null)
         {
+            NewDay.clicked -= OnNewDayButtonClicked;
             NewDay.clicked += OnNewDayButtonClicked;
         }
 
@@ -360,7 +376,7 @@ public class UIController : MonoBehaviour
     {
         if (dayUI.style.display != DisplayStyle.Flex)
         {
-            return; // Stop execution if Day UI is not active
+            return; 
         }
 
         // running and the game is not paused
@@ -518,21 +534,32 @@ public class UIController : MonoBehaviour
         {
             QuitButton.clicked -= OnQuitButtonClicked;
         }
-        // ... your other cleanup code ...
+        if (NewDay != null)
+        {
+            NewDay.clicked -= OnNewDayButtonClicked;
+        }
     }
 
 
     //NEXT DAY PHASE 
     private void OnNewDayButtonClicked()
     {
+        dayCount++;
         isNightPhase = false;
         elapsedTime = 0f;
         isTimerRunning = true;
         nightUI.style.display = DisplayStyle.None;
-        
+
         // Calculate revenue made during the day
         int currentCoin = coinCount;
         int goalCoin = dailyGoal;
+        int dayNum = dayCount;
+        int earnedAmount = npcInteraction.GetEarned();
+
+        dayProgression.EndDayEarnings(earnedAmount, dayNum);
+        goalCoin = dayProgression.NewGoal();
+
+        npcInteraction.NewDayEarned();
 
         // Play day bg sound
         BG_audioSFX.clip = BGDaySFX;
@@ -541,8 +568,9 @@ public class UIController : MonoBehaviour
         BG_audioSFX.loop = true; // Enable looping
         BG_audioSFX.Play();
 
-
         // Update Objectives labels
+        dayNumberLabel.text = "" + dayNum;
+        dayNumberObjectivesLabel.text = "Day " + dayNum + " Objectives";
         currentMoneyLabel.text = currentCoin + " Coins";
         moneyGoalLabel.text = goalCoin + " Coins";
         warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
@@ -572,8 +600,15 @@ public class UIController : MonoBehaviour
         {
             watermelonGrowth.SetFarmingMode(true);
         }
+        if (playerAnimator != null)
+        {
+            playerAnimator.ResetPestisideUpgrades(false);
+        }
+        if (helperNPC != null)
+        {
+            helperNPC.ResetHelper(false);
+        }
 
-        // Remove previous event listeners to prevent stacking
         objectiveButton.clicked -= OnObjectiveButtonClicked;
         objectiveButton.clicked += OnObjectiveButtonClicked;
     }
@@ -604,6 +639,7 @@ public class UIController : MonoBehaviour
     {
         // Switch to night phase
         isNightPhase = true;
+        ResetPlayerPosition();
 
         // Play background music
         BG_audioSFX.clip = BGTitleAndNightSFX;
@@ -627,7 +663,8 @@ public class UIController : MonoBehaviour
             resultTextLabel.style.color = new StyleColor(Color.green);
             summaryMessageLabel.text = "Now transitioning to night time, buy more plots to make more earnings!";
             continueButton.text = "Proceed to Night Phase";
-
+            coinCount -= dailyGoal;
+            UpdateCoinUI();
         }
         else
         {
@@ -637,34 +674,45 @@ public class UIController : MonoBehaviour
             continueButton.text = "Return to Main Menu";
         }
 
-
         // Hide the Day UI and Show End of Day UI
         dayUI.style.display = DisplayStyle.None;
         endDayScreen.style.display = DisplayStyle.Flex;
 
-        // Ensure Build and Shop buttons are available for the night phase
         if (Shop != null) Shop.style.display = DisplayStyle.Flex;
 
-        // Wait for player to click "Continue"
-        continueButton.clicked += () =>
+        continueButton.clicked -= OnContinueButtonClicked;
+        continueButton.clicked += OnContinueButtonClicked;
+
+        void OnContinueButtonClicked()
         {
             endDayScreen.style.display = DisplayStyle.None;
 
             if (goalMet)
             {
-                //If the goal was met, transition to night UI
                 nightUI.style.display = DisplayStyle.Flex;
+                GameBackground.style.display = DisplayStyle.None; 
             }
             else
             {
-                // If the player failed, return to the main menu
+                nightUI.style.display = DisplayStyle.None;
+                dayUI.style.display = DisplayStyle.None;
+                objectivesScreen.style.display = DisplayStyle.None;
+                if (settingsPanel != null)
+                {
+                    settingsPanel.style.display = DisplayStyle.None;
+                }
+
+                // Reset game 
+                ResetPlayerPosition();
+                ResetNPCPosition();
+                ResetFlyPosition();
+
                 GameBackground.style.display = DisplayStyle.Flex;
             }
-        };
+        }
+
         yield return null;
     }
-
-
 
     //PAUSE AND PLAY GAME
     private void OnPlayPauseButtonClicked()
@@ -759,6 +807,12 @@ public class UIController : MonoBehaviour
     {
         return coinCount;
     }
+
+    public int GetDays()
+    {
+        return dayCount;
+    }
+
     public bool IsNightPhase
     {
         get { return isNightPhase; }
@@ -775,8 +829,13 @@ public class UIController : MonoBehaviour
         elapsedTime = 0f;
         isTimerRunning = false;
         coinCount = 20;
+        dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
+
+        //reseting progressions
+        dayProgression.ResetProgression();
+        flyAI.ResetFlyHealth();
 
         // Reset all UI
         GameBackground.style.display = DisplayStyle.None;
@@ -817,6 +876,8 @@ public class UIController : MonoBehaviour
             }
         }
         ResetPlayerPosition();
+        ResetNPCPosition();
+        ResetFlyPosition();
         ResetGameplayObjects();
     }
 
@@ -863,6 +924,30 @@ public class UIController : MonoBehaviour
         {
             player.transform.position = spawnPoint.transform.position;
             player.transform.rotation = spawnPoint.transform.rotation;
+        }
+    }
+
+    private void ResetNPCPosition()
+    {
+        GameObject flyies = GameObject.FindGameObjectWithTag("FlySwarm");
+        GameObject flySpawn = GameObject.FindGameObjectWithTag("Fly-Spawn");
+
+        if (flyies != null && flySpawn != null)
+        {
+            flyies.transform.position = flySpawn.transform.position;
+            flyies.transform.rotation = flySpawn.transform.rotation;
+        }
+    }
+
+    private void ResetFlyPosition()
+    {
+        GameObject helper = GameObject.FindGameObjectWithTag("Helper");
+        GameObject helperOrigin = GameObject.FindGameObjectWithTag("Helper-Origin");
+
+        if (helper != null && helperOrigin != null)
+        {
+            helper.transform.position = helperOrigin.transform.position;
+            helper.transform.rotation = helperOrigin.transform.rotation;
         }
     }
 }

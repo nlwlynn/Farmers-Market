@@ -9,6 +9,7 @@ public class FlyAI : MonoBehaviour
     public float attackRange = 3f;
     public float moveSpeed = 2f;
     public int health = 20;
+    public int healthTracker = 20;
     public UIController uiController;
     public Transform spawnPoint;
     private bool startedDay = false;
@@ -177,11 +178,11 @@ public class FlyAI : MonoBehaviour
             {
                 fly.transform.position = spawnPoint.position;
                 startedDay = true;
-                health = 20;
+                health = healthTracker;
             } else if (startedDay && reactivateFly)
             {
                 fly.transform.position = spawnPoint.position;
-                health = 20;
+                health = healthTracker;
                 reactivateFly = false;
             }
 
@@ -246,4 +247,14 @@ public class FlyAI : MonoBehaviour
         }
     }
 
+    public void IncreaseFlyDifficulty()
+    {
+        healthTracker += 3;
+    }
+
+    public void ResetFlyHealth()
+    {
+        health = 20;
+        healthTracker = 20;
+}
 }
