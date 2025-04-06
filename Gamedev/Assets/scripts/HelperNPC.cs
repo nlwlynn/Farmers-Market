@@ -22,7 +22,13 @@ public class HelperNPC : MonoBehaviour
     private Vector3 originPos;
 
     [SerializeField] private TMP_Text messageText;
+    [SerializeField] private GameObject messageBubbleBG;
+
     private Coroutine messageRoutine;
+
+    [SerializeField] private Transform messageCanvas;
+    private Camera mainCam;
+
 
     //public enum WalkType { ToOrigin }
     //private WalkType walkType;
@@ -95,6 +101,8 @@ public class HelperNPC : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        mainCam = Camera.main;
+
         messageText = GetComponentInChildren<TMP_Text>(true); // true includes inactive
         messageText.gameObject.SetActive(false);
     }
@@ -124,7 +132,7 @@ public class HelperNPC : MonoBehaviour
                 if (!hasAnnouncedTonight)
                 {
                     hasAnnouncedTonight = true;
-                    ShowHelperMessage("I'm Sprouty!", 25f);
+                    ShowHelperMessage("I'm Sprouty!", 20f);
                 }
             }
             if (!playerPurchased || waitToResp)
@@ -156,7 +164,7 @@ public class HelperNPC : MonoBehaviour
             }
         }
 
-        // Handle animation transitions
+        //Handle animation transitions
         //switch (currentState)
         //{
         //    case SlimeAnimationState.Idle:
@@ -525,8 +533,10 @@ public class HelperNPC : MonoBehaviour
     {
         messageText.text = message;
         messageText.gameObject.SetActive(true);
+        messageBubbleBG.SetActive(true);
         yield return new WaitForSeconds(duration);
         messageText.gameObject.SetActive(false);
+        messageBubbleBG.SetActive(false);
     }
 
     private void StopAgent()
@@ -574,5 +584,18 @@ public class HelperNPC : MonoBehaviour
         position.y = agent.nextPosition.y;
         transform.position = position;
         agent.nextPosition = transform.position;
+    }
+
+    private void LateUpdate()
+    {
+        if (messageCanvas != null && mainCam != null)
+        {
+            // Flip the canvas toward the camera only on Y axis
+            Vector3 lookDirection = mainCam.transform.forward;
+            lookDirection.y = 0f; // Optional: keeps canvas upright
+            messageCanvas.LookAt(mainCam.transform);
+            messageCanvas.Rotate(0, 180, 0); // Flip it around after look
+
+        }
     }
 }
