@@ -113,6 +113,7 @@ public class UIController : MonoBehaviour
     //progression
     public NPCInteraction npcInteraction;
     public DayProgression dayProgression;
+    public FlyAI flyAI;
 
     private void Awake()
     {
@@ -299,6 +300,7 @@ public class UIController : MonoBehaviour
         helperNPC = FindObjectOfType<HelperNPC>();
         npcInteraction = FindObjectOfType<NPCInteraction>();
         dayProgression = FindObjectOfType<DayProgression>();
+        flyAI = FindObjectOfType<FlyAI>();
 
         UpdateCoinUI();
     }
@@ -830,6 +832,10 @@ public class UIController : MonoBehaviour
         dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
+
+        //reseting progressions
+        dayProgression.ResetProgression();
+        flyAI.ResetFlyHealth();
 
         // Reset all UI
         GameBackground.style.display = DisplayStyle.None;

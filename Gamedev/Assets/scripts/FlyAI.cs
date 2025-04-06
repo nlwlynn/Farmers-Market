@@ -251,4 +251,10 @@ public class FlyAI : MonoBehaviour
     {
         healthTracker += 3;
     }
+
+    public void ResetFlyHealth()
+    {
+        health = 20;
+        healthTracker = 20;
+}
 }
