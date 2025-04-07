@@ -10,14 +10,17 @@ public class PlacematInteraction : MonoBehaviour
     public GameObject carrot1;
     public GameObject broccoli1;
     public GameObject cauliflower1;
+    public GameObject lettuce1;
 
     [SerializeField] private GameObject carrot;
     [SerializeField] private GameObject broccoli;
     [SerializeField] private GameObject cauliflower;
+    [SerializeField] private GameObject lettuce;
 
     public Carrot carrotScript;
     public Broccoli broccoliScript;
     public Cauliflower cauliflowerScript;
+    public Lettuce lettuceScript;
 
     private void Awake()
     {
@@ -49,6 +52,14 @@ public class PlacematInteraction : MonoBehaviour
         {
             cauliflowerScript = cauliflower.GetComponent<Cauliflower>();
         }
+        if (lettuce == null)
+        {
+            lettuce = GameObject.Find("player/character-male-b/root/torso/arm-left/mushroom");
+        }
+        if (lettuce != null)
+        {
+            lettuceScript = lettuce.GetComponent<Lettuce>();
+        }
     }
 
     public void PlaceInteract(string item)
@@ -68,6 +79,11 @@ public class PlacematInteraction : MonoBehaviour
             cauliflower1.SetActive(true);
             currentItem = "cauliflower";
         }
+        else if (item.ToLower() == "lettuce")
+        {
+            lettuce1.SetActive(true);
+            currentItem = "lettuce";
+        }
     }
 
     public void TakeInteract(string item)
@@ -85,6 +101,11 @@ public class PlacematInteraction : MonoBehaviour
         else if (item.ToLower() == "cauliflower")
         {
             cauliflower1.SetActive(false);
+            currentItem = "";
+        }
+        else if (item.ToLower() == "lettuce")
+        {
+            lettuce1.SetActive(false);
             currentItem = "";
         }
     }
@@ -126,6 +147,15 @@ public class PlacematInteraction : MonoBehaviour
                         if (cauliflowerScript != null)
                         {
                             cauliflowerScript.StartHoldingCauliflower();
+                        }
+                    }
+                    else if (currentItem == "lettuce")
+                    {
+                        TakeInteract("lettuce");
+
+                        if (lettuceScript != null)
+                        {
+                            lettuceScript.StartHoldingLettuce();
                         }
                     }
                 }

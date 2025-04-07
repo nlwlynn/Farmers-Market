@@ -23,7 +23,6 @@ public class Carrot : MonoBehaviour
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
         placematInteraction = FindObjectOfType<PlacematInteraction>();
-
     }
 
     void Update()
