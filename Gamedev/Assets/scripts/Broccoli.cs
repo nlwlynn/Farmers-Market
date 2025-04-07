@@ -5,6 +5,8 @@ public class Broccoli : MonoBehaviour
     public GameObject broccoli;
     private NPCInteraction npcInteraction;
     public UIController uiController;
+    private PlacematInteraction placematInteraction;
+    private BroccoliGrowth broccoliGrowth;
 
     private void Awake()
     {
@@ -12,11 +14,13 @@ public class Broccoli : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        broccoliGrowth = FindObjectOfType<BroccoliGrowth>();
     }
 
     void Start()
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
+        placematInteraction = FindObjectOfType<PlacematInteraction>();
     }
 
     void Update()
@@ -53,7 +57,20 @@ public class Broccoli : MonoBehaviour
                                 broccoli.SetActive(false);
                                 FarmManager.IsHolding = false;
                                 FarmManager.IsAnimationPlaying = false;
+                                broccoliGrowth.SetFarmingMode(true);
                             }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        PlacematInteraction placematInteraction = hit.collider.GetComponent<PlacematInteraction>();
+                        if (placematInteraction != null)
+                        {
+                            placematInteraction.PlaceInteract("broccoli");
+                            broccoli.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            broccoliGrowth.SetFarmingMode(true);
                         }
                     }
                 }

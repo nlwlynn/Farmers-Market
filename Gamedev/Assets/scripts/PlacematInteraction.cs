@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlacematInteraction : MonoBehaviour
 {
-    public GameObject carrot1;
     public string currentItem = "";
     public UIController uiController;
+
+    public GameObject carrot1;
+    public GameObject broccoli1;
+
     [SerializeField] private GameObject carrot;
+    [SerializeField] private GameObject broccoli;
+
     public Carrot carrotScript;
+    public Broccoli broccoliScript;
 
     private void Awake()
     {
@@ -24,6 +30,14 @@ public class PlacematInteraction : MonoBehaviour
         {
             carrotScript = carrot.GetComponent<Carrot>();
         }
+        if (broccoli == null)
+        {
+            broccoli = GameObject.Find("player/character-male-b/root/torso/arm-left/broccoli");
+        }
+        if (broccoli != null)
+        {
+            broccoliScript = broccoli.GetComponent<Broccoli>();
+        }
     }
 
     public void PlaceInteract(string item)
@@ -33,13 +47,18 @@ public class PlacematInteraction : MonoBehaviour
             carrot1.SetActive(true);
             currentItem = "carrot";
         }
+        else if (item.ToLower() == "broccoli")
+        {
+            broccoli1.SetActive(true);
+            currentItem = "broccoli";
+        }
     }
 
     public void TakeInteract(string item)
     {
-        if (item.ToLower() == "carrot")
+        if (item.ToLower() == "broccoli")
         {
-            carrot1.SetActive(false);
+            broccoli1.SetActive(false);
             currentItem = "";
         }
     }
@@ -65,6 +84,16 @@ public class PlacematInteraction : MonoBehaviour
                             carrotScript.StartHoldingCarrot();
                         }
                     }
+                    else if (currentItem == "broccoli")
+                    {
+                        TakeInteract("broccoli");
+
+                        if (carrotScript != null)
+                        {
+                            broccoliScript.StartHoldingBroccoli();
+                        }
+                    }
+
                 }
             }
         }
