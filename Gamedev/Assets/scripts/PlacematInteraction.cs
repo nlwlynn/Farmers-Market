@@ -11,16 +11,22 @@ public class PlacematInteraction : MonoBehaviour
     public GameObject broccoli1;
     public GameObject cauliflower1;
     public GameObject lettuce1;
+    public GameObject watermelon1;
+    public GameObject pumpkin1;
 
     [SerializeField] private GameObject carrot;
     [SerializeField] private GameObject broccoli;
     [SerializeField] private GameObject cauliflower;
     [SerializeField] private GameObject lettuce;
+    [SerializeField] private GameObject watermelon;
+    [SerializeField] private GameObject pumpkin;
 
     public Carrot carrotScript;
     public Broccoli broccoliScript;
     public Cauliflower cauliflowerScript;
     public Lettuce lettuceScript;
+    public Watermelon watermelonScript;
+    public Pumpkin pumpkinScript;
 
     private void Awake()
     {
@@ -60,6 +66,22 @@ public class PlacematInteraction : MonoBehaviour
         {
             lettuceScript = lettuce.GetComponent<Lettuce>();
         }
+        if (pumpkin == null)
+        {
+            pumpkin = GameObject.Find("player/character-male-b/root/torso/arm-left/corn");
+        }
+        if (pumpkin != null)
+        {
+            pumpkinScript = pumpkin.GetComponent<Pumpkin>();
+        }
+        if (watermelon == null)
+        {
+            watermelon = GameObject.Find("player/character-male-b/root/torso/arm-left/sunflower");
+        }
+        if (watermelon != null)
+        {
+            watermelonScript = watermelon.GetComponent<Watermelon>();
+        }
     }
 
     public void PlaceInteract(string item)
@@ -84,13 +106,23 @@ public class PlacematInteraction : MonoBehaviour
             lettuce1.SetActive(true);
             currentItem = "lettuce";
         }
+        else if (item.ToLower() == "pumpkin")
+        {
+            pumpkin1.SetActive(true);
+            currentItem = "pumpkin";
+        }
+        else if (item.ToLower() == "watermelon")
+        {
+            watermelon1.SetActive(true);
+            currentItem = "watermelon";
+        }
     }
 
     public void TakeInteract(string item)
     {
         if (item.ToLower() == "carrot")
         {
-            broccoli1.SetActive(false);
+            carrot1.SetActive(false);
             currentItem = "";
         }
         else if (item.ToLower() == "broccoli")
@@ -106,6 +138,16 @@ public class PlacematInteraction : MonoBehaviour
         else if (item.ToLower() == "lettuce")
         {
             lettuce1.SetActive(false);
+            currentItem = "";
+        }
+        else if (item.ToLower() == "pumpkin")
+        {
+            pumpkin1.SetActive(false);
+            currentItem = "";
+        }
+        else if (item.ToLower() == "watermelon")
+        {
+            watermelon1.SetActive(false);
             currentItem = "";
         }
     }
@@ -156,6 +198,24 @@ public class PlacematInteraction : MonoBehaviour
                         if (lettuceScript != null)
                         {
                             lettuceScript.StartHoldingLettuce();
+                        }
+                    }
+                    else if (currentItem == "pumpkin")
+                    {
+                        TakeInteract("pumpkin");
+
+                        if (pumpkinScript != null)
+                        {
+                            pumpkinScript.StartHoldingPumpkin();
+                        }
+                    }
+                    else if (currentItem == "watermelon")
+                    {
+                        TakeInteract("watermelon");
+
+                        if (watermelonScript != null)
+                        {
+                            watermelonScript.StartHoldingWatermelon();
                         }
                     }
                 }
