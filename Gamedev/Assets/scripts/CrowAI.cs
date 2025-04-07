@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class CrowAI : MonoBehaviour
 {
-    public GameObject fly;
-    public float spawnRadius = 5f;
+    public float spawnRadius = 10f;
     public float attackRange = 3f;
-    public float moveSpeed = 2f;
-    public int health = 20;
+    public float moveSpeed = 15f;
     public UIController uiController;
     public Transform spawnPoint;
     private bool startedDay = false;
-    private bool reactivateFly = false;
+    private bool reactivateCrow = false;
+    private Vector3 targetOffset;
+    private Animator animator;
+    private bool hasPecked = false;
+
+
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -31,11 +34,12 @@ public class CrowAI : MonoBehaviour
 
     void Start()
     {
-        // start with active flies
-        if (fly != null)
-        {
-            fly.SetActive(true);
-        }
+ 
+        gameObject.SetActive(true);
+        targetOffset = new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));
+        animator = GetComponent<Animator>();
+
+
     }
 
     void Update()
@@ -43,14 +47,31 @@ public class CrowAI : MonoBehaviour
         // checks if night phase to activate or deactivate flies
         if (uiController.isNightPhase)
         {
-            DeactivateFly();
+            DeactivateCrow();
             startedDay = false;
         }
         else
         {
-            ActivateFly();
+            ActivateCrow();
             FindTargetCrop();
             MoveTowardsTarget();
+
+            if (animator != null && targetCrop != null)
+            {
+                float distance = Vector3.Distance(transform.position, targetCrop.transform.position + targetOffset);
+                bool isFlying = distance > 0.5f;
+                animator.SetBool("flying", isFlying);
+
+                if (!isFlying && !hasPecked)
+                {
+                    animator.SetTrigger("peck");  // trigger your peck animation
+                    hasPecked = true;
+                }
+                else if (isFlying && hasPecked)
+                {
+                    hasPecked = false;
+                }
+            }
         }
     }
 
@@ -133,85 +154,63 @@ public class CrowAI : MonoBehaviour
 
     void MoveTowardsTarget()
     {
-        if (targetCrop == null || fly == null) return;
+        if (targetCrop == null) return;
 
-        // Finds the direction to the crop
-        Vector3 directionToTarget = targetCrop.transform.position - fly.transform.position;
+        Vector3 targetPosition = targetCrop.transform.position + targetOffset;
 
-        // Stops the fly from sinking
-        if (fly.transform.position.y < 4)
+        // Make sure crow stays airborne
+        if (transform.position.y < 4)
         {
-            fly.transform.position = new Vector3(fly.transform.position.x, 4, fly.transform.position.z);
+            transform.position = new Vector3(transform.position.x, 4, transform.position.z);
         }
 
-        // Move the fly to the crop
-        fly.transform.position = Vector3.MoveTowards(fly.transform.position, targetCrop.transform.position, moveSpeed * Time.deltaTime);
-        fly.transform.position = new Vector3(fly.transform.position.x, Mathf.Max(fly.transform.position.y, 0f), fly.transform.position.z);
+        // Move toward the crop + offset
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+        // Clamp y to avoid sinking
+        transform.position = new Vector3(transform.position.x, Mathf.Max(transform.position.y, 0f), transform.position.z);
     }
 
-    // Hide fly
-    void DeactivateFly()
+    // Hide crow
+    void DeactivateCrow()
     {
-        if (fly != null)
+
+            GetComponentInChildren<Renderer>().enabled = false;
+            GetComponentInChildren<Collider>().enabled = false;
+        
+    }
+
+    // Show crow
+    void ActivateCrow()
+    {
+        if (!startedDay)
         {
-            fly.GetComponent<Renderer>().enabled = false;
-            fly.GetComponent<Collider>().enabled = false;
+            transform.position = spawnPoint.position;
+            startedDay = true;
+            // health = 20;
         }
-    }
-
-    // Show fly
-    void ActivateFly()
-    {
-        if (fly != null)
+        else if (startedDay && reactivateCrow)
         {
-            if (!startedDay)
-            {
-                fly.transform.position = spawnPoint.position;
-                startedDay = true;
-                health = 20;
-            }
-            else if (startedDay && reactivateFly)
-            {
-                fly.transform.position = spawnPoint.position;
-                health = 20;
-                reactivateFly = false;
-            }
-
-            fly.GetComponent<Renderer>().enabled = true;
-            fly.GetComponent<Collider>().enabled = true;
+            transform.position = spawnPoint.position;
+            // health = 20;
+            reactivateCrow = false;
         }
+
+        GetComponentInChildren<Renderer>().enabled = true;
+        GetComponentInChildren<Collider>().enabled = true;
     }
 
-
-    // Damage fly
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
-
-    // Fly dies when reaching 0 health
-    private void Die()
-    {
-        DeactivateFly();
-        reactivateFly = true;
-    }
-
-    // Fly moves away from destroyed plant
+    // crow moves away from destroyed plant
     public void OnPlantDestroyed(GameObject destroyedPlant)
     {
         StartCoroutine(MoveAwayFromDestroyedPlant(destroyedPlant));
     }
 
-    // Moves the fly
+    // Moves the crow
     private IEnumerator MoveAwayFromDestroyedPlant(GameObject destroyedPlant)
     {
         // Finds direction to move
-        Vector3 awayFromPlant = fly.transform.position - destroyedPlant.transform.position;
+        Vector3 awayFromPlant = transform.position - destroyedPlant.transform.position;
 
         // Sets the y value
         awayFromPlant.y = 0f;
@@ -225,12 +224,12 @@ public class CrowAI : MonoBehaviour
         {
             moveSpeed = 20f;
             // Moves to new position
-            fly.transform.position += awayFromPlant * moveSpeed * Time.deltaTime;
+            transform.position += awayFromPlant * moveSpeed * Time.deltaTime;
 
-            // Fixes the y value for fly to float
-            Vector3 currentPosition = fly.transform.position;
+            // Fixes the y value for crow to float
+            Vector3 currentPosition = transform.position;
             currentPosition.y = 4;
-            fly.transform.position = currentPosition;
+            transform.position = currentPosition;
 
             timeElapsed += Time.deltaTime;
             moveSpeed = 10f;
