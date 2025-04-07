@@ -7,6 +7,8 @@ public class Cauliflower : MonoBehaviour
     public GameObject cauliflower;
     private NPCInteraction npcInteraction;
     public UIController uiController;
+    private PlacematInteraction placematInteraction;
+    private CauliflowerGrowth cauliflowerGrowth;
 
     private void Awake()
     {
@@ -14,11 +16,13 @@ public class Cauliflower : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        cauliflowerGrowth = FindObjectOfType<CauliflowerGrowth>();
     }
 
     void Start()
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
+        placematInteraction = FindObjectOfType<PlacematInteraction>();
     }
 
     void Update()
@@ -55,7 +59,20 @@ public class Cauliflower : MonoBehaviour
                                 cauliflower.SetActive(false);
                                 FarmManager.IsHolding = false;
                                 FarmManager.IsAnimationPlaying = false;
+                                cauliflowerGrowth.SetFarmingMode(true);
                             }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        PlacematInteraction placematInteraction = hit.collider.GetComponent<PlacematInteraction>();
+                        if (placematInteraction != null)
+                        {
+                            placematInteraction.PlaceInteract("cauliflower");
+                            cauliflower.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            cauliflowerGrowth.SetFarmingMode(true);
                         }
                     }
                 }

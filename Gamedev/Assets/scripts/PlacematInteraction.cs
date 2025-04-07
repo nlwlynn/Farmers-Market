@@ -9,12 +9,15 @@ public class PlacematInteraction : MonoBehaviour
 
     public GameObject carrot1;
     public GameObject broccoli1;
+    public GameObject cauliflower1;
 
     [SerializeField] private GameObject carrot;
     [SerializeField] private GameObject broccoli;
+    [SerializeField] private GameObject cauliflower;
 
     public Carrot carrotScript;
     public Broccoli broccoliScript;
+    public Cauliflower cauliflowerScript;
 
     private void Awake()
     {
@@ -38,6 +41,14 @@ public class PlacematInteraction : MonoBehaviour
         {
             broccoliScript = broccoli.GetComponent<Broccoli>();
         }
+        if (cauliflower == null)
+        {
+            cauliflower = GameObject.Find("player/character-male-b/root/torso/arm-left/cauliflower");
+        }
+        if (cauliflower != null)
+        {
+            cauliflowerScript = cauliflower.GetComponent<Cauliflower>();
+        }
     }
 
     public void PlaceInteract(string item)
@@ -52,13 +63,28 @@ public class PlacematInteraction : MonoBehaviour
             broccoli1.SetActive(true);
             currentItem = "broccoli";
         }
+        else if (item.ToLower() == "cauliflower")
+        {
+            cauliflower1.SetActive(true);
+            currentItem = "cauliflower";
+        }
     }
 
     public void TakeInteract(string item)
     {
-        if (item.ToLower() == "broccoli")
+        if (item.ToLower() == "carrot")
         {
             broccoli1.SetActive(false);
+            currentItem = "";
+        }
+        else if (item.ToLower() == "broccoli")
+        {
+            broccoli1.SetActive(false);
+            currentItem = "";
+        }
+        else if (item.ToLower() == "cauliflower")
+        {
+            cauliflower1.SetActive(false);
             currentItem = "";
         }
     }
@@ -88,12 +114,20 @@ public class PlacematInteraction : MonoBehaviour
                     {
                         TakeInteract("broccoli");
 
-                        if (carrotScript != null)
+                        if (broccoliScript != null)
                         {
                             broccoliScript.StartHoldingBroccoli();
                         }
                     }
+                    else if (currentItem == "cauliflower")
+                    {
+                        TakeInteract("cauliflower");
 
+                        if (cauliflowerScript != null)
+                        {
+                            cauliflowerScript.StartHoldingCauliflower();
+                        }
+                    }
                 }
             }
         }
