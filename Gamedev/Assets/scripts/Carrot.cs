@@ -7,6 +7,8 @@ public class Carrot : MonoBehaviour
     public GameObject carrot;
     private NPCInteraction npcInteraction;
     public UIController uiController;
+    private PlacematInteraction placematInteraction;
+    private CarrotGrowth carrotGrowth;
 
     private void Awake()
     {
@@ -14,11 +16,13 @@ public class Carrot : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        carrotGrowth = FindObjectOfType<CarrotGrowth>();
     }
 
     void Start()
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
+        placematInteraction = FindObjectOfType<PlacematInteraction>();
     }
 
     void Update()
@@ -33,13 +37,12 @@ public class Carrot : MonoBehaviour
         // checks if the player clicks on the npc and is holding the vegtable
         if (FarmManager.IsHolding && Input.GetMouseButtonDown(0))
         {
-            // creates a ray from the mouse click position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider != null)
+               if (hit.collider != null)
                 {
                     // checks if the NPC is tagged
                     if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4"))
@@ -55,7 +58,21 @@ public class Carrot : MonoBehaviour
                                 carrot.SetActive(false);
                                 FarmManager.IsHolding = false;
                                 FarmManager.IsAnimationPlaying = false;
+                                carrotGrowth.SetFarmingMode(true);
                             }
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        PlacematInteraction placematInteraction = hit.collider.GetComponent<PlacematInteraction>();
+
+                        if (placematInteraction != null)
+                        {
+                            placematInteraction.PlaceInteract("carrot");
+                            carrot.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            carrotGrowth.SetFarmingMode(true);
                         }
                     }
                 }

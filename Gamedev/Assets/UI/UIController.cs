@@ -85,7 +85,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 20f; //5min
+    private float timerDuration = 100f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -576,6 +576,31 @@ public class UIController : MonoBehaviour
         warningsLabel.text = "Need at least " + goalCoin + " Coins for rent by end of\r\nday before the farm goes into foreclosure!";
         objectivesScreen.style.display = DisplayStyle.Flex;
 
+        if(carrotGrowth == null)
+        {
+            carrotGrowth = FindObjectOfType<CarrotGrowth>();
+        }
+        if (broccoliGrowth == null)
+        {
+            broccoliGrowth = FindObjectOfType<BroccoliGrowth>();
+        }
+        if (cauliflowerGrowth == null)
+        {
+            cauliflowerGrowth = FindObjectOfType<CauliflowerGrowth>();
+        }
+        if (lettuceGrowth == null)
+        {
+            lettuceGrowth = FindObjectOfType<LettuceGrowth>();
+        }
+        if (pumpkinGrowth == null)
+        {
+            pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
+        }
+        if (watermelonGrowth == null)
+        {
+            watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
+        }
+
         if (carrotGrowth != null)
         {
             carrotGrowth.SetFarmingMode(true); 
@@ -828,7 +853,7 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
         elapsedTime = 0f;
         isTimerRunning = false;
-        coinCount = 20;
+        coinCount = 50;
         dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
