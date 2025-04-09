@@ -8,6 +8,7 @@ public class Carrot : MonoBehaviour
     private NPCInteraction npcInteraction;
     public UIController uiController;
     private PlacematInteraction placematInteraction;
+    private BowlScript bowlScript;
     private CarrotGrowth carrotGrowth;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class Carrot : MonoBehaviour
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
         placematInteraction = FindObjectOfType<PlacematInteraction>();
+        bowlScript = FindObjectOfType<BowlScript>();
     }
 
     void Update()
@@ -44,6 +46,9 @@ public class Carrot : MonoBehaviour
             {
                if (hit.collider != null)
                 {
+                    Debug.Log("Clicked on: " + hit.collider.gameObject.name); // or hit.collider.tag
+
+
                     // checks if the NPC is tagged
                     if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4"))
                     {
@@ -69,6 +74,19 @@ public class Carrot : MonoBehaviour
                         if (placematInteraction != null)
                         {
                             placematInteraction.PlaceInteract("carrot");
+                            carrot.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            carrotGrowth.SetFarmingMode(true);
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Bowl"))
+                    {
+                        BowlScript bowlScript = hit.collider.GetComponent<BowlScript>();
+
+                        if (bowlScript != null)
+                        {
+                            bowlScript.BowlInteract("carrot");
                             carrot.SetActive(false);
                             FarmManager.IsHolding = false;
                             FarmManager.IsAnimationPlaying = false;
