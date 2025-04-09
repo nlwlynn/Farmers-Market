@@ -8,6 +8,7 @@ public class Pumpkin : MonoBehaviour
     private NPCInteraction npcInteraction;
     public UIController uiController;
     private PlacematInteraction placematInteraction;
+    private BowlScript bowlScript;
     private PumpkinGrowth pumpkinGrowth;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class Pumpkin : MonoBehaviour
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
         placematInteraction = FindObjectOfType<PlacematInteraction>();
+        bowlScript = FindObjectOfType<BowlScript>();
     }
 
     void Update()
@@ -70,6 +72,19 @@ public class Pumpkin : MonoBehaviour
                         if (placematInteraction != null)
                         {
                             placematInteraction.PlaceInteract("pumpkin");
+                            pumpkin.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            pumpkinGrowth.SetFarmingMode(true);
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Bowl"))
+                    {
+                        BowlScript bowlScript = hit.collider.GetComponent<BowlScript>();
+
+                        if (bowlScript != null)
+                        {
+                            bowlScript.BowlInteract("pumpkin");
                             pumpkin.SetActive(false);
                             FarmManager.IsHolding = false;
                             FarmManager.IsAnimationPlaying = false;
