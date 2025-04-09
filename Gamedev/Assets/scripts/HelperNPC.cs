@@ -162,6 +162,12 @@ public class HelperNPC : MonoBehaviour
             {
                 MoveToTargetCrop();
             }
+
+            if (!playerPurchased || waitToResp)
+            {
+                transform.position = hiddenPosition; // Move in house
+                toOrigin = false;
+            }
         }
 
         //Handle animation transitions
