@@ -6,6 +6,7 @@ public class Broccoli : MonoBehaviour
     private NPCInteraction npcInteraction;
     public UIController uiController;
     private PlacematInteraction placematInteraction;
+    private BowlScript bowlScript;
     private BroccoliGrowth broccoliGrowth;
 
     private void Awake()
@@ -21,6 +22,7 @@ public class Broccoli : MonoBehaviour
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
         placematInteraction = FindObjectOfType<PlacematInteraction>();
+        bowlScript = FindObjectOfType<BowlScript>();
     }
 
     void Update()
@@ -67,6 +69,19 @@ public class Broccoli : MonoBehaviour
                         if (placematInteraction != null)
                         {
                             placematInteraction.PlaceInteract("broccoli");
+                            broccoli.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            broccoliGrowth.SetFarmingMode(true);
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Bowl"))
+                    {
+                        BowlScript bowlScript = hit.collider.GetComponent<BowlScript>();
+
+                        if (bowlScript != null)
+                        {
+                            bowlScript.BowlInteract("broccoli");
                             broccoli.SetActive(false);
                             FarmManager.IsHolding = false;
                             FarmManager.IsAnimationPlaying = false;

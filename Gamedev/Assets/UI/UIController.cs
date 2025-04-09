@@ -550,6 +550,8 @@ public class UIController : MonoBehaviour
         isTimerRunning = true;
         nightUI.style.display = DisplayStyle.None;
 
+        ResetPlayerPosition();
+
         // Calculate revenue made during the day
         int currentCoin = coinCount;
         int goalCoin = dailyGoal;
@@ -853,7 +855,7 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
         elapsedTime = 0f;
         isTimerRunning = false;
-        coinCount = 50;
+        coinCount = 20;
         dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;

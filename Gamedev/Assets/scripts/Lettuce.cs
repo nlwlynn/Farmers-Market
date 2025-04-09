@@ -8,6 +8,7 @@ public class Lettuce : MonoBehaviour
     private NPCInteraction npcInteraction;
     public UIController uiController;
     private PlacematInteraction placematInteraction;
+    private BowlScript bowlScript;
     private LettuceGrowth lettuceGrowth;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class Lettuce : MonoBehaviour
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
         placematInteraction = FindObjectOfType<PlacematInteraction>();
+        bowlScript = FindObjectOfType<BowlScript>();
     }
 
     void Update()
@@ -69,6 +71,19 @@ public class Lettuce : MonoBehaviour
                         if (placematInteraction != null)
                         {
                             placematInteraction.PlaceInteract("lettuce");
+                            lettuce.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            lettuceGrowth.SetFarmingMode(true);
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Bowl"))
+                    {
+                        BowlScript bowlScript = hit.collider.GetComponent<BowlScript>();
+
+                        if (bowlScript != null)
+                        {
+                            bowlScript.BowlInteract("lettuce");
                             lettuce.SetActive(false);
                             FarmManager.IsHolding = false;
                             FarmManager.IsAnimationPlaying = false;

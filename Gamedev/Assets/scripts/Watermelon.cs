@@ -8,6 +8,7 @@ public class Watermelon : MonoBehaviour
     private NPCInteraction npcInteraction;
     public UIController uiController;
     private PlacematInteraction placematInteraction;
+    private BowlScript bowlScript;
     private WatermelonGrowth watermelonGrowth;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class Watermelon : MonoBehaviour
     {
         npcInteraction = FindObjectOfType<NPCInteraction>();
         placematInteraction = FindObjectOfType<PlacematInteraction>();
+        bowlScript = FindObjectOfType<BowlScript>();
     }
 
     void Update()
@@ -70,6 +72,19 @@ public class Watermelon : MonoBehaviour
                         if (placematInteraction != null)
                         {
                             placematInteraction.PlaceInteract("watermelon");
+                            watermelon.SetActive(false);
+                            FarmManager.IsHolding = false;
+                            FarmManager.IsAnimationPlaying = false;
+                            watermelonGrowth.SetFarmingMode(true);
+                        }
+                    }
+                    else if (hit.collider.CompareTag("Bowl"))
+                    {
+                        BowlScript bowlScript = hit.collider.GetComponent<BowlScript>();
+
+                        if (bowlScript != null)
+                        {
+                            bowlScript.BowlInteract("watermelon");
                             watermelon.SetActive(false);
                             FarmManager.IsHolding = false;
                             FarmManager.IsAnimationPlaying = false;
