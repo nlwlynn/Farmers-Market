@@ -52,6 +52,8 @@ namespace Controller
         private float stateTimer = 0f;
         private float wanderDuration = 20f;
         private float idleDuration = 4f;
+        [SerializeField]
+        private GameObject bowl;  
 
         private void OnValidate()
         {
@@ -83,9 +85,15 @@ namespace Controller
 
         private void Update()
         {
-            HandleAI(Time.deltaTime);
-            m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsMoving, out var animAxis, out var isAir);
-            m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, Time.deltaTime);
+            StayIdle();
+            //HandleAI(Time.deltaTime);
+            //m_Movement.Move(Time.deltaTime, in m_Axis, in m_Target, m_IsRun, m_IsMoving, out var animAxis, out var isAir);
+            //m_Animation.Animate(in animAxis, m_IsRun ? 1f : 0f, Time.deltaTime);
+        }
+
+        private void StayIdle()
+        {
+            SetInput(Vector2.zero, Vector3.zero, false, false);
         }
 
         private void OnAnimatorIK()
@@ -394,11 +402,15 @@ namespace Controller
                     break;
 
                 case DogState.FaceForward:
-                    SetInput(Vector2.zero, transform.position + transform.forward, false, false);
-                    Vector3 targetDirection = new Vector3(0, 180, 0);
-                    transform.rotation = Quaternion.Euler(targetDirection);
+                    if (bowl != null)
+                    {
+                        Vector3 directionToBowl = bowl.transform.position - transform.position;
+                        directionToBowl.y = 0; 
+                        Quaternion targetRotation = Quaternion.LookRotation(directionToBowl);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * m_RotateSpeed);
+                    }
 
-                    if (stateTimer >= 0.5f) 
+                    if (stateTimer >= 0.5f)
                     {
                         currentState = DogState.Idle;
                         stateTimer = 0f;
@@ -407,8 +419,6 @@ namespace Controller
 
                 case DogState.Idle:
                     SetInput(Vector2.zero, transform.position + transform.forward, false, false);
-
-                    transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
                     if (stateTimer >= idleDuration)
                     {
