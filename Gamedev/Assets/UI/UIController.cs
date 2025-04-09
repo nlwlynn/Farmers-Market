@@ -508,7 +508,7 @@ public class UIController : MonoBehaviour
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+            UnityEngine.Application.Quit();
 #endif
         });
         confirmButton.text = "Yes, Quit";
