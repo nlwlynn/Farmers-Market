@@ -46,9 +46,6 @@ public class Carrot : MonoBehaviour
             {
                if (hit.collider != null)
                 {
-                    Debug.Log("Clicked on: " + hit.collider.gameObject.name); // or hit.collider.tag
-
-
                     // checks if the NPC is tagged
                     if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4"))
                     {

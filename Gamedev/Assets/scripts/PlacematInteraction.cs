@@ -221,5 +221,15 @@ public class PlacematInteraction : MonoBehaviour
                 }
             }
         }
+        if(uiController.IsNightPhase)
+        {
+            carrot1.SetActive(false);
+            broccoli1.SetActive(false);
+            cauliflower1.SetActive(false);
+            lettuce1.SetActive(false);
+            pumpkin1.SetActive(false);
+            watermelon1.SetActive(false);
+            currentItem = "";
+        }
     }
 }

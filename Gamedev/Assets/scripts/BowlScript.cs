@@ -160,4 +160,18 @@ public class BowlScript : MonoBehaviour
             currentItem = "";
         }
     }
+
+    void Update()
+    {
+        if (uiController.IsNightPhase)
+        {
+            carrot2.SetActive(false);
+            broccoli2.SetActive(false);
+            cauliflower2.SetActive(false);
+            lettuce2.SetActive(false);
+            pumpkin2.SetActive(false);
+            watermelon2.SetActive(false);
+            currentItem = "";
+        }
+    }
 }
