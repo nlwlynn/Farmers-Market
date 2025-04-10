@@ -8,6 +8,7 @@ public class CrowAI : MonoBehaviour
     public float attackRange = 3f;
     public float moveSpeed = 15f;
     public UIController uiController;
+    public DayProgression dayProgression;
     public Transform spawnPoint;
     private bool startedDay = false;
     private bool reactivateCrow = false;
@@ -30,6 +31,10 @@ public class CrowAI : MonoBehaviour
         {
             uiController = FindObjectOfType<UIController>();
         }
+        if (dayProgression == null)
+        {
+            dayProgression = FindObjectOfType<DayProgression>();
+        }
     }
 
     void Start()
@@ -50,7 +55,7 @@ public class CrowAI : MonoBehaviour
             DeactivateCrow();
             startedDay = false;
         }
-        else
+        else if(!uiController.isNightPhase && dayProgression.currentDay == 3)
         {
             ActivateCrow();
             FindTargetCrop();
