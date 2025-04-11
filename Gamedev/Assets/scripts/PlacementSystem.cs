@@ -270,6 +270,7 @@ public class PlacementSystem : MonoBehaviour
 
         if (placedObjects.ContainsKey(gridPosition))
         {
+            //bug here
             GameObject objectToRemove = placedObjects[gridPosition];
             int objectID = database.objectsData.FindIndex(obj => obj.Prefab.name == objectToRemove.name.Replace("(Clone)", "").Trim());
 

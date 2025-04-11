@@ -12,6 +12,8 @@ public class FlyAI : MonoBehaviour
     public int healthTracker = 20;
     public UIController uiController;
     public Transform spawnPoint;
+    public Transform spawnPoint2;
+    public Transform spawnPoint3;
     private bool startedDay = false;
     private bool reactivateFly = false;
 
@@ -176,12 +178,20 @@ public class FlyAI : MonoBehaviour
         {
             if (!startedDay)
             {
-                fly.transform.position = spawnPoint.position;
+                // Randomizes spawn
+                Transform[] spawnPoints = { spawnPoint, spawnPoint2, spawnPoint3 };
+                Transform chosenSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                fly.transform.position = chosenSpawnPoint.position;
+
                 startedDay = true;
                 health = healthTracker;
             } else if (startedDay && reactivateFly)
             {
-                fly.transform.position = spawnPoint.position;
+                // Randomizes spawn
+                Transform[] spawnPoints = { spawnPoint, spawnPoint2, spawnPoint3 };
+                Transform chosenSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+                fly.transform.position = chosenSpawnPoint.position;
+
                 health = healthTracker;
                 reactivateFly = false;
             }
