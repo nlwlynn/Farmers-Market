@@ -28,8 +28,13 @@ public class BowlScript : MonoBehaviour
     public Watermelon watermelonScript;
     public Pumpkin pumpkinScript;
 
+    PlayerSoundEffects soundEffects;
+
     private void Awake()
     {
+        if (soundEffects == null) {
+            soundEffects = FindObjectOfType<PlayerSoundEffects>(); // Get SFXs
+        }
         if (uiController == null)
         {
             uiController = FindObjectOfType<UIController>();
@@ -123,12 +128,24 @@ public class BowlScript : MonoBehaviour
 
     private IEnumerator BeforeEat(string item)
     {
-        yield return new WaitForSeconds(5f); 
+        soundEffects.PlayBarkingSound();
+
+        yield return new WaitForSeconds(2f);
+
+        // Play the Dog Eat SFX after the bark
+        if (soundEffects != null) {
+            soundEffects.PlayDogEatSound();
+        }
+
+        yield return new WaitForSeconds(.5f);
+        
+        
         DogEat(item); 
     }
 
     public void DogEat(string item)
     {
+
         if (item.ToLower() == "carrot")
         {
             carrot2.SetActive(false);

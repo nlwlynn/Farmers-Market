@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CarrotGrowth : MonoBehaviour
 {
+    PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+
     // Plant growth phases
     public GameObject plantStem;
     public GameObject halfPlant;
@@ -44,6 +46,10 @@ public class CarrotGrowth : MonoBehaviour
 
     private void Awake()
     {
+        if (soundEffects == null) {
+            soundEffects = FindObjectOfType<PlayerSoundEffects>(); // Get SFXs
+        }
+
         if (player == null)
         {
             player = GameObject.Find("player");
@@ -215,8 +221,10 @@ public class CarrotGrowth : MonoBehaviour
                 FarmManager.IsAnimationPlaying = true;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
 
-                if (shovel != null)
+                if (shovel != null) {
                     shovel.SetActive(true);
+                    soundEffects.PlayPlantingSound(); // SFX
+                }
 
                 // Timer for 3 seconds for planting animation
                 yield return StartCoroutine(FillBar(0.25f, 1.5f));
@@ -262,8 +270,10 @@ public class CarrotGrowth : MonoBehaviour
                 FarmManager.IsAnimationPlaying = true;
                 rb.constraints = RigidbodyConstraints.FreezeAll;
 
-                if (watering_can != null)
+                if (watering_can != null) {
                     watering_can.SetActive(true);
+                    soundEffects.PlayWateringSound(); // SFX
+                }
 
                 // Timer for 5 seconds
                 yield return StartCoroutine(FillBar(0.5f, 2f));
@@ -297,8 +307,10 @@ public class CarrotGrowth : MonoBehaviour
             FarmManager.IsAnimationPlaying = true;
             rb.constraints = RigidbodyConstraints.FreezeAll;
 
-            if (sickle != null)
+            if (sickle != null) {
                 sickle.SetActive(true);
+                soundEffects.PlayHarvestingSound(); // SFX
+            }
 
             // Timer for 3 seconds
             yield return StartCoroutine(FillBar(0f, 1.5f));
@@ -326,6 +338,7 @@ public class CarrotGrowth : MonoBehaviour
                 if (carrotScript != null)
                 {
                     carrotScript.StartHoldingCarrot();
+                    soundEffects.PlayPickupItemSound(); // SFX
                 }
             }
         }
