@@ -631,9 +631,14 @@ public class UIController : MonoBehaviour
         {
             playerAnimator.ResetPestisideUpgrades(false);
         }
+
+        if (helperNPC == null)
+        {
+            helperNPC = FindObjectOfType<HelperNPC>();
+        }
         if (helperNPC != null)
         {
-            helperNPC.ResetHelper(false);
+            helperNPC.ChangeFirstNight(false);
         }
 
         objectiveButton.clicked -= OnObjectiveButtonClicked;
@@ -902,6 +907,12 @@ public class UIController : MonoBehaviour
                 }
             }
         }
+
+        if (helperNPC != null)
+        {
+            helperNPC.ResetHelper(false);
+        }
+
         ResetPlayerPosition();
         ResetNPCPosition();
         ResetFlyPosition();

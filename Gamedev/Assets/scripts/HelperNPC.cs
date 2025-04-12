@@ -48,6 +48,7 @@ public class HelperNPC : MonoBehaviour
     public bool hasStartedNightMove = false;
     public bool hasAnnouncedTonight = false;
 
+    private bool firstNight = true;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -122,10 +123,38 @@ public class HelperNPC : MonoBehaviour
 
     void Update()
     {
-        if (uiController.IsNightPhase)
+        if (uiController.IsNightPhase || !playerPurchased || waitToResp)
         {
-            if (playerPurchased && !hasStartedNightMove)
+            transform.position = hiddenPosition; // Move in house
+            toOrigin = false;
+        }
+        else if (!toOrigin)
+        {
+            agent.Warp(originPos); // Move to house
+            toOrigin = true;
+        }
+
+        if (!uiController.IsNightPhase)
+        {
+            // Finds target crop
+            if (targetCrop == null || atCrop == false)
             {
+                FindTargetCrop();
+            }
+
+            // Move towards the target crop
+            if (currentState == SlimeAnimationState.Walk && !isMovingAway && targetCrop != null)
+            {
+                MoveToTargetCrop();
+            }
+        }
+        // trying to fix but broken :(
+        /*if (uiController.IsNightPhase)
+        {
+            if (playerPurchased && !hasStartedNightMove && firstNight)
+            {
+                //UnityEngine.Debug.Log("is first night");
+
                 hasStartedNightMove = true;
                 StartCoroutine(MoveInAtNight());
 
@@ -134,15 +163,27 @@ public class HelperNPC : MonoBehaviour
                     hasAnnouncedTonight = true;
                     ShowHelperMessage("I'm Sprouty!", 20f);
                 }
+
             }
+            else if (playerPurchased && !firstNight)
+            {
+                //UnityEngine.Debug.Log("else if not first night");
+                StartCoroutine(MoveToSpawnNight());
+            }
+
             if (!playerPurchased || waitToResp)
             {
+                //UnityEngine.Debug.Log("waitto Reesp");
+
                 transform.position = hiddenPosition; // Move in house
                 toOrigin = false;
             }
+
         }
-        else if(!toOrigin)
+        else if(uiController.IsNightPhase && !toOrigin)
         {
+            UnityEngine.Debug.Log("not to orignin");
+
             agent.Warp(originPos); // Move to house
             toOrigin = true;
         }
@@ -151,6 +192,10 @@ public class HelperNPC : MonoBehaviour
         {
             hasStartedNightMove = false;
             hasAnnouncedTonight = false;
+            messageText.gameObject.SetActive(false);
+            messageBubbleBG.SetActive(false);
+            StopCoroutine(MoveInAtNight()); 
+
             // Finds target crop
             if (targetCrop == null || atCrop == false)
             {
@@ -168,46 +213,46 @@ public class HelperNPC : MonoBehaviour
                 transform.position = hiddenPosition; // Move in house
                 toOrigin = false;
             }
-        }
+        } */
 
         //Handle animation transitions
-        //switch (currentState)
-        //{
-        //    case SlimeAnimationState.Idle:
-        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
-        //        StopAgent();
-        //        SetFace(faces.Idleface);
-        //        break;
+        switch (currentState)
+        {
+            case SlimeAnimationState.Idle:
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
+                StopAgent();
+                SetFace(faces.Idleface);
+                break;
 
-        //    case SlimeAnimationState.Walk:
-        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
-        //        agent.isStopped = false;
-        //        agent.updateRotation = true;
-        //        SetFace(faces.WalkFace);
-        //        break;
+            case SlimeAnimationState.Walk:
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
+                agent.isStopped = false;
+                agent.updateRotation = true;
+                SetFace(faces.WalkFace);
+                break;
 
-        //    case SlimeAnimationState.Jump:
-        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
-        //        StopAgent();
-        //        SetFace(faces.jumpFace);
-        //        animator.SetTrigger("Jump");
-        //        break;
+            case SlimeAnimationState.Jump:
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Jump")) return;
+                StopAgent();
+                SetFace(faces.jumpFace);
+                animator.SetTrigger("Jump");
+                break;
 
-        //    case SlimeAnimationState.Attack:
-        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
-        //        StopAgent();
-        //        SetFace(faces.attackFace);
-        //        animator.SetTrigger("Attack");
-        //        break;
+            case SlimeAnimationState.Attack:
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
+                StopAgent();
+                SetFace(faces.attackFace);
+                animator.SetTrigger("Attack");
+                break;
 
-        //    case SlimeAnimationState.Damage:
-        //        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
-        //        StopAgent();
-        //        animator.SetTrigger("Damage");
-        //        animator.SetInteger("DamageType", damType);
-        //        SetFace(faces.damageFace);
-        //        break;
-        //}
+            case SlimeAnimationState.Damage:
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Damage0") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage1") || animator.GetCurrentAnimatorStateInfo(0).IsName("Damage2")) return;
+                StopAgent();
+                animator.SetTrigger("Damage");
+                animator.SetInteger("DamageType", damType);
+                SetFace(faces.damageFace);
+                break;
+        }
     }
 
     void FindTargetCrop()
@@ -446,11 +491,46 @@ public class HelperNPC : MonoBehaviour
         waitToResp = false;
     }
 
+    IEnumerator MoveToSpawnNight()
+    {
+        if (spawnPoint == null)
+        {
+            yield break;
+        }
+
+        currentState = SlimeAnimationState.Walk;
+        isMovingAway = true;
+        atCrop = false;
+
+        // faces the direction of the house
+        Vector3 directionToSpawn = (spawnPoint.position - transform.position).normalized;
+        if (directionToSpawn != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToSpawn);
+            transform.rotation = targetRotation;
+        }
+
+        yield return StartCoroutine(MoveNPCToPosition(spawnPoint.position));
+        transform.position = hiddenPosition;
+    }
+
     // moves helper away from crop
     IEnumerator WaitAndMoveAway(float waitTime)
     {
         currentState = SlimeAnimationState.Jump;
-        yield return new WaitForSeconds(waitTime);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < waitTime)
+        {
+            if (uiController.IsNightPhase)
+            {
+                yield break; 
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
         MoveAwayFromCrop();
     }
 
@@ -483,6 +563,11 @@ public class HelperNPC : MonoBehaviour
         // moves the helper to target
         while (timeElapsed < duration)
         {
+            //if (uiController.IsNightPhase)
+            //{
+            //    yield break;
+            //}
+
             transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
             timeElapsed += Time.deltaTime;
             yield return null;
@@ -527,6 +612,9 @@ public class HelperNPC : MonoBehaviour
         transform.position = targetPosition;
         //currentState = SlimeAnimationState.Idle;
         animator.SetFloat("Speed", 0);
+
+        transform.position = hiddenPosition; 
+        toOrigin = false;
     }
 
     public void ShowHelperMessage(string message, float duration)
@@ -595,6 +683,7 @@ public class HelperNPC : MonoBehaviour
     public void ResetHelper(bool state)
     {
         playerPurchased = state;
+        firstNight = true;
     }
 
     private void LateUpdate()
@@ -608,5 +697,11 @@ public class HelperNPC : MonoBehaviour
             messageCanvas.Rotate(0, 180, 0); // Flip it around after look
 
         }
+    }
+
+    public void ChangeFirstNight(bool state)
+    {
+        UnityEngine.Debug.Log("going into first night");
+        firstNight = state;
     }
 }
