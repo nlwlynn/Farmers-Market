@@ -410,7 +410,15 @@ public class UIController : MonoBehaviour
             }
         }
 
-        if(!isNightPhase)
+        bool isFarmingActive =
+            (carrotGrowth != null && carrotGrowth.CheckFarming()) ||
+            (cauliflowerGrowth != null && cauliflowerGrowth.CheckFarming()) ||
+            (lettuceGrowth != null && lettuceGrowth.CheckFarming()) ||
+            (broccoliGrowth != null && broccoliGrowth.CheckFarming()) ||
+            (pumpkinGrowth != null && pumpkinGrowth.CheckFarming()) ||
+            (watermelonGrowth != null && watermelonGrowth.CheckFarming());
+
+        if (!isNightPhase && isFarmingActive)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
