@@ -408,6 +408,11 @@ public class PumpkinGrowth : MonoBehaviour
     {
         isFarmingMode = state;
     }
+
+    public bool CheckFarming()
+    {
+        return isFarmingMode;
+    }
 }
 
 

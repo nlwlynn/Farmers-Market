@@ -115,6 +115,12 @@ public class UIController : MonoBehaviour
     public DayProgression dayProgression;
     public FlyAI flyAI;
 
+    //cursor
+    public Texture2D normalCursor;
+    public Texture2D bigCursor;
+    public Vector2 hotspot = Vector2.zero;
+    public CursorMode cursorMode = CursorMode.Auto;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -302,6 +308,9 @@ public class UIController : MonoBehaviour
         dayProgression = FindObjectOfType<DayProgression>();
         flyAI = FindObjectOfType<FlyAI>();
 
+        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+        UnityEngine.Cursor.visible = true;
+
         UpdateCoinUI();
     }
 
@@ -399,6 +408,60 @@ public class UIController : MonoBehaviour
                     StartCoroutine(SwitchToNightPhase());
                 }
             }
+        }
+
+        bool isFarmingActive =
+            (carrotGrowth != null && carrotGrowth.CheckFarming()) ||
+            (cauliflowerGrowth != null && cauliflowerGrowth.CheckFarming()) ||
+            (lettuceGrowth != null && lettuceGrowth.CheckFarming()) ||
+            (broccoliGrowth != null && broccoliGrowth.CheckFarming()) ||
+            (pumpkinGrowth != null && pumpkinGrowth.CheckFarming()) ||
+            (watermelonGrowth != null && watermelonGrowth.CheckFarming());
+
+        bool isHoldingActive = FarmManager.IsHolding;
+
+        if (!isNightPhase && isFarmingActive)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+               if(isHoldingActive)
+                {
+                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4") ||
+                    hit.collider.CompareTag("Bowl") || hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    }
+                    else
+                    {
+                        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    }
+                }
+                else
+                {
+                    if (hit.collider.CompareTag("Carrot") || hit.collider.CompareTag("Cauliflower") || hit.collider.CompareTag("Broccoli") || hit.collider.CompareTag("Corn") ||
+                    hit.collider.CompareTag("Mushroom"))
+                    {
+                        UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    }
+                    else
+                    {
+                        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    }
+                }
+                
+            }
+            else
+            {
+                UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+            }
+        }
+        else
+        {
+            UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+            UnityEngine.Cursor.visible = true;
         }
     }
 
