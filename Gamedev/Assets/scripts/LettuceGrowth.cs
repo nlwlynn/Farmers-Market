@@ -396,7 +396,7 @@ public class LettuceGrowth : MonoBehaviour
 
                 if (other.CompareTag("CrowSwarm"))
                 {
-                    attackedBy = "Crow";
+                    attackedBy = "CrowSwarm";
                     damage = 8;
                 }
                 else if (other.CompareTag("FlySwarm"))
