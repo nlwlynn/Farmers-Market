@@ -85,7 +85,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -631,9 +631,14 @@ public class UIController : MonoBehaviour
         {
             playerAnimator.ResetPestisideUpgrades(false);
         }
+
+        if (helperNPC == null)
+        {
+            helperNPC = FindObjectOfType<HelperNPC>();
+        }
         if (helperNPC != null)
         {
-            helperNPC.ResetHelper(false);
+            helperNPC.ChangeFirstNight(false);
         }
 
         objectiveButton.clicked -= OnObjectiveButtonClicked;
@@ -902,6 +907,12 @@ public class UIController : MonoBehaviour
                 }
             }
         }
+
+        if (helperNPC != null)
+        {
+            helperNPC.ResetHelper(false);
+        }
+
         ResetPlayerPosition();
         ResetNPCPosition();
         ResetFlyPosition();
