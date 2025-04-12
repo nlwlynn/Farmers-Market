@@ -1048,6 +1048,7 @@ public class UIController : MonoBehaviour
         GameObject[] sunflowers = GameObject.FindGameObjectsWithTag("Sunflower");
         GameObject[] corn = GameObject.FindGameObjectsWithTag("Corn");
         GameObject[] cauliflower = GameObject.FindGameObjectsWithTag("Cauliflower");
+        GameObject[] scarecrow = GameObject.FindGameObjectsWithTag("Scarecrow");
 
         // Dont destroy set plot
         foreach (GameObject carrot in carrots)
@@ -1064,6 +1065,7 @@ public class UIController : MonoBehaviour
         DestroyTaggedObjects(sunflowers);
         DestroyTaggedObjects(corn);
         DestroyTaggedObjects(cauliflower);
+        DestroyTaggedObjects(scarecrow);
     }
 
     private void DestroyTaggedObjects(GameObject[] objects)
