@@ -1,29 +1,39 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class NoteInteraction : MonoBehaviour {
-    public GameObject notePanel;
+    public GameObject notePanel; // Assign in Inspector
     public LayerMask interactableLayer; // Assign in Inspector
 
     void Update()
     {
+        // Early exit if notePanel is not assigned
+        if (notePanel == null)
+        {
+            Debug.LogError("notePanel is not assigned in the Inspector!");
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // Debug: Draw the ray in Scene view (visible in Play Mode)
+            Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f);
+
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
             {
-                UnityEngine.Debug.Log("Clicked on: " + hit.collider.gameObject.name);
+                Debug.Log("Clicked on: " + hit.collider.gameObject.name);
 
-                if (hit.collider.gameObject == gameObject) // Only open note if clicking paper
+                if (hit.collider.gameObject == gameObject) // Only open if clicking THIS note
                 {
-                    UnityEngine.Debug.Log("Show Note");
                     notePanel.SetActive(true);
+                    Debug.Log("Note opened!");
                 }
             }
-            else if (notePanel.activeSelf) // Clicked outside
+            else if (notePanel.activeSelf) // Clicked outside the note
             {
-                UnityEngine.Debug.Log("Hide Note");
                 notePanel.SetActive(false);
+                Debug.Log("Note closed (clicked outside).");
             }
         }
     }

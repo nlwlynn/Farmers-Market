@@ -32,7 +32,10 @@ public class UIController : MonoBehaviour
     public UnityEngine.UIElements.Button PlayPause;
     public UnityEngine.UIElements.Button Settings;
     public UnityEngine.UIElements.Button NSettings;
+    public UnityEngine.UIElements.Button TutorialButton;
+    public UnityEngine.UIElements.Button NTutorialButton;
     public UnityEngine.UIElements.Button NewDay;
+
     public GameObject shopPanel; // Reference to the Shop Canvas
     public GameObject inventoryPanel; // Reference to the Inventory Canvas
     public TMP_Text coinsLabelShop; // Shop panel coin label
@@ -70,6 +73,10 @@ public class UIController : MonoBehaviour
 
     //for settings button
     public VisualElement settingsPanel;
+
+    //for tutorial button
+    public VisualElement tutorialPanel;
+
 
     //for end of the day pop up
     public VisualElement endDayScreen;
@@ -159,6 +166,7 @@ public class UIController : MonoBehaviour
         objectiveButton = ui.Q<UnityEngine.UIElements.Button>("objectiveButton");
         StartButton = ui.Q<UnityEngine.UIElements.Button>("StartButton");
         SettingsButton = ui.Q<UnityEngine.UIElements.Button>("SettingsButton");
+        TutorialButton = ui.Q<UnityEngine.UIElements.Button>("TutorialButton");
 
         // Hide all screens EXCEPT nightUI at the start
         objectivesScreen.style.display = DisplayStyle.None;
@@ -186,6 +194,19 @@ public class UIController : MonoBehaviour
         {
             Debug.LogError("Settings Panel not found");
         }
+
+        tutorialPanel = ui.Q<VisualElement>("TutorialPanel");
+        if (tutorialPanel != null)
+        {
+            tutorialPanel.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            Debug.LogError("Tutorial Panel not found");
+        }
+
+
+
 
         //main menu quit button
         MQuitButton = ui.Q<UnityEngine.UIElements.Button>("MQuitButton");
@@ -379,7 +400,30 @@ public class UIController : MonoBehaviour
 
         }
 
+        TutorialButton = ui.Q<UnityEngine.UIElements.Button>("TutorialButton");
+        if (TutorialButton != null)
+        {
+            TutorialButton.clicked += OnTutorialButtonClicked;
+        }
+        else
+        {
+            Debug.LogError("Tutorial Button not found in UI Document");
+        }
+
+        NTutorialButton = ui.Q<UnityEngine.UIElements.Button>("NTutorialButton");
+        if (TutorialButton != null)
+        {
+            NTutorialButton.clicked += OnTutorialButtonClicked;
+        }
+        else
+        {
+            Debug.LogError("Tutorial Button not found in UI Document");
+        }
+
+
     }
+
+
 
     private void Update()
     {
@@ -853,6 +897,21 @@ public class UIController : MonoBehaviour
         else
         {
             settingsPanel.style.display = DisplayStyle.None;
+        }
+    }
+
+    private void OnTutorialButtonClicked()
+    {
+        Debug.Log("Tutorial Button Clicked");
+
+        if (tutorialPanel.style.display == DisplayStyle.None)
+        {
+            tutorialPanel.style.display = DisplayStyle.Flex;
+            tutorialPanel.BringToFront(); // Ensures it appears above everything
+        }
+        else
+        {
+            tutorialPanel.style.display = DisplayStyle.None;
         }
     }
 
