@@ -34,6 +34,7 @@ public class BroccoliGrowth : MonoBehaviour
     private bool plantActive = false;
     private float damageInterval = 5f;
     private float lastDamageTime = 0f;
+    private string attackedBy = ""; // "Crow" or "FlySwarm"
 
     // interactions
     private GameObject player;
@@ -384,25 +385,42 @@ public class BroccoliGrowth : MonoBehaviour
         plantActive = false;
     }
 
-    // Fly interactions
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("FlySwarm"))
+        if (attackedBy == "" || attackedBy == other.tag)
         {
-            // Check if 5 seconds have passed
+            // Only proceed if enough time has passed since last damage
             if (Time.time - lastDamageTime >= damageInterval)
             {
-                plantHealth -= 5;
-                lastDamageTime = Time.time;
+                int damage = 0;
 
-                // Reset plot if health reaches 0
-                if (plantHealth <= 0 && plantActive)
+                if (other.CompareTag("CrowSwarm"))
                 {
-                    growing = false;
-                    growingPhase = 0;   // Reset phase
-                    StopAllCoroutines();
-                    ResetPlot();        // Reset plot
-                    NotifyFly();
+                    attackedBy = "Crow";
+                    damage = 8;
+                }
+                else if (other.CompareTag("FlySwarm"))
+                {
+                    attackedBy = "FlySwarm";
+                    damage = 5;
+                }
+
+                if (damage > 0)
+                {
+                    plantHealth -= damage;
+                    lastDamageTime = Time.time;
+
+                    if (plantHealth <= 0 && plantActive)
+                    {
+                        growing = false;
+                        growingPhase = 0;
+                        StopAllCoroutines();
+                        ResetPlot();
+                        NotifyFly();
+                        NotifyCrow();
+
+                        attackedBy = ""; // reset after destruction
+                    }
                 }
             }
         }
@@ -414,6 +432,16 @@ public class BroccoliGrowth : MonoBehaviour
         if (fly != null)
         {
             fly.OnPlantDestroyed(this.gameObject);
+        }
+    }
+
+    void NotifyCrow()
+    {
+        // Notify all crows that the crop was destroyed
+        CrowAI[] crows = FindObjectsOfType<CrowAI>();
+        foreach (CrowAI crow in crows)
+        {
+            crow.OnPlantDestroyed(this.gameObject);
         }
     }
 
