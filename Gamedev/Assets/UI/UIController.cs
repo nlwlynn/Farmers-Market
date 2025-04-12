@@ -418,6 +418,8 @@ public class UIController : MonoBehaviour
             (pumpkinGrowth != null && pumpkinGrowth.CheckFarming()) ||
             (watermelonGrowth != null && watermelonGrowth.CheckFarming());
 
+        bool isHoldingActive = FarmManager.IsHolding;
+
         if (!isNightPhase && isFarmingActive)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -425,16 +427,31 @@ public class UIController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("Carrot") || hit.collider.CompareTag("Cauliflower") || hit.collider.CompareTag("Broccoli") || hit.collider.CompareTag("Corn") || 
-                    hit.collider.CompareTag("Mushroom") || hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4") ||
-                    hit.collider.CompareTag("Bowl") || hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2")) 
+               if(isHoldingActive)
                 {
-                    UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4") ||
+                    hit.collider.CompareTag("Bowl") || hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    }
+                    else
+                    {
+                        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    }
                 }
                 else
                 {
-                    UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    if (hit.collider.CompareTag("Carrot") || hit.collider.CompareTag("Cauliflower") || hit.collider.CompareTag("Broccoli") || hit.collider.CompareTag("Corn") ||
+                    hit.collider.CompareTag("Mushroom"))
+                    {
+                        UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    }
+                    else
+                    {
+                        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    }
                 }
+                
             }
             else
             {
