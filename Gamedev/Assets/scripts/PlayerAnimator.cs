@@ -146,9 +146,12 @@ public class PlayerAnimator : MonoBehaviour
 
     public void ResetPestisideUpgrades(bool state)
     {
+        sprayBottle.SetActive(state);
+        isHoldingSpray = state;
+        animator.SetBool(IS_HOLDING_SPRAY, state);
         upgradePurchased = state;
         notPurchased = state;
-        sprayBottleUpgrade.SetActive(false);  // Start the spray bottle inactive
+        sprayBottleUpgrade.SetActive(state);  
     }
 
     // shop variable for purchasing
