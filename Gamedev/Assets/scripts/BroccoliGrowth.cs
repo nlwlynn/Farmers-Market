@@ -421,4 +421,9 @@ public class BroccoliGrowth : MonoBehaviour
     {
         isFarmingMode = state;
     }
+
+    public bool CheckFarming()
+    {
+        return isFarmingMode;
+    }
 }

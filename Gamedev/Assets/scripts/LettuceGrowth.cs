@@ -421,4 +421,9 @@ public class LettuceGrowth : MonoBehaviour
     {
         isFarmingMode = state;
     }
+
+    public bool CheckFarming()
+    {
+        return isFarmingMode;
+    }
 }

@@ -115,6 +115,12 @@ public class UIController : MonoBehaviour
     public DayProgression dayProgression;
     public FlyAI flyAI;
 
+    //cursor
+    public Texture2D normalCursor;
+    public Texture2D bigCursor;
+    public Vector2 hotspot = Vector2.zero;
+    public CursorMode cursorMode = CursorMode.Auto;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -302,6 +308,9 @@ public class UIController : MonoBehaviour
         dayProgression = FindObjectOfType<DayProgression>();
         flyAI = FindObjectOfType<FlyAI>();
 
+        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+        UnityEngine.Cursor.visible = true;
+
         UpdateCoinUI();
     }
 
@@ -399,6 +408,60 @@ public class UIController : MonoBehaviour
                     StartCoroutine(SwitchToNightPhase());
                 }
             }
+        }
+
+        bool isFarmingActive =
+            (carrotGrowth != null && carrotGrowth.CheckFarming()) ||
+            (cauliflowerGrowth != null && cauliflowerGrowth.CheckFarming()) ||
+            (lettuceGrowth != null && lettuceGrowth.CheckFarming()) ||
+            (broccoliGrowth != null && broccoliGrowth.CheckFarming()) ||
+            (pumpkinGrowth != null && pumpkinGrowth.CheckFarming()) ||
+            (watermelonGrowth != null && watermelonGrowth.CheckFarming());
+
+        bool isHoldingActive = FarmManager.IsHolding;
+
+        if (!isNightPhase && isFarmingActive)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+               if(isHoldingActive)
+                {
+                    if (hit.collider.CompareTag("NPC1") || hit.collider.CompareTag("NPC2") || hit.collider.CompareTag("NPC3") || hit.collider.CompareTag("NPC4") ||
+                    hit.collider.CompareTag("Bowl") || hit.collider.CompareTag("Placemat1") || hit.collider.CompareTag("Placemat2"))
+                    {
+                        UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    }
+                    else
+                    {
+                        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    }
+                }
+                else
+                {
+                    if (hit.collider.CompareTag("Carrot") || hit.collider.CompareTag("Cauliflower") || hit.collider.CompareTag("Broccoli") || hit.collider.CompareTag("Corn") ||
+                    hit.collider.CompareTag("Mushroom"))
+                    {
+                        UnityEngine.Cursor.SetCursor(bigCursor, hotspot, cursorMode);
+                    }
+                    else
+                    {
+                        UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+                    }
+                }
+                
+            }
+            else
+            {
+                UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+            }
+        }
+        else
+        {
+            UnityEngine.Cursor.SetCursor(normalCursor, hotspot, cursorMode);
+            UnityEngine.Cursor.visible = true;
         }
     }
 
@@ -627,11 +690,6 @@ public class UIController : MonoBehaviour
         {
             watermelonGrowth.SetFarmingMode(true);
         }
-        if (playerAnimator != null)
-        {
-            playerAnimator.ResetPestisideUpgrades(false);
-        }
-
         if (helperNPC == null)
         {
             helperNPC = FindObjectOfType<HelperNPC>();
@@ -911,6 +969,69 @@ public class UIController : MonoBehaviour
         if (helperNPC != null)
         {
             helperNPC.ResetHelper(false);
+        }
+
+        if (playerAnimator != null)
+        {
+            playerAnimator.ResetPestisideUpgrades(false);
+        }
+
+        if (carrotGrowth == null)
+        {
+            carrotGrowth = FindObjectOfType<CarrotGrowth>();
+        }
+        if (broccoliGrowth == null)
+        {
+            broccoliGrowth = FindObjectOfType<BroccoliGrowth>();
+        }
+        if (cauliflowerGrowth == null)
+        {
+            cauliflowerGrowth = FindObjectOfType<CauliflowerGrowth>();
+        }
+        if (lettuceGrowth == null)
+        {
+            lettuceGrowth = FindObjectOfType<LettuceGrowth>();
+        }
+        if (pumpkinGrowth == null)
+        {
+            pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
+        }
+        if (watermelonGrowth == null)
+        {
+            watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
+        }
+
+        if (carrotGrowth != null)
+        {
+            carrotGrowth.SetFarmingMode(true);
+        }
+        if (broccoliGrowth != null)
+        {
+            broccoliGrowth.SetFarmingMode(true);
+        }
+        if (cauliflowerGrowth != null)
+        {
+            cauliflowerGrowth.SetFarmingMode(true);
+        }
+        if (lettuceGrowth != null)
+        {
+            lettuceGrowth.SetFarmingMode(true);
+        }
+        if (pumpkinGrowth != null)
+        {
+            pumpkinGrowth.SetFarmingMode(true);
+        }
+        if (watermelonGrowth != null)
+        {
+            watermelonGrowth.SetFarmingMode(true);
+        }
+        if (helperNPC == null)
+        {
+            helperNPC = FindObjectOfType<HelperNPC>();
+        }
+        if (helperNPC != null)
+        {
+            helperNPC.ChangeFirstNight(false);
         }
 
         ResetPlayerPosition();
