@@ -9,6 +9,7 @@ public class Broccoli : MonoBehaviour
     private BowlScript bowlScript;
     private BroccoliGrowth broccoliGrowth;
 
+
     private void Awake()
     {
         if (uiController == null)

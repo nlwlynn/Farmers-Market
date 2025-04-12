@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class NPCInteraction : MonoBehaviour
 {
+    PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+
     public TextMeshProUGUI npcTextBox; // Text for orders above NPC head
     public Transform spawnPoint;  // Spawn position
 
@@ -52,6 +54,10 @@ public class NPCInteraction : MonoBehaviour
 
     void Start()
     {
+        if (soundEffects == null) {
+            soundEffects = FindObjectOfType<PlayerSoundEffects>(); // Get SFXs
+        }
+
         if (animator == null && npcPrefab != null)
         {
             animator = npcPrefab.GetComponent<Animator>();
@@ -199,6 +205,8 @@ public class NPCInteraction : MonoBehaviour
         if (requestedItems.Contains(item))
         {
             requestedItems.Remove(item);
+            soundEffects.PlayFulfillOrderSound(); // SFX
+
             deliveredItems.Add(item);
             UpdateNPCText();
 
@@ -206,6 +214,8 @@ public class NPCInteraction : MonoBehaviour
             if (requestedItems.Count == 0)
             {
                 CompleteOrder();
+                soundEffects.PlayFulfillOrderSound(); // SFX
+
             }
             return true;
         }
