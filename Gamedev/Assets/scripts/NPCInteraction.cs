@@ -121,7 +121,7 @@ public class NPCInteraction : MonoBehaviour
             float timer = 0f;
 
             // Wait for order completion or until timer runs out
-            while (!orderComplete && timer < 30f)
+            while (!orderComplete && timer < 40f)
             {
                 timer += Time.deltaTime;
                 yield return null;
