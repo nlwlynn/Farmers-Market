@@ -85,7 +85,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 100f; //5min
+    private float timerDuration = 15f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -974,6 +974,64 @@ public class UIController : MonoBehaviour
         if (playerAnimator != null)
         {
             playerAnimator.ResetPestisideUpgrades(false);
+        }
+
+        if (carrotGrowth == null)
+        {
+            carrotGrowth = FindObjectOfType<CarrotGrowth>();
+        }
+        if (broccoliGrowth == null)
+        {
+            broccoliGrowth = FindObjectOfType<BroccoliGrowth>();
+        }
+        if (cauliflowerGrowth == null)
+        {
+            cauliflowerGrowth = FindObjectOfType<CauliflowerGrowth>();
+        }
+        if (lettuceGrowth == null)
+        {
+            lettuceGrowth = FindObjectOfType<LettuceGrowth>();
+        }
+        if (pumpkinGrowth == null)
+        {
+            pumpkinGrowth = FindObjectOfType<PumpkinGrowth>();
+        }
+        if (watermelonGrowth == null)
+        {
+            watermelonGrowth = FindObjectOfType<WatermelonGrowth>();
+        }
+
+        if (carrotGrowth != null)
+        {
+            carrotGrowth.SetFarmingMode(true);
+        }
+        if (broccoliGrowth != null)
+        {
+            broccoliGrowth.SetFarmingMode(true);
+        }
+        if (cauliflowerGrowth != null)
+        {
+            cauliflowerGrowth.SetFarmingMode(true);
+        }
+        if (lettuceGrowth != null)
+        {
+            lettuceGrowth.SetFarmingMode(true);
+        }
+        if (pumpkinGrowth != null)
+        {
+            pumpkinGrowth.SetFarmingMode(true);
+        }
+        if (watermelonGrowth != null)
+        {
+            watermelonGrowth.SetFarmingMode(true);
+        }
+        if (helperNPC == null)
+        {
+            helperNPC = FindObjectOfType<HelperNPC>();
+        }
+        if (helperNPC != null)
+        {
+            helperNPC.ChangeFirstNight(false);
         }
 
         ResetPlayerPosition();
