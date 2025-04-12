@@ -148,6 +148,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         upgradePurchased = state;
         notPurchased = state;
+        sprayBottleUpgrade.SetActive(false);  // Start the spray bottle inactive
     }
 
     // shop variable for purchasing

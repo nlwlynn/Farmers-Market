@@ -690,11 +690,6 @@ public class UIController : MonoBehaviour
         {
             watermelonGrowth.SetFarmingMode(true);
         }
-        if (playerAnimator != null)
-        {
-            playerAnimator.ResetPestisideUpgrades(false);
-        }
-
         if (helperNPC == null)
         {
             helperNPC = FindObjectOfType<HelperNPC>();
@@ -974,6 +969,11 @@ public class UIController : MonoBehaviour
         if (helperNPC != null)
         {
             helperNPC.ResetHelper(false);
+        }
+
+        if (playerAnimator != null)
+        {
+            playerAnimator.ResetPestisideUpgrades(false);
         }
 
         ResetPlayerPosition();
