@@ -69,7 +69,7 @@ public class HelperNPC : MonoBehaviour
     {
         if (uiController.IsNightPhase || !playerPurchased || waitToResp)
         {
-            UnityEngine.Debug.Log("in looking for crop");
+            //UnityEngine.Debug.Log("in looking for crop");
 
             transform.position = hiddenPosition; // Move in house
             toOrigin = false;
@@ -87,7 +87,7 @@ public class HelperNPC : MonoBehaviour
             // Finds target crop
             if (targetCrop == null || atCrop == false)
             {
-                UnityEngine.Debug.Log("in looking for crop");
+                //UnityEngine.Debug.Log("in looking for crop");
                 FindTargetCrop();
             }
 

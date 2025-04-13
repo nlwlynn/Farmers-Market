@@ -12,4 +12,7 @@ public class ShopItemSO : ScriptableObject
     public int profit;
     public Sprite itemImage;
 
+    public bool isOneTimePurchase = false;
+    [HideInInspector] public bool hasBeenPurchased = false;
+
 }

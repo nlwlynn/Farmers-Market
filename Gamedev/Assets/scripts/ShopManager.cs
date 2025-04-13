@@ -31,6 +31,8 @@ public class ShopManager : MonoBehaviour
     }
     void Start()
     {
+        ResetOneTimePurchases();
+
         for (int i = 0; i < shopItemsSO.Length; i++)
             shopPanelsGO[i].SetActive(true);
 
@@ -44,6 +46,14 @@ public class ShopManager : MonoBehaviour
         if (shopPanel.activeSelf && closeBuild)
         {
             closeBuild = false;
+        }
+    }
+
+    void ResetOneTimePurchases()
+    {
+        foreach (ShopItemSO item in shopItemsSO)
+        {
+            item.hasBeenPurchased = false;
         }
     }
 
@@ -67,7 +77,14 @@ public class ShopManager : MonoBehaviour
 
         for (int i = 0; i < shopItemsSO.Length; i++)
         {
-            myPurchaseBtns[i].interactable = (currentCoins >= shopItemsSO[i].baseCost);
+            if (shopItemsSO[i].isOneTimePurchase && shopItemsSO[i].hasBeenPurchased)
+            {
+                myPurchaseBtns[i].interactable = false;
+            }
+            else
+            {
+                myPurchaseBtns[i].interactable = (currentCoins >= shopItemsSO[i].baseCost);
+            }
         }
     }
 
@@ -90,14 +107,28 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItem(int btnNo)
     {
+        ShopItemSO item = shopItemsSO[btnNo];
+
+        if (item.isOneTimePurchase && item.hasBeenPurchased)
+        {
+            Debug.Log($"{item.title} can only be purchased once!");
+            return;
+        }
+
         if (UIController.Instance.GetCoins() >= shopItemsSO[btnNo].baseCost)
         {
             UIController.Instance.SpendCoins(shopItemsSO[btnNo].baseCost); // Deduct coins globally
-            //Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
+            Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
 
             inventory.AddItemToStock(btnNo);
             soundEffects.PlayPurchaseItemSound();
-            
+
+            if (item.isOneTimePurchase)
+            {
+                item.hasBeenPurchased = true;
+                myPurchaseBtns[btnNo].interactable = false; // Disable the button visually
+            }
+
             CheckPurchaseable();
         }
         else
