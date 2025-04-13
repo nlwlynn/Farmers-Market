@@ -16,6 +16,7 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField] private float bulletSpeed = 10f;  // Bullet speed
     [SerializeField] private Animator playerAnimator;  // Animator reference
     [SerializeField] private bool notPurchased = false; // to track here  
+    [SerializeField] private Inventory inventory;
 
     private Animator animator;
     private bool isHoldingSpray = false;
@@ -40,9 +41,14 @@ public class PlayerAnimator : MonoBehaviour
 
     private void Update()
     {
+
+        if (inventory != null && inventory.stock.Length > 8 && inventory.stock[8] > 0)
+        {
+            upgradePurchased = true;
+        }
+
         bool isWalking = player.IsWalking();
         animator.SetBool(IS_WALKING, isWalking);
-
 
         if (sprayBottle != null && upgradePurchased && !notPurchased)
         {
