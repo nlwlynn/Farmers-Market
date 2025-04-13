@@ -15,6 +15,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private AudioClip plotRemoveSound;
     [SerializeField] private AudioClip barkingSound;
     [SerializeField] private AudioClip purchaseItemSound;
+    [SerializeField] private AudioClip crowAttackSound;
+    [SerializeField] private AudioClip crowLeaveSound;
+
 
     [Header("Volumes")]
     [SerializeField] private float wateringSoundVolume = 1f;
@@ -29,6 +32,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float plotRemoveSoundVolume = 1f;
     [SerializeField] private float barkingSoundVolume = 1f;
     [SerializeField] private float purchaseItemSoundVolume = 1f;
+    [SerializeField] private float crowAttackSoundVolume = 1f;
+    [SerializeField] private float crowLeaveSoundVolume = 1f;
+
 
     [Header("Trim Durations (seconds, 0 = full clip)")]
     [SerializeField] private float wateringTrim = 0f;
@@ -43,6 +49,8 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float plotRemoveTrim = 0f;
     [SerializeField] private float barkingSoundTrim = 0f;
     [SerializeField] private float purchaseItemTrim = 0f;
+    [SerializeField] private float crowAttackTrim = 1f;
+    [SerializeField] private float crowLeaveTrim = 1f;
 
     [Header("Playback Speeds (1 = normal, 2 = double speed, 0.5 = half speed)")]
     [SerializeField] private float wateringPitch = 2f;
@@ -57,6 +65,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float plotRemovePitch = 1f;
     [SerializeField] private float barkingSoundPitch = 1f;
     [SerializeField] private float purchaseItemPitch = 1f;
+    [SerializeField] private float crowAttackPitch = 1f;
+    [SerializeField] private float crowLeavePitch = 1f;
+
 
     [SerializeField] private AudioSource audioSource;
 
@@ -112,6 +123,14 @@ public class PlayerSoundEffects : MonoBehaviour {
 
     public void PlayPurchaseItemSound() {
         PlayClippedSound(purchaseItemSound, purchaseItemSoundVolume, purchaseItemTrim, purchaseItemPitch);
+    }
+    
+    public void PlayCrowAttackSound() {
+        PlayClippedSound(crowAttackSound, crowAttackSoundVolume, crowAttackTrim, crowAttackPitch);
+    }
+
+    public void PlayCrowLeaveSound() {
+        PlayClippedSound(crowLeaveSound, crowLeaveSoundVolume, crowLeaveTrim, crowLeavePitch);
     }
 
     private void PlayClippedSound(AudioClip clip, float volume, float trimLength, float pitch) {
