@@ -696,7 +696,7 @@ PrefabInstance:
     - target: {fileID: 6417754222387094151, guid: 1f6532dc8f854cb4abbf5c6ef8998a62, type: 3}
       propertyPath: myPurchaseBtns.Array.data[3]
       value: 
-      objectReference: {fileID: 1336080701}
+      objectReference: {fileID: 1344412756}
     - target: {fileID: 6417754222387094151, guid: 1f6532dc8f854cb4abbf5c6ef8998a62, type: 3}
       propertyPath: myPurchaseBtns.Array.data[4]
       value: 
@@ -6581,17 +6581,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: crow
       objectReference: {fileID: 0}
+    - target: {fileID: 2740693177600119544, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
+      propertyPath: m_TagString
+      value: CrowSwarm
+      objectReference: {fileID: 0}
     - target: {fileID: 3041789441680611457, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
       propertyPath: m_LocalScale.x
-      value: 13
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3041789441680611457, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
       propertyPath: m_LocalScale.y
-      value: 13
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3041789441680611457, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
       propertyPath: m_LocalScale.z
-      value: 13
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3041789441680611457, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6659,10 +6663,9 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a24ec9cf4c2103646a47e0497a925d6b, type: 2}
     - target: {fileID: 9145298031927001943, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9145298031927001943, guid: 667bb82812e7aec448f5592766bbf6d4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -6688,11 +6691,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRadius: 10
-  attackRange: 3
+  attackRange: 5
   moveSpeed: 15
   uiController: {fileID: 0}
   dayProgression: {fileID: 0}
   spawnPoint: {fileID: 3127884063224574616}
+  crowArrivalClip: {fileID: 8300000, guid: e2622b95524aab94b9a0448a1a4c6fc8, type: 3}
 --- !u!1001 &4321451949918901884
 PrefabInstance:
   m_ObjectHideFlags: 0

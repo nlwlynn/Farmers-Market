@@ -15,6 +15,9 @@ public class CrowAI : MonoBehaviour
     private Vector3 targetOffset;
     private Animator animator;
     private bool hasPecked = false;
+    public AudioClip crowArrivalClip;
+
+    private AudioSource audioSource;
 
 
 
@@ -43,13 +46,14 @@ public class CrowAI : MonoBehaviour
         gameObject.SetActive(true);
         targetOffset = new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
 
     }
 
     void Update()
     {
-        // checks if night phase to activate or deactivate flies
+        // checks if night phase to activate or deactivate crow
         if (uiController.isNightPhase)
         {
             DeactivateCrow();
@@ -159,6 +163,7 @@ public class CrowAI : MonoBehaviour
 
     void MoveTowardsTarget()
     {
+
         if (targetCrop == null) return;
 
         Vector3 targetPosition = targetCrop.transform.position + targetOffset;
@@ -197,6 +202,12 @@ public class CrowAI : MonoBehaviour
         else if (startedDay && reactivateCrow)
         {
             transform.position = spawnPoint.position;
+
+            // Play arrival sound
+            if (crowArrivalClip != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(crowArrivalClip);
+            }
             // health = 20;
             reactivateCrow = false;
         }
