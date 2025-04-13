@@ -81,6 +81,13 @@ namespace Controller
 
             m_Movement = new MovementHandler(m_Controller, m_Transform, m_WalkSpeed, m_RunSpeed, m_RotateSpeed, m_JumpHeight, m_Space);
             m_Animation = new AnimationHandler(m_Animator, m_VerticalID, m_StateID);
+
+            if (m_IsMoving)
+            {
+                // Just an example usage
+                Debug.Log("Dog is moving.");
+            }
+
         }
 
         private void Update()
