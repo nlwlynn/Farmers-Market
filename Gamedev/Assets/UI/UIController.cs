@@ -92,7 +92,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 120f; //5min
+    private float timerDuration = 10f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -129,6 +129,7 @@ public class UIController : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
 
     public PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+    private int globalGoal = 15;
 
 
     private void Awake()
@@ -681,7 +682,7 @@ public class UIController : MonoBehaviour
 
         dayProgression.EndDayEarnings(earnedAmount, dayNum);
         goalCoin = dayProgression.NewGoal();
-
+        globalGoal = goalCoin;
         npcInteraction.NewDayEarned();
 
         // Play day bg sound
@@ -806,7 +807,7 @@ public class UIController : MonoBehaviour
         bool goalMet = revenueEarned >= dailyGoal;
 
         // Update End of Day UI labels
-        goalAmountLabel.text = dailyGoal + " Coins";
+        goalAmountLabel.text = globalGoal + " Coins";
         revenueEarnedLabel.text = revenueEarned + " Coins";
 
         if (goalMet)
@@ -1000,10 +1001,11 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
         elapsedTime = 0f;
         isTimerRunning = false;
-        coinCount = 20;
+        coinCount = 50;
         dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
+        globalGoal = 15;
 
         //reseting progressions
         dayProgression.ResetProgression();
