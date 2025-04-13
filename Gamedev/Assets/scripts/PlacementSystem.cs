@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
+    PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+
     [SerializeField]
     private GameObject mouseIndicator, cellIndicator;
     [SerializeField]
@@ -33,6 +35,10 @@ public class PlacementSystem : MonoBehaviour
 
     private void Start()
     {
+        if (soundEffects == null) {
+            soundEffects = FindObjectOfType<PlayerSoundEffects>(); // Get SFXs
+        }
+
         StopPlacement();
 
         messagePopup.SetActive(false);
@@ -191,6 +197,8 @@ public class PlacementSystem : MonoBehaviour
                 GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
                 newObject.transform.position = grid.CellToWorld(gridPosition);
                 placedObjects[gridPosition] = newObject;
+                soundEffects.PlayPlotPlaceSound(); // SFX
+
 
                 Scarecrow scarecrow = newObject.GetComponent<Scarecrow>();
                 if (scarecrow != null)
@@ -296,6 +304,7 @@ public class PlacementSystem : MonoBehaviour
 
             if (objectID >= 0)
             {
+                soundEffects.PlayPlotRemoveSound(); // SFX
                 inventory.stock[objectID]++;
                 inventory.UpdateStockUI();
 

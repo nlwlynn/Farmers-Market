@@ -12,7 +12,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private AudioClip handOverItemSound;
     [SerializeField] private AudioClip dogEatSound;
     [SerializeField] private AudioClip plotPlaceSound;
+    [SerializeField] private AudioClip plotRemoveSound;
     [SerializeField] private AudioClip barkingSound;
+    [SerializeField] private AudioClip purchaseItemSound;
 
     [Header("Volumes")]
     [SerializeField] private float wateringSoundVolume = 1f;
@@ -24,7 +26,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float handOverItemSoundVolume = 1f;
     [SerializeField] private float dogEatSoundVolume = 1f;
     [SerializeField] private float plotPlaceSoundVolume = 1f;
+    [SerializeField] private float plotRemoveSoundVolume = 1f;
     [SerializeField] private float barkingSoundVolume = 1f;
+    [SerializeField] private float purchaseItemSoundVolume = 1f;
 
     [Header("Trim Durations (seconds, 0 = full clip)")]
     [SerializeField] private float wateringTrim = 0f;
@@ -36,8 +40,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float handOverItemTrim = 0f;
     [SerializeField] private float dogEatTrim = 0f;
     [SerializeField] private float plotPlaceTrim = 0f;
+    [SerializeField] private float plotRemoveTrim = 0f;
     [SerializeField] private float barkingSoundTrim = 0f;
-
+    [SerializeField] private float purchaseItemTrim = 0f;
 
     [Header("Playback Speeds (1 = normal, 2 = double speed, 0.5 = half speed)")]
     [SerializeField] private float wateringPitch = 2f;
@@ -49,7 +54,9 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float handOverItemPitch = 1f;
     [SerializeField] private float dogEatPitch = 1f;
     [SerializeField] private float plotPlacePitch = 1f;
+    [SerializeField] private float plotRemovePitch = 1f;
     [SerializeField] private float barkingSoundPitch = 1f;
+    [SerializeField] private float purchaseItemPitch = 1f;
 
     [SerializeField] private AudioSource audioSource;
 
@@ -95,9 +102,16 @@ public class PlayerSoundEffects : MonoBehaviour {
         PlayClippedSound(plotPlaceSound, plotPlaceSoundVolume, plotPlaceTrim, plotPlacePitch);
     }
 
+    public void PlayPlotRemoveSound() {
+        PlayClippedSound(plotRemoveSound, plotRemoveSoundVolume, plotRemoveTrim, plotRemovePitch);
+    }
+
     public void PlayBarkingSound() {
         PlayClippedSound(barkingSound, barkingSoundVolume, barkingSoundTrim, barkingSoundPitch);
-  
+    }
+
+    public void PlayPurchaseItemSound() {
+        PlayClippedSound(purchaseItemSound, purchaseItemSoundVolume, purchaseItemTrim, purchaseItemPitch);
     }
 
     private void PlayClippedSound(AudioClip clip, float volume, float trimLength, float pitch) {
