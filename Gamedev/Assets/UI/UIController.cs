@@ -252,7 +252,7 @@ public class UIController : MonoBehaviour
             Debug.LogError("TimerProgressBar not found in the UI Document. Check the name and hierarchy.");
         }
 
-        //Brightness Slider
+        /*//Brightness Slider
         brightnessSlider = ui.Q<UnityEngine.UIElements.Slider>("BrightnessSlider");
         if (brightnessSlider != null)
         {
@@ -262,7 +262,7 @@ public class UIController : MonoBehaviour
         else
         {
             Debug.LogError("BrightnessSlider not found in the UI Document. Check the name and hierarchy.");
-        }
+        } */
 
         //Volume Slider
         /*
@@ -518,14 +518,14 @@ public class UIController : MonoBehaviour
     }
 
     //BRIGHTNESS SLIDER--------------------------------------------------------------------------------------------
-    private void OnBrightnessChanged(ChangeEvent<float> evt)
+   /* private void OnBrightnessChanged(ChangeEvent<float> evt)
     {
         float brightnessValue = evt.newValue;
         Debug.Log($"Brightness: {brightnessValue}");
 
         // Adjust ambient light (alternative approach)
         RenderSettings.ambientLight = new Color(brightnessValue, brightnessValue, brightnessValue);
-    }
+    } */
 
     //Volume SLIDER--------------------------------------------------------------------------------------------
     /*

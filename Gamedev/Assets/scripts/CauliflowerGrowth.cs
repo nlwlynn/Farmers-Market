@@ -350,7 +350,7 @@ public class CauliflowerGrowth : MonoBehaviour
         harvestGrowth = true;
         growing = true;
         // Timer for 10 seconds
-        yield return StartCoroutine(FillBar(1f, 5f));
+        yield return StartCoroutine(FillBar(1f, 4.5f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

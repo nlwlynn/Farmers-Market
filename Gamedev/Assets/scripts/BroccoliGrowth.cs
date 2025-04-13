@@ -351,7 +351,7 @@ public class BroccoliGrowth : MonoBehaviour
         harvestGrowth = true;
         growing = true;
         // Timer for 8 seconds
-        yield return StartCoroutine(FillBar(1f, 4f));
+        yield return StartCoroutine(FillBar(1f, 3f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

@@ -351,7 +351,7 @@ public class LettuceGrowth : MonoBehaviour
         harvestGrowth = true;
         growing = true;
         // Timer for 6 seconds
-        yield return StartCoroutine(FillBar(1f, 6f));
+        yield return StartCoroutine(FillBar(1f, 7f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

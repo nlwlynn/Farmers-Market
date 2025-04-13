@@ -352,7 +352,7 @@ public class CarrotGrowth : MonoBehaviour
         harvestGrowth = true;
         growing = true;
         // Timer for 4 seconds
-        yield return StartCoroutine(FillBar(1f, 3f));
+        yield return StartCoroutine(FillBar(1f, 2.5f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done
