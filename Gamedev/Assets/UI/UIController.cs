@@ -100,10 +100,10 @@ public class UIController : MonoBehaviour
     public bool isNightPhase = true;
 
     //brightness slider
-    public UnityEngine.UIElements.Slider brightnessSlider;
+    //public UnityEngine.UIElements.Slider brightnessSlider;
 
     //volume slider
-    public UnityEngine.UIElements.Slider volumeSlider;
+    //public UnityEngine.UIElements.Slider volumeSlider;
 
     //plots
     public CarrotGrowth carrotGrowth;
@@ -129,6 +129,7 @@ public class UIController : MonoBehaviour
     public CursorMode cursorMode = CursorMode.Auto;
 
     public PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+    private int globalGoal = 15;
 
 
     private void Awake()
@@ -681,7 +682,7 @@ public class UIController : MonoBehaviour
 
         dayProgression.EndDayEarnings(earnedAmount, dayNum);
         goalCoin = dayProgression.NewGoal();
-
+        globalGoal = goalCoin;
         npcInteraction.NewDayEarned();
 
         // Play day bg sound
@@ -803,10 +804,10 @@ public class UIController : MonoBehaviour
         int revenueEarned = coinCount;
 
         // Goal for the day (can be dynamic)
-        bool goalMet = revenueEarned >= dailyGoal;
+        bool goalMet = revenueEarned >= globalGoal;
 
         // Update End of Day UI labels
-        goalAmountLabel.text = dailyGoal + " Coins";
+        goalAmountLabel.text = globalGoal + " Coins";
         revenueEarnedLabel.text = revenueEarned + " Coins";
 
         if (goalMet)
@@ -815,7 +816,7 @@ public class UIController : MonoBehaviour
             resultTextLabel.style.color = new StyleColor(Color.green);
             summaryMessageLabel.text = "Now transitioning to night time, buy more plots to make more earnings!";
             continueButton.text = "Proceed to Night Phase";
-            coinCount -= dailyGoal;
+            coinCount -= globalGoal;
             UpdateCoinUI();
         }
         else
@@ -1004,6 +1005,7 @@ public class UIController : MonoBehaviour
         dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
+        globalGoal = 15;
 
         //reseting progressions
         dayProgression.ResetProgression();
