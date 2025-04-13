@@ -24,6 +24,7 @@ public class PlacementSystem : MonoBehaviour
     public int itemID = -1;
     private List<GameObject> scarecrowPreviewTiles = new List<GameObject>();
     [SerializeField] private GameObject scarecrowDefenseHighlightPrefab;
+    public HelperNPC helperNPC;
 
     private Dictionary<Vector3Int, GameObject> placedObjects = new Dictionary<Vector3Int, GameObject>();
 
@@ -79,7 +80,16 @@ public class PlacementSystem : MonoBehaviour
             isBuilding = false;
             itemID = -1;
 
-            //// Instantiate the HelperNPC
+            if (helperNPC == null)
+            {
+                helperNPC = FindObjectOfType<HelperNPC>();
+            }
+            if (helperNPC != null)
+            {
+                helperNPC.ChangePlayerPurchased(true);
+            }
+
+            /*//// Instantiate the HelperNPC
             Transform spawnTransform = GameObject.Find("Helper-Origin")?.transform;
             if (spawnTransform == null)
             {
@@ -97,7 +107,7 @@ public class PlacementSystem : MonoBehaviour
             helper.playerPurchased = true;
             helper.gameObject.SetActive(true);
 
-            Debug.Log("HelperNPC placed.");
+            Debug.Log("HelperNPC placed."); */
             return; // Exit early so no placement grid setup happens
         }
 

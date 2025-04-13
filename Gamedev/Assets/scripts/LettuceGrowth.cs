@@ -383,6 +383,9 @@ public class LettuceGrowth : MonoBehaviour
         progressCanvas.gameObject.SetActive(false);
         progressCircle.fillAmount = 0f;
         plantActive = false;
+        growing = false;
+        growingPhase = 0;
+        harvestGrowth = false;
     }
 
     private void OnTriggerStay(Collider other)
