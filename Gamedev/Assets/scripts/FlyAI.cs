@@ -16,6 +16,9 @@ public class FlyAI : MonoBehaviour
     public Transform spawnPoint3;
     private bool startedDay = false;
     private bool reactivateFly = false;
+    private bool isRespawning = false;
+    private bool beginningDay = false;
+    public float respawnTimer = 30f;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -48,9 +51,11 @@ public class FlyAI : MonoBehaviour
         {
             DeactivateFly();
             startedDay = false;
+            beginningDay = false;
         }
-        else
+        else if(!isRespawning || !beginningDay)
         {
+            beginningDay = true;
             ActivateFly();
             FindTargetCrop();
             MoveTowardsTarget();
@@ -213,11 +218,24 @@ public class FlyAI : MonoBehaviour
         }
     }
 
+    private IEnumerator RespawnFlyDelay(float delay)
+    {
+        isRespawning = true;
+        yield return new WaitForSeconds(delay);
+        isRespawning = false;
+        ActivateFly();
+    }
+
     // Fly dies when reaching 0 health
     private void Die()
     {
         DeactivateFly();
         reactivateFly = true;
+
+        if (!isRespawning)
+        {
+            StartCoroutine(RespawnFlyDelay(respawnTimer));
+        }
     }
 
     // Fly moves away from destroyed plant
@@ -260,11 +278,16 @@ public class FlyAI : MonoBehaviour
     public void IncreaseFlyDifficulty()
     {
         healthTracker += 3;
+        if(respawnTimer >= 10)
+        {
+            respawnTimer -= 2;
+        }
     }
 
     public void ResetFlyHealth()
     {
         health = 20;
         healthTracker = 20;
-}
+        respawnTimer = 30f;
+    }
 }
