@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerSoundEffects : MonoBehaviour {
+public class PlayerSoundEffects : MonoBehaviour
+{
     [Header("Sound Effects")]
     [SerializeField] private AudioClip wateringSound;
     [SerializeField] private AudioClip harvestingSound;
@@ -17,6 +18,7 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private AudioClip purchaseItemSound;
     [SerializeField] private AudioClip crowAttackSound;
     [SerializeField] private AudioClip crowLeaveSound;
+    [SerializeField] private AudioClip clickSound;
 
 
     [Header("Volumes")]
@@ -34,6 +36,7 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float purchaseItemSoundVolume = 1f;
     [SerializeField] private float crowAttackSoundVolume = 1f;
     [SerializeField] private float crowLeaveSoundVolume = 1f;
+    [SerializeField] private float clickVolume = 1f;
 
 
     [Header("Trim Durations (seconds, 0 = full clip)")]
@@ -51,6 +54,7 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float purchaseItemTrim = 0f;
     [SerializeField] private float crowAttackTrim = 1f;
     [SerializeField] private float crowLeaveTrim = 1f;
+    [SerializeField] private float clickTrim = 1f;
 
     [Header("Playback Speeds (1 = normal, 2 = double speed, 0.5 = half speed)")]
     [SerializeField] private float wateringPitch = 2f;
@@ -67,73 +71,96 @@ public class PlayerSoundEffects : MonoBehaviour {
     [SerializeField] private float purchaseItemPitch = 1f;
     [SerializeField] private float crowAttackPitch = 1f;
     [SerializeField] private float crowLeavePitch = 1f;
+    [SerializeField] private float clickPitch = 1f;
 
 
     [SerializeField] private AudioSource audioSource;
 
-    private void Awake() {
-        if (audioSource == null) {
+    private void Awake()
+    {
+        if (audioSource == null)
+        {
             audioSource = GetComponent<AudioSource>();
         }
     }
 
-    public void PlayWateringSound() {
+    public void PlayWateringSound()
+    {
         PlayClippedSound(wateringSound, wateringSoundVolume, wateringTrim, wateringPitch);
     }
 
-    public void PlayHarvestingSound() {
+    public void PlayHarvestingSound()
+    {
         PlayClippedSound(harvestingSound, harvestingSoundVolume, harvestingTrim, harvestingPitch);
     }
 
-    public void PlayPesticideSound() {
+    public void PlayPesticideSound()
+    {
         PlayClippedSound(pesticideSound, pesticideSoundVolume, pesticideTrim, pesticidePitch);
     }
 
-    public void PlayPickupItemSound() {
+    public void PlayPickupItemSound()
+    {
         PlayClippedSound(pickupItemSound, pickupItemSoundVolume, pickupItemTrim, pickupItemPitch);
     }
 
-    public void PlayFulfillOrderSound() {
+    public void PlayFulfillOrderSound()
+    {
         PlayClippedSound(fulfillOrderSound, fulfillOrderSoundVolume, fulfillOrderTrim, fulfillOrderPitch);
     }
 
-    public void PlayPlantingSound() {
+    public void PlayPlantingSound()
+    {
         PlayClippedSound(plantingSound, plantingSoundVolume, plantingTrim, plantingPitch);
     }
 
-    public void PlayHandOverItemSound() {
+    public void PlayHandOverItemSound()
+    {
         PlayClippedSound(handOverItemSound, handOverItemSoundVolume, handOverItemTrim, handOverItemPitch);
     }
 
-    public void PlayDogEatSound() {
+    public void PlayDogEatSound()
+    {
         PlayClippedSound(dogEatSound, dogEatSoundVolume, dogEatTrim, dogEatPitch);
     }
 
-    public void PlayPlotPlaceSound() {
+    public void PlayPlotPlaceSound()
+    {
         PlayClippedSound(plotPlaceSound, plotPlaceSoundVolume, plotPlaceTrim, plotPlacePitch);
     }
 
-    public void PlayPlotRemoveSound() {
+    public void PlayPlotRemoveSound()
+    {
         PlayClippedSound(plotRemoveSound, plotRemoveSoundVolume, plotRemoveTrim, plotRemovePitch);
     }
 
-    public void PlayBarkingSound() {
+    public void PlayBarkingSound()
+    {
         PlayClippedSound(barkingSound, barkingSoundVolume, barkingSoundTrim, barkingSoundPitch);
     }
 
-    public void PlayPurchaseItemSound() {
+    public void PlayPurchaseItemSound()
+    {
         PlayClippedSound(purchaseItemSound, purchaseItemSoundVolume, purchaseItemTrim, purchaseItemPitch);
     }
-    
-    public void PlayCrowAttackSound() {
+
+    public void PlayCrowAttackSound()
+    {
         PlayClippedSound(crowAttackSound, crowAttackSoundVolume, crowAttackTrim, crowAttackPitch);
     }
 
-    public void PlayCrowLeaveSound() {
+    public void PlayCrowLeaveSound()
+    {
         PlayClippedSound(crowLeaveSound, crowLeaveSoundVolume, crowLeaveTrim, crowLeavePitch);
     }
 
-    private void PlayClippedSound(AudioClip clip, float volume, float trimLength, float pitch) {
+    public void PlayClickSound()
+    {
+        PlayClippedSound(clickSound, clickVolume, clickTrim, clickPitch);
+    }
+
+    private void PlayClippedSound(AudioClip clip, float volume, float trimLength, float pitch)
+    {
         if (clip == null || audioSource == null) return;
 
         audioSource.Stop();
@@ -142,13 +169,15 @@ public class PlayerSoundEffects : MonoBehaviour {
         audioSource.pitch = pitch;
         audioSource.Play();
 
-        if (trimLength > 0f && trimLength < clip.length) {
+        if (trimLength > 0f && trimLength < clip.length)
+        {
             float adjustedDuration = trimLength / pitch;
             StartCoroutine(StopAfterSeconds(adjustedDuration));
         }
     }
 
-    private IEnumerator StopAfterSeconds(float seconds) {
+    private IEnumerator StopAfterSeconds(float seconds)
+    {
         yield return new WaitForSeconds(seconds);
         audioSource.Stop();
     }

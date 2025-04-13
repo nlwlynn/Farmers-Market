@@ -128,6 +128,9 @@ public class UIController : MonoBehaviour
     public Vector2 hotspot = Vector2.zero;
     public CursorMode cursorMode = CursorMode.Auto;
 
+    public PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -140,6 +143,11 @@ public class UIController : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         ui = GetComponent<UIDocument>().rootVisualElement;
+
+        if (soundEffects == null)
+        {
+            soundEffects = FindObjectOfType<PlayerSoundEffects>(); // Get SFXs
+        }
 
         // End of Day UI Elements
         goalAmountLabel = ui.Q<Label>("goalAmount");
@@ -566,6 +574,7 @@ public class UIController : MonoBehaviour
         shopPanel.SetActive(true);
         // Force the shop buttons to reflect current coin amount
         FindObjectOfType<ShopManager>()?.CheckPurchaseable();
+        soundEffects.PlayClickSound();
 
     }
 
@@ -573,6 +582,7 @@ public class UIController : MonoBehaviour
     {
 
         inventoryPanel.SetActive(true);
+        soundEffects.PlayClickSound();
 
     }
 
@@ -635,6 +645,8 @@ public class UIController : MonoBehaviour
         dialogContent.Add(buttonContainer);
         dialogBox.Add(dialogContent);
         ui.Add(dialogBox);
+
+        soundEffects.PlayClickSound();
     }
 
     private void OnDisable()
@@ -747,6 +759,8 @@ public class UIController : MonoBehaviour
 
         objectiveButton.clicked -= OnObjectiveButtonClicked;
         objectiveButton.clicked += OnObjectiveButtonClicked;
+
+        soundEffects.PlayClickSound();
     }
 
     private void OnObjectiveButtonClicked()
@@ -768,6 +782,8 @@ public class UIController : MonoBehaviour
         {
             nightUI.style.display = DisplayStyle.None;
         }
+
+        soundEffects.PlayClickSound();
     }
 
     //NightPhase
@@ -845,6 +861,7 @@ public class UIController : MonoBehaviour
 
                 GameBackground.style.display = DisplayStyle.Flex;
             }
+            soundEffects.PlayClickSound();
         }
 
         yield return null;
@@ -871,7 +888,7 @@ public class UIController : MonoBehaviour
             PlayPause.text = "Pause";
             //SetButtonInteractivity(true);
         }
-
+        soundEffects.PlayClickSound();
     }
 
 
@@ -900,6 +917,7 @@ public class UIController : MonoBehaviour
         {
             settingsPanel.style.display = DisplayStyle.None;
         }
+        soundEffects.PlayClickSound();
     }
 
     private void OnTutorialButtonClicked()
@@ -915,6 +933,7 @@ public class UIController : MonoBehaviour
         {
             tutorialPanel.style.display = DisplayStyle.None;
         }
+        soundEffects.PlayClickSound();
     }
 
 
