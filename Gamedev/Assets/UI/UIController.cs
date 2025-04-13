@@ -564,6 +564,8 @@ public class UIController : MonoBehaviour
     {
 
         shopPanel.SetActive(true);
+        // Force the shop buttons to reflect current coin amount
+        FindObjectOfType<ShopManager>()?.CheckPurchaseable();
 
     }
 
@@ -920,6 +922,7 @@ public class UIController : MonoBehaviour
     {
         coinCount += amount;
         UpdateCoinUI();
+        FindObjectOfType<ShopManager>()?.CheckPurchaseable();
     }
 
     public void SpendCoins(int amount)
@@ -928,6 +931,7 @@ public class UIController : MonoBehaviour
         {
             coinCount -= amount;
             UpdateCoinUI();
+            FindObjectOfType<ShopManager>()?.CheckPurchaseable();
         }
         else
         {

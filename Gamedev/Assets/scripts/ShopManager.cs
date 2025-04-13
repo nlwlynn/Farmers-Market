@@ -79,11 +79,18 @@ public class ShopManager : MonoBehaviour
         {
             if (shopItemsSO[i].isOneTimePurchase && shopItemsSO[i].hasBeenPurchased)
             {
+                Debug.Log($"{shopItemsSO[i].title} can only be purchased once!");
                 myPurchaseBtns[i].interactable = false;
+                continue;
+            }
+
+            if (currentCoins >= shopItemsSO[i].baseCost)
+            {
+                myPurchaseBtns[i].interactable = true;
             }
             else
             {
-                myPurchaseBtns[i].interactable = (currentCoins >= shopItemsSO[i].baseCost);
+                myPurchaseBtns[i].interactable = false;
             }
         }
     }
@@ -107,28 +114,21 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItem(int btnNo)
     {
-        ShopItemSO item = shopItemsSO[btnNo];
-
-        if (item.isOneTimePurchase && item.hasBeenPurchased)
-        {
-            Debug.Log($"{item.title} can only be purchased once!");
-            return;
-        }
 
         if (UIController.Instance.GetCoins() >= shopItemsSO[btnNo].baseCost)
         {
+
             UIController.Instance.SpendCoins(shopItemsSO[btnNo].baseCost); // Deduct coins globally
             Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
 
             inventory.AddItemToStock(btnNo);
             soundEffects.PlayPurchaseItemSound();
 
-            if (item.isOneTimePurchase)
+            if (shopItemsSO[btnNo].isOneTimePurchase)
             {
-                item.hasBeenPurchased = true;
+                shopItemsSO[btnNo].hasBeenPurchased = true;
                 myPurchaseBtns[btnNo].interactable = false; // Disable the button visually
             }
-
             CheckPurchaseable();
         }
         else
