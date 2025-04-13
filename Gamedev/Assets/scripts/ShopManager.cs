@@ -7,12 +7,13 @@ using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
+    PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
+
     public ShopItemSO[] shopItemsSO;
     public GameObject[] shopPanelsGO;
     public ShopTemplate[] shopPanels;
     public Button[] myPurchaseBtns;
     public GameObject shopPanel; // Reference to the Shop Canvas
-    // Start is called before the first frame update
     public UIController uiController; // Reference to UIController
     public Inventory inventory; // Reference to the Inventory Manager
     public bool closeBuild = false;
@@ -20,6 +21,9 @@ public class ShopManager : MonoBehaviour
 
     void Awake()
     {
+        if (soundEffects == null) {
+            soundEffects = FindObjectOfType<PlayerSoundEffects>(); // Get SFXs
+        }
         if (placementSystem == null)
         {
             placementSystem = FindObjectOfType<PlacementSystem>();
@@ -27,13 +31,11 @@ public class ShopManager : MonoBehaviour
     }
     void Start()
     {
-       
         for (int i = 0; i < shopItemsSO.Length; i++)
             shopPanelsGO[i].SetActive(true);
 
         LoadPanels();
         CheckPurchaseable();
-        
     }
 
     // Update is called once per frame
@@ -94,6 +96,8 @@ public class ShopManager : MonoBehaviour
             //Debug.Log($"Purchased Item: {shopItemsSO[btnNo].title} (Index: {btnNo})");
 
             inventory.AddItemToStock(btnNo);
+            soundEffects.PlayPurchaseItemSound();
+            
             CheckPurchaseable();
         }
         else
