@@ -100,10 +100,10 @@ public class UIController : MonoBehaviour
     public bool isNightPhase = true;
 
     //brightness slider
-    public UnityEngine.UIElements.Slider brightnessSlider;
+    //public UnityEngine.UIElements.Slider brightnessSlider;
 
     //volume slider
-    public UnityEngine.UIElements.Slider volumeSlider;
+    //public UnityEngine.UIElements.Slider volumeSlider;
 
     //plots
     public CarrotGrowth carrotGrowth;
