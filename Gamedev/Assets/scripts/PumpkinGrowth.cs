@@ -350,7 +350,7 @@ public class PumpkinGrowth : MonoBehaviour
         harvestGrowth = true;
         growing = true;
         // Timer for 6 seconds
-        yield return StartCoroutine(FillBar(1f, 8f)); 
+        yield return StartCoroutine(FillBar(1f, 5f)); 
         halfPlant.SetActive(false); 
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done

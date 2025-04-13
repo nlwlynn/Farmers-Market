@@ -349,7 +349,7 @@ public class WatermelonGrowth : MonoBehaviour
         harvestGrowth = true;
         growing = true;
         // Timer for 12 seconds
-        yield return StartCoroutine(FillBar(1f, 10f));
+        yield return StartCoroutine(FillBar(1f, 8f));
         halfPlant.SetActive(false);
         fullPlant.SetActive(true);    // Full plant asset appears
         growing = false;    // Growing is done
