@@ -3,7 +3,6 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using TMPro;
 
 public enum SlimeAnimationSt { Idle, Walk, Jump, Attack, Damage }
 
@@ -21,15 +20,6 @@ public class HelperNPC : MonoBehaviour
     private Material faceMaterial;
     private Vector3 originPos;
 
-    [SerializeField] private TMP_Text messageText;
-    [SerializeField] private GameObject messageBubbleBG;
-
-    private Coroutine messageRoutine;
-
-    [SerializeField] private Transform messageCanvas;
-    private Camera mainCam;
-
-
     //public enum WalkType { ToOrigin }
     //private WalkType walkType;
     public bool atCrop = false;
@@ -45,9 +35,6 @@ public class HelperNPC : MonoBehaviour
     private bool waitToResp = false;
 
     public bool playerPurchased = true; // variable for the store
-    public bool hasStartedNightMove = false;
-    public bool hasAnnouncedTonight = false;
-
     private bool firstNight = true;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
@@ -57,55 +44,12 @@ public class HelperNPC : MonoBehaviour
     };
     public GameObject targetCrop;
 
-    public void Initialize(Transform spawn, Face faceData, GameObject smileBody, UIController controller)
-    {
-        spawnPoint = spawn;
-        faces = faceData;
-        SmileBody = smileBody;
-        uiController = controller;
-
-        if (SmileBody != null)
-        {
-            Renderer rend = SmileBody.GetComponent<Renderer>();
-            if (rend != null && rend.materials.Length > 0)
-            {
-                faceMaterial = rend.materials.Length > 1 ? rend.materials[1] : rend.materials[0];
-            }
-            else
-            {
-                UnityEngine.Debug.LogError("SmileBody Renderer is missing or has no materials.");
-            }
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("SmileBody is null during initialization.");
-        }
-
-        if (agent == null)
-        {
-            agent = GetComponent<NavMeshAgent>();
-        }
-
-        if (spawnPoint != null)
-        {
-            originPos = spawnPoint.position;
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("SpawnPoint is null during initialization.");
-        }
-    }
-
     private void Awake()
     {
         if (uiController == null)
         {
             uiController = FindObjectOfType<UIController>();
         }
-        mainCam = Camera.main;
-
-        messageText = GetComponentInChildren<TMP_Text>(true); // true includes inactive
-        messageText.gameObject.SetActive(false);
     }
 
     void Start()
@@ -125,11 +69,15 @@ public class HelperNPC : MonoBehaviour
     {
         if (uiController.IsNightPhase || !playerPurchased || waitToResp)
         {
+            UnityEngine.Debug.Log("in looking for crop");
+
             transform.position = hiddenPosition; // Move in house
             toOrigin = false;
         }
-        else if (!toOrigin)
+        else if(!toOrigin)
         {
+            UnityEngine.Debug.Log("in not to origin");
+
             agent.Warp(originPos); // Move to house
             toOrigin = true;
         }
@@ -139,6 +87,7 @@ public class HelperNPC : MonoBehaviour
             // Finds target crop
             if (targetCrop == null || atCrop == false)
             {
+                UnityEngine.Debug.Log("in looking for crop");
                 FindTargetCrop();
             }
 
@@ -148,74 +97,8 @@ public class HelperNPC : MonoBehaviour
                 MoveToTargetCrop();
             }
         }
-        // trying to fix but broken :(
-        /*if (uiController.IsNightPhase)
-        {
-            if (playerPurchased && !hasStartedNightMove && firstNight)
-            {
-                //UnityEngine.Debug.Log("is first night");
 
-                hasStartedNightMove = true;
-                StartCoroutine(MoveInAtNight());
-
-                if (!hasAnnouncedTonight)
-                {
-                    hasAnnouncedTonight = true;
-                    ShowHelperMessage("I'm Sprouty!", 20f);
-                }
-
-            }
-            else if (playerPurchased && !firstNight)
-            {
-                //UnityEngine.Debug.Log("else if not first night");
-                StartCoroutine(MoveToSpawnNight());
-            }
-
-            if (!playerPurchased || waitToResp)
-            {
-                //UnityEngine.Debug.Log("waitto Reesp");
-
-                transform.position = hiddenPosition; // Move in house
-                toOrigin = false;
-            }
-
-        }
-        else if(uiController.IsNightPhase && !toOrigin)
-        {
-            UnityEngine.Debug.Log("not to orignin");
-
-            agent.Warp(originPos); // Move to house
-            toOrigin = true;
-        }
-
-        if (!uiController.IsNightPhase)
-        {
-            hasStartedNightMove = false;
-            hasAnnouncedTonight = false;
-            messageText.gameObject.SetActive(false);
-            messageBubbleBG.SetActive(false);
-            StopCoroutine(MoveInAtNight()); 
-
-            // Finds target crop
-            if (targetCrop == null || atCrop == false)
-            {
-                FindTargetCrop();
-            }
-
-            // Move towards the target crop
-            if (currentState == SlimeAnimationState.Walk && !isMovingAway && targetCrop != null)
-            {
-                MoveToTargetCrop();
-            }
-
-            if (!playerPurchased || waitToResp)
-            {
-                transform.position = hiddenPosition; // Move in house
-                toOrigin = false;
-            }
-        } */
-
-        //Handle animation transitions
+        // Handle animation transitions
         switch (currentState)
         {
             case SlimeAnimationState.Idle:
@@ -491,46 +374,11 @@ public class HelperNPC : MonoBehaviour
         waitToResp = false;
     }
 
-    IEnumerator MoveToSpawnNight()
-    {
-        if (spawnPoint == null)
-        {
-            yield break;
-        }
-
-        currentState = SlimeAnimationState.Walk;
-        isMovingAway = true;
-        atCrop = false;
-
-        // faces the direction of the house
-        Vector3 directionToSpawn = (spawnPoint.position - transform.position).normalized;
-        if (directionToSpawn != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(directionToSpawn);
-            transform.rotation = targetRotation;
-        }
-
-        yield return StartCoroutine(MoveNPCToPosition(spawnPoint.position));
-        transform.position = hiddenPosition;
-    }
-
     // moves helper away from crop
     IEnumerator WaitAndMoveAway(float waitTime)
     {
         currentState = SlimeAnimationState.Jump;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < waitTime)
-        {
-            if (uiController.IsNightPhase)
-            {
-                yield break; 
-            }
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(waitTime);
         MoveAwayFromCrop();
     }
 
@@ -563,11 +411,6 @@ public class HelperNPC : MonoBehaviour
         // moves the helper to target
         while (timeElapsed < duration)
         {
-            //if (uiController.IsNightPhase)
-            //{
-            //    yield break;
-            //}
-
             transform.position = Vector3.Lerp(startPosition, targetPosition, timeElapsed / duration);
             timeElapsed += Time.deltaTime;
             yield return null;
@@ -577,60 +420,6 @@ public class HelperNPC : MonoBehaviour
 
         isMovingAway = false;
         targetCrop = null;
-    }
-
-    IEnumerator MoveInAtNight()
-    {
-        // Start walking from hidden position
-        transform.position = hiddenPosition;
-
-        yield return new WaitForSeconds(0.5f); // slight delay if you want
-
-        currentState = SlimeAnimationState.Walk;
-        animator.SetFloat("Speed", 1f);
-        isMovingAway = false;
-
-        Vector3 targetPosition = originPos;
-
-        float speed = 3f;
-        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
-            // Face movement direction
-            Vector3 direction = (targetPosition - transform.position).normalized;
-            if (direction != Vector3.zero)
-            {
-                Quaternion rotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5f);
-            }
-
-            yield return null;
-        }
-
-        // Stop at destination
-        transform.position = targetPosition;
-        //currentState = SlimeAnimationState.Idle;
-        animator.SetFloat("Speed", 0);
-
-        transform.position = hiddenPosition; 
-        toOrigin = false;
-    }
-
-    public void ShowHelperMessage(string message, float duration)
-    {
-        if (messageRoutine != null) StopCoroutine(messageRoutine);
-        messageRoutine = StartCoroutine(ShowHelperMessageRoutine(message, duration));
-    }
-
-    private IEnumerator ShowHelperMessageRoutine(string message, float duration)
-    {
-        messageText.text = message;
-        messageText.gameObject.SetActive(true);
-        messageBubbleBG.SetActive(true);
-        yield return new WaitForSeconds(duration);
-        messageText.gameObject.SetActive(false);
-        messageBubbleBG.SetActive(false);
     }
 
     private void StopAgent()
@@ -686,22 +475,14 @@ public class HelperNPC : MonoBehaviour
         firstNight = true;
     }
 
-    private void LateUpdate()
-    {
-        if (messageCanvas != null && mainCam != null)
-        {
-            // Flip the canvas toward the camera only on Y axis
-            Vector3 lookDirection = mainCam.transform.forward;
-            lookDirection.y = 0f; // Optional: keeps canvas upright
-            messageCanvas.LookAt(mainCam.transform);
-            messageCanvas.Rotate(0, 180, 0); // Flip it around after look
-
-        }
-    }
 
     public void ChangeFirstNight(bool state)
     {
-        UnityEngine.Debug.Log("going into first night");
         firstNight = state;
+    }
+
+    public void ChangePlayerPurchased(bool state)
+    {
+        playerPurchased = state;
     }
 }
