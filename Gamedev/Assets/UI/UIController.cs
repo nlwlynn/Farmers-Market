@@ -92,7 +92,7 @@ public class UIController : MonoBehaviour
 
     //for Progress bar for Phases---------------------------------------------------------------------------------
     public ProgressBar phaseTimer;
-    private float timerDuration = 10f; //5min
+    private float timerDuration = 120f; //5min
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
 
@@ -804,7 +804,7 @@ public class UIController : MonoBehaviour
         int revenueEarned = coinCount;
 
         // Goal for the day (can be dynamic)
-        bool goalMet = revenueEarned >= dailyGoal;
+        bool goalMet = revenueEarned >= globalGoal;
 
         // Update End of Day UI labels
         goalAmountLabel.text = globalGoal + " Coins";
@@ -816,7 +816,7 @@ public class UIController : MonoBehaviour
             resultTextLabel.style.color = new StyleColor(Color.green);
             summaryMessageLabel.text = "Now transitioning to night time, buy more plots to make more earnings!";
             continueButton.text = "Proceed to Night Phase";
-            coinCount -= dailyGoal;
+            coinCount -= globalGoal;
             UpdateCoinUI();
         }
         else
@@ -1001,7 +1001,7 @@ public class UIController : MonoBehaviour
         isNightPhase = true;
         elapsedTime = 0f;
         isTimerRunning = false;
-        coinCount = 50;
+        coinCount = 20;
         dayCount = 0;
         isGamePaused = false;
         Time.timeScale = 1;
