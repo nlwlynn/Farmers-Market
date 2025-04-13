@@ -69,15 +69,11 @@ public class HelperNPC : MonoBehaviour
     {
         if (uiController.IsNightPhase || !playerPurchased || waitToResp)
         {
-            //UnityEngine.Debug.Log("in looking for crop");
-
             transform.position = hiddenPosition; // Move in house
             toOrigin = false;
         }
         else if(!toOrigin)
         {
-            UnityEngine.Debug.Log("in not to origin");
-
             agent.Warp(originPos); // Move to house
             toOrigin = true;
         }
@@ -111,6 +107,7 @@ public class HelperNPC : MonoBehaviour
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
                 agent.isStopped = false;
                 agent.updateRotation = true;
+                animator.SetFloat("Speed", 1);
                 SetFace(faces.WalkFace);
                 break;
 
