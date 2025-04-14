@@ -19,7 +19,7 @@ public class CrowAI : MonoBehaviour
 
     private AudioSource audioSource;
 
-
+    public GameObject npcPrefab;
 
     private Dictionary<string, int> cropValues = new Dictionary<string, int>
     {
@@ -45,7 +45,10 @@ public class CrowAI : MonoBehaviour
  
         gameObject.SetActive(true);
         targetOffset = new Vector3(Random.Range(-3f, 3f), 0, Random.Range(-3f, 3f));
-        animator = GetComponent<Animator>();
+        if (animator == null && npcPrefab != null)
+        {
+            animator = npcPrefab.GetComponent<Animator>();
+        }
         audioSource = GetComponent<AudioSource>();
 
 

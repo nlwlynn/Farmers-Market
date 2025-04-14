@@ -131,6 +131,9 @@ public class UIController : MonoBehaviour
     public PlayerSoundEffects soundEffects;  // Reference to the PlayerSoundEffects script
     private int globalGoal = 15;
 
+    //crow message
+    [SerializeField] private GameObject messagePopup;
+    [SerializeField] private TMPro.TextMeshProUGUI messageText;
 
     private void Awake()
     {
@@ -320,6 +323,8 @@ public class UIController : MonoBehaviour
         {
             coinsLabelShop = shopPanel.transform.Find("CoinUI").GetComponent<TMP_Text>();
         }
+
+        messagePopup.SetActive(false);
 
         // Debug if missing
         if (coinsLabel == null) Debug.LogError("coinsLabel (Day UI) not found in UXML!");
@@ -621,7 +626,7 @@ public class UIController : MonoBehaviour
         var buttonContainer = new UnityEngine.UIElements.VisualElement();
         buttonContainer.style.flexDirection = FlexDirection.Row;
         buttonContainer.style.justifyContent = Justify.Center;
-        buttonContainer.style.marginTop = 20;
+        buttonContainer.style.marginTop = 60;
 
         //  confirm button
         var confirmButton = new UnityEngine.UIElements.Button(() => {
@@ -865,7 +870,29 @@ public class UIController : MonoBehaviour
             soundEffects.PlayClickSound();
         }
 
+        if (dayProgression.currentDay == 2)
+        {
+            ShowMessage("Breaking News: Recent sightings have shown flocks of crows attacking crops! Buy scarecrows to protect your farm!");
+        }
+
         yield return null;
+    }
+
+    // Message for crow warning
+    private void ShowMessage(string message)
+    {
+        if (messagePopup != null && messageText != null)
+        {
+            messageText.text = message;
+            messagePopup.SetActive(true);
+            StartCoroutine(HideMessageAfterSeconds(2f));
+        }
+    }
+
+    private IEnumerator HideMessageAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        messagePopup.SetActive(false);
     }
 
     //PAUSE AND PLAY GAME
