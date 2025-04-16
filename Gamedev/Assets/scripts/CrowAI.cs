@@ -76,7 +76,7 @@ public class CrowAI : MonoBehaviour
 
                 if (!isFlying && !hasPecked)
                 {
-                    animator.SetTrigger("peck");  // trigger your peck animation
+                    animator.SetTrigger("peck");  // trigger peck animation
                     hasPecked = true;
                 }
                 else if (isFlying && hasPecked)
@@ -171,7 +171,7 @@ public class CrowAI : MonoBehaviour
 
         Vector3 targetPosition = targetCrop.transform.position + targetOffset;
 
-        // Make sure crow stays airborne
+        // Makes crow stays airborne
         if (transform.position.y < 4)
         {
             transform.position = new Vector3(transform.position.x, 4, transform.position.z);
@@ -180,7 +180,7 @@ public class CrowAI : MonoBehaviour
         // Move toward the crop + offset
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-        // Clamp y to avoid sinking
+        // Clamps y to avoid sinking
         transform.position = new Vector3(transform.position.x, Mathf.Max(transform.position.y, 0f), transform.position.z);
     }
 
@@ -245,7 +245,7 @@ public class CrowAI : MonoBehaviour
             // Moves to new position
             transform.position += awayFromPlant * moveSpeed * Time.deltaTime;
 
-            // Fixes the y value for crow to float
+            // y value for crow to float
             Vector3 currentPosition = transform.position;
             currentPosition.y = 4;
             transform.position = currentPosition;

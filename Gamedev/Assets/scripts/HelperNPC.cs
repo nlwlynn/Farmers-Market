@@ -58,7 +58,6 @@ public class HelperNPC : MonoBehaviour
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         //walkType = WalkType.ToOrigin;
 
-        // Check NavMeshAgent
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
