@@ -885,7 +885,7 @@ public class UIController : MonoBehaviour
         {
             messageText.text = message;
             messagePopup.SetActive(true);
-            StartCoroutine(HideMessageAfterSeconds(2f));
+            StartCoroutine(HideMessageAfterSeconds(7f));
         }
     }
 
