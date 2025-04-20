@@ -31,8 +31,8 @@ public class DayProgression : MonoBehaviour
         }
         else
         {
-            int calculatedGoal = Mathf.RoundToInt(moneyEarned * 1.1f);
-            int minIncrease = currentCoinGoal + 5; 
+            int calculatedGoal = Mathf.RoundToInt(moneyEarned * 0.5f);
+            int minIncrease = currentCoinGoal + 3; 
             currentCoinGoal = Mathf.Max(calculatedGoal, minIncrease, 15); 
         }
     }
