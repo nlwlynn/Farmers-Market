@@ -29,7 +29,7 @@ public class NPCInteraction : MonoBehaviour
         { "Cauliflower", 12 },
         { "Sunflower", 25 },
         { "Corn", 15 },
-        { "Mushrooms", 20 }
+        { "Mushroom", 20 }
     };
 
     private static Dictionary<int, bool> counterOccupied = new Dictionary<int, bool>
