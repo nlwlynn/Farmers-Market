@@ -132,6 +132,7 @@ public class PumpkinGrowth : MonoBehaviour
                 watering_can.SetActive(false);
             if (sickle != null)
                 sickle.SetActive(false);
+            FarmManager.IsAnimationPlaying = false;
             rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             StopAllCoroutines();
             ResetPlot();        // Reset plot
