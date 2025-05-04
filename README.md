@@ -1,4 +1,4 @@
-# Team9 (Nicole Walsh, Christine Hawkins, Jessie Murphy, AJ)
+# Team9 (Nicole Walsh, Christine Hawkins, Jessie Murphy, Amiel Halilil)
 
 In Farmer's Merket, you play as a farmer working to grow crops and fulfill customer orders to keep your farm afloat. During the day phase you'll plant, water, harvest, and protect your crops while managing your time carefully. Some crops are more valuable than others, but they take longer to grow and are harder to maintain. Customers place orders with varying wait times based on the value of their requests, so it is important to prioritize tasks. 
 The player also needs to defend their crops from flies that can destroy them, by using a pesticide spray to attack you will damage the flies. Once the day ends, your earnings from the fulfilled orders are totaled. If you've made enough money to cover farm expenses such as taxes and seeds, you’ll progress to the night phase. If not, the game ends with your total score and your farm is foreclosed on. During the night phase the player has the option to upgrade to better crops and arrange their farm. 
